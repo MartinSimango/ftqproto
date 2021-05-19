@@ -36,6 +36,7 @@ void FileServer::Close(){
     isRunning = false;
 }
 
+//todo: rather return the client request and the make handleRequest public
 bool FileServer::HandleClientRequest() {
     if(!isRunning){
         throw new ServerException(SERVER_NOT_RUNNING);
