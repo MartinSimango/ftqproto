@@ -19,6 +19,12 @@ install:
 	$(MAKE) install -C Response
 	$(MAKE) install -C Request
 
+install-docker: 
+	$(MAKE) install -C FileServer
+	$(MAKE) install -C FileClient
+	$(MAKE) install -C Response
+	$(MAKE) install -C Request
+
 clean: $(SUBDIRS_CLEAN)
 
 
