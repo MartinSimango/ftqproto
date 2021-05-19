@@ -20,10 +20,10 @@ install:
 	$(MAKE) install -C Request
 
 install-docker: 
-	$(MAKE) install -C FileServer
-	$(MAKE) install -C FileClient
-	$(MAKE) install -C Response
-	$(MAKE) install -C Request
+	$(MAKE) install-docker -C FileServer
+	$(MAKE) install-docker -C FileClient
+	$(MAKE) install-docker -C Response
+	$(MAKE) install-docker -C Request
 
 clean: $(SUBDIRS_CLEAN)
 
