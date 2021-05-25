@@ -6,10 +6,11 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <FileReadWriter.hpp>
-#include <ClientException.hpp>
-#include <Requests.hpp>
-#include <Responses.hpp>
+#include <ftqproto/FileReadWriter.hpp>
+#include <ftqproto/ClientException.hpp>
+#include <ftqproto/Requests.hpp>
+#include <ftqproto/Responses.hpp>
+
 
 using namespace request;
 using namespace response;

@@ -7,13 +7,13 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <RequestHeader.hpp>
-#include <Requests.hpp>
-#include <FileReadWriter.hpp>
+#include <ftqproto/RequestHeader.hpp>
+#include <ftqproto/Requests.hpp>
+#include <ftqproto/FileReadWriter.hpp>
 #include <sys/stat.h>
 #include <string>
-#include <ServerException.hpp>
-#include <Responses.hpp>
+#include <ftqproto/ServerException.hpp>
+#include <ftqproto/Responses.hpp>
 #include <sys/ioctl.h>
 
 using namespace request;

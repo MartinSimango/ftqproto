@@ -1,11 +1,11 @@
 #pragma once
 
 #include <unistd.h>
-#include <Serializer.h>
-#include <ResponseConstants.hpp>
-#include <ResponseException.hpp>
+#include <ftqproto/Serializer.h>
+#include <ftqproto/ResponseConstants.hpp>
+#include <ftqproto/ResponseException.hpp>
 #include <errno.h>
-#include <ResponseHeader.hpp>
+#include <ftqproto/ResponseHeader.hpp>
 
 // TODO make all virtual functions protected methods and then make them private derived request classes 
 namespace response {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <GetResponse.hpp>
-#include <CreateResponse.hpp>
-#include <ReadResponse.hpp>
-#include <WriteResponse.hpp>
-#include <ResponseException.hpp>
-#include <ResponseConstants.hpp>
-#include <ResponseWrapper.h>
+#include <ftqproto/GetResponse.hpp>
+#include <ftqproto/CreateResponse.hpp>
+#include <ftqproto/ReadResponse.hpp>
+#include <ftqproto/WriteResponse.hpp>
+#include <ftqproto/ResponseException.hpp>
+#include <ftqproto/ResponseConstants.hpp>
+#include <ftqproto/ResponseWrapper.h>

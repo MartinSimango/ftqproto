@@ -1,6 +1,6 @@
 #pragma once
-#include <Serializer.h>
-#include <RequestConstants.hpp>
+#include <ftqproto/Serializer.h>
+#include <ftqproto/RequestConstants.hpp>
 
 namespace request {
     class RequestHeader

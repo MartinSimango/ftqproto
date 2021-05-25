@@ -1,5 +1,5 @@
-#include <ResponseWrapper.h>
-#include <CreateResponse.hpp>
+#include <ftqproto/ResponseWrapper.h>
+#include <ftqproto/CreateResponse.hpp>
 
 CreateResponseStruct* AsCreateResponse(void* cr) { 
     return reinterpret_cast<CreateResponseStruct*>(cr); 

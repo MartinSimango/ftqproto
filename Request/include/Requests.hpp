@@ -1,9 +1,9 @@
 #pragma once
 
-#include <GetRequest.hpp>
-#include <CreateRequest.hpp>
-#include <ReadRequest.hpp>
-#include <WriteRequest.hpp>
-#include <RequestException.hpp>
-#include <RequestConstants.hpp>
+#include <ftqproto/GetRequest.hpp>
+#include <ftqproto/CreateRequest.hpp>
+#include <ftqproto/ReadRequest.hpp>
+#include <ftqproto/WriteRequest.hpp>
+#include <ftqproto/RequestException.hpp>
+#include <ftqproto/RequestConstants.hpp>
 

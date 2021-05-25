@@ -6,6 +6,7 @@ endef
 ODIR=obj
 LDIR=lib
 SDIR=src
+INCDIR=include
 CFLAGS=$(patsubst %, -I%, $(IDIR)) -std=c++17
 LIBNAME=libgocpserver
 
@@ -20,7 +21,18 @@ define SERVER_DLIB_SOURCES
 $(SERVER_SOURCES) ../Request/src/*.cpp ../Response/src/*.cpp ../FileReadWriter/src/*.cpp
 endef
 
+SERVER_HEADERS = $(wildcard $(INCDIR)/*)
+SERVER_UNINSTALL_HEADERS  = $(patsubst $(INCDIR)/%, %, $(SERVER_HEADERS)) 
+
+
+$(SERVER_UNINSTALL_HEADERS):
+	echo $(SERVER_HEADERS)
+	rm -rf /usr/local/include/ftqproto/$@
+
+.PHONY: $(SERVER_UNINSTALL_HEADERS) clean
+
 build: build-dir $(SERVER_OBJECTS) build-lib
+
 
 build-dir:
 	mkdir -p $(ODIR)
@@ -37,12 +49,19 @@ build-lib: $(SERVER_DLIB_SOURCES) $(SERVER_DEPS)
 install:
 	rm -f /usr/local/lib/$(LIBNAME).so
 	cp $(LDIR)/$(LIBNAME).so /usr/local/lib
-	cp include/* /usr/local/include
+	
+install-headers:
+	cp include/* /usr/local/include/ftqproto
+
+install-headers-docker:
+	mv include/* /usr/include/ftqproto
+
+uninstall: $(SERVER_UNINSTALL_HEADERS)
+	rm -f /usr/local/lib/$(LIBNAME).so
 
 install-docker:
 	rm -f /usr/local/lib/$(LIBNAME).so
 	cp $(LDIR)/$(LIBNAME).so /usr/local/lib
-	cp include/* /usr/include
 
 clean:
 	rm -rf $(ODIR)

@@ -1,4 +1,4 @@
-#include "Server.hpp"
+#include <ftqproto/Server.hpp>
 
 using namespace fts;
 

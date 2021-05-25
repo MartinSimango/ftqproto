@@ -1,6 +1,6 @@
-#include <Client.hpp>
-#include <Requests.hpp>
-#include <Responses.hpp>
+#include <ftqproto/Client.hpp>
+#include <ftqproto/Requests.hpp>
+#include <ftqproto/Responses.hpp>
 
 using namespace ftc;
 

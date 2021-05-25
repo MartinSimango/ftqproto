@@ -1,6 +1,6 @@
 #pragma once
-#include <FileReadWriterConstants.h>
-#include <Request.hpp>
+#include <ftqproto/FileReadWriterConstants.hpp>
+#include <ftqproto/Request.hpp>
 
 namespace request {
 

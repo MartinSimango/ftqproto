@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ErrorException.hpp>
-#include <ResponseConstants.hpp>
+#include <cpperror/ErrorException.hpp>
+#include <ftqproto/ResponseConstants.hpp>
 #include <errno.h>
 
 static const char * FAILED_TO_WRITE_RESPONSE = "Failed to write response.";
@@ -51,7 +51,7 @@ namespace response {
             }
 
             char * getErrorMessage(char * error) override {
-                sprintf(error, 
+                snprintf(error, ERROR_MAX_LENGTH, 
                     "[Error] %s\n[ResponseException] Error: %s\nPacketType: [%i] - %s.",
                     strerror(errno),
                     this->error, this->responseType, 

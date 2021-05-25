@@ -1,6 +1,6 @@
 #pragma once
-#include <Response.hpp>
-#include <RequestConstants.hpp>
+#include <ftqproto/Response.hpp>
+#include <ftqproto/RequestConstants.hpp>
 
 namespace response {
 

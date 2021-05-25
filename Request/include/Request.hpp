@@ -1,11 +1,11 @@
 #pragma once
 
 #include <unistd.h>
-#include <Serializer.h>
-#include <RequestConstants.hpp>
-#include <RequestException.hpp>
+#include <ftqproto/Serializer.h>
+#include <ftqproto/RequestConstants.hpp>
+#include <ftqproto/RequestException.hpp>
 #include <errno.h>
-#include <RequestHeader.hpp>
+#include <ftqproto/RequestHeader.hpp>
 
 // TODO make all virtual functions protected methods and then make them private derived request classes 
 namespace request {

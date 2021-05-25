@@ -1,6 +1,6 @@
  #pragma once
-#include <Serializer.h>
-#include <ResponseConstants.hpp>
+#include <ftqproto/Serializer.h>
+#include <ftqproto/ResponseConstants.hpp>
 
 namespace response {
 

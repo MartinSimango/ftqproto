@@ -1,5 +1,5 @@
 #pragma once
-#include <ErrorException.hpp>
+#include <cpperror/ErrorException.hpp>
 
 
 static const char * FAILED_TO_RESIZE_FILE = "Failed to resize file.";
@@ -42,7 +42,7 @@ class FRWException : public error::ErrorException {
         }
         
         char * getErrorMessage(char * error) override {
-            sprintf(error, "[FRWException] Error: %s\n[FRWException] File: %s\n", this->error, this->filename);
+            snprintf(error, ERROR_MAX_LENGTH, "[FRWException] Error: %s\n[FRWException] File: %s\n", this->error, this->filename);
             return error;
         }
        

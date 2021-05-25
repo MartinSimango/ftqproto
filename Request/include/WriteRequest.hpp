@@ -1,7 +1,7 @@
 #pragma once
 
-#include <FileReadWriterConstants.h>
-#include <Request.hpp>
+#include <ftqproto/FileReadWriterConstants.hpp>
+#include <ftqproto/Request.hpp>
 
 namespace request {
 
@@ -14,7 +14,7 @@ namespace request {
 
         WriteRequest(int fd, char* data, int offset, int numberOfBytesToWrite, char* filepath): request::Request(fd) {
             if (numberOfBytesToWrite > MAX_BUFFER_SIZE) {
-                 numberOfBytesToWrite = MAX_BUFFER_SIZE;
+                numberOfBytesToWrite = MAX_BUFFER_SIZE;
             }
 
             strncpy(this->data, data, sizeof(this->data));

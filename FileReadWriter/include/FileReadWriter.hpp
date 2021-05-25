@@ -7,8 +7,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <FRWException.hpp>
-#include <FileReadWriterConstants.h>
-#include <ResponseConstants.hpp>
+#include <ftqproto/FileReadWriterConstants.hpp>
+#include <ftqproto/ResponseConstants.hpp>
 
 namespace frw {
 

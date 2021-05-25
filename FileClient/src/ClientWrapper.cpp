@@ -1,10 +1,11 @@
 
 #include <ClientWrapper.h>
 #include <Client.hpp>
-#include <ErrorVoid.hpp>
+#include <cpperror/ErrorVoid.hpp>
 #include <iostream>
 
 using namespace ftc;
+using namespace error;
 
 FileClient* AsFileClient(void* fc) { 
     return reinterpret_cast<FileClient*>(fc); 

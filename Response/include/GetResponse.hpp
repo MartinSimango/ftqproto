@@ -1,7 +1,7 @@
 #pragma once
-#include <Response.hpp>
-#include <CreateRequest.hpp>
-#include <FileReadWriterConstants.h>
+#include <ftqproto/Response.hpp>
+#include <ftqproto/CreateRequest.hpp>
+#include <ftqproto/FileReadWriterConstants.hpp>
 
 namespace response {
 

@@ -1,5 +1,5 @@
-#include <RequestHeader.hpp>
-#include <RequestException.hpp>
+#include <ftqproto/RequestHeader.hpp>
+#include <ftqproto/RequestException.hpp>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>

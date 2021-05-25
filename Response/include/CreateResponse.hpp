@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <Response.hpp>
-#include <CreateRequest.hpp>
+#include <ftqproto/Response.hpp>
+#include <ftqproto/CreateRequest.hpp>
 
 
 namespace response {

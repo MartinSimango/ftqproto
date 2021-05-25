@@ -1,5 +1,5 @@
 #pragma once
-#include <ErrorException.hpp>
+#include <cpperror/ErrorException.hpp>
 #include <errno.h>
 
 namespace fts {
@@ -26,7 +26,7 @@ namespace fts {
             }
 
             char * getErrorMessage(char * error) override {
-                sprintf(error, "[Error] %s\n[ServerException] Error: %s", 
+                snprintf(error, ERROR_MAX_LENGTH, "[Error] %s\n[ServerException] Error: %s", 
                 strerror(errno),
                 this->error);
 

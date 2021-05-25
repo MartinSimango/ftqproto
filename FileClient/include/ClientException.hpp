@@ -1,6 +1,5 @@
 #pragma once
-#include <ErrorException.hpp>
-
+#include <cpperror/ErrorException.hpp>
 static const char * FAILED_TO_BIND_SERVER_SOCKET = "Failed to bind the server socket.";
 static const char * FAILED_TO_CONNECT_TO_SERVER = "Failed to connect to the server.";
 
@@ -23,7 +22,7 @@ class ClientException : public error::ErrorException {
         }
      
         char * getErrorMessage(char * error) override {
-            sprintf(error, "[ClientException] %s", this->error);
+            snprintf(error, ERROR_MAX_LENGTH, "[ClientException] %s", this->error);
             return error;
         }
        
