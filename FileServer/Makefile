@@ -1,5 +1,6 @@
 CC=gcc
 CPP=g++
+# TODO remove all dependcies now that include files are stored in global place
 define IDIR
 ./include ../Request/include ../Response/include ../FileReadWriter/include ../Serializer/include
 endef
@@ -15,7 +16,7 @@ LIBNAME=libgocpserver
 SERVER_SOURCES=$(wildcard $(SDIR)/*.cpp)
 SERVER_OBJECTS=$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(SERVER_SOURCES))
 
-SERVER_DEPS = $(patsubst %, %/*, $(IDIR)) 
+SERVER_DEPS = $(wildcard $(IDIR)/*) 
 
 define SERVER_DLIB_SOURCES
 $(SERVER_SOURCES) ../Request/src/*.cpp ../Response/src/*.cpp ../FileReadWriter/src/*.cpp

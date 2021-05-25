@@ -11,7 +11,7 @@ LIBNAME=libfrw
 FRW_SOURCES=$(wildcard $(SDIR)/*.cpp)
 FRW_OBJECTS=$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(FRW_SOURCES))
 
-FRW_DEPS = $(patsubst %, %/*, $(IDIR)) 
+FRW_DEPS = $(wildcard $(IDIR)/*) 
 FRW_DLIB_SOURCES= $(FRW_SOURCES)
 
 FRW_HEADERS = $(wildcard $(INCDIR)/*)

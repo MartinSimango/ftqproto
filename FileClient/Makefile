@@ -18,7 +18,7 @@ define CLIENT_DLIB_SOURCES
 $(CLIENT_SOURCES) ../Request/src/*.cpp ../Response/src/*.cpp ../FileReadWriter/src/*.cpp 
 endef
 
-CLIENT_DEPS = $(patsubst %, %/*, $(IDIR)) 
+CLIENT_DEPS = $(wildcard $(IDIR)/*) 
 
 CLIENT_HEADERS = $(wildcard $(INCDIR)/*)
 CLIENT_UNINSTALL_HEADERS  = $(patsubst $(INCDIR)/%, %, $(CLIENT_HEADERS)) 

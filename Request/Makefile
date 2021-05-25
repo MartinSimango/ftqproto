@@ -13,7 +13,7 @@ REQUEST_OBJECTS=$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(REQUEST_SOURCES))
 
 REQUEST_DLIB_SOURCES = $(REQUEST_SOURCES)
 
-REQUEST_DEPS = $(patsubst %, %/*, $(IDIR)) 
+REQUEST_DEPS = $(wildcard $(IDIR)/*) 
 
 REQUEST_HEADERS = $(wildcard $(INCDIR)/*)
 REQUEST_UNINSTALL_HEADERS = $(patsubst $(INCDIR)/%, %, $(REQUEST_HEADERS)) 

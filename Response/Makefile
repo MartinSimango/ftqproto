@@ -13,7 +13,7 @@ RESPONSE_OBJECTS=$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(RESPONSE_SOURCES))
 
 RESPONSE_DLIB_SOURCES = $(RESPONSE_SOURCES)
 
-RESPONSE_DEPS = $(patsubst %, %/*, $(IDIR)) 
+RESPONSE_DEPS = $(wildcard $(IDIR)/*) 
 
 RESPONSE_HEADERS = $(wildcard $(INCDIR)/*)
 RESPONSE_UNINSTALL_HEADERS  = $(patsubst $(INCDIR)/%, %, $(RESPONSE_HEADERS)) 
