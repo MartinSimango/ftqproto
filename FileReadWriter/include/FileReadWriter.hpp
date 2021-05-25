@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <stdio.h>
-#include <FRWException.hpp>
+#include <ftqproto/FRWException.hpp>
 #include <ftqproto/FileReadWriterConstants.hpp>
 #include <ftqproto/ResponseConstants.hpp>
 
