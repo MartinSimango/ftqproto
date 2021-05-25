@@ -1,6 +1,6 @@
 
-#include <ClientWrapper.h>
-#include <Client.hpp>
+#include <ftqproto/ClientWrapper.h>
+#include <ftqproto/Client.hpp>
 #include <cpperror/ErrorVoid.hpp>
 #include <iostream>
 

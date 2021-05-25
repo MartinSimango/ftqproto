@@ -1,4 +1,4 @@
-#include <WriteResponse.hpp>
+#include <ftqproto/WriteResponse.hpp>
 
 using namespace response;
 

@@ -1,4 +1,4 @@
-#include <GetResponse.hpp>
+#include <ftqproto/GetResponse.hpp>
 
 using namespace response;
 

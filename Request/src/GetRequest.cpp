@@ -1,4 +1,4 @@
-#include <GetRequest.hpp>
+#include <ftqproto/GetRequest.hpp>
 
 using namespace request;
 
