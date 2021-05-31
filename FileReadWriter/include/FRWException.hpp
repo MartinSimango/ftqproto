@@ -41,9 +41,9 @@ class FRWException : public error::ErrorException {
             return filename;   
         }
         
-        char * getErrorMessage(char * error) override {
-            snprintf(error, ERROR_MAX_LENGTH, "[FRWException] Error: %s\n[FRWException] File: %s\n", this->error, this->filename);
-            return error;
+        std::string getErrorMessage() override {
+            return "[Error] " + std::string(strerror(errno)) + "\n[FRWException] Error: " + this->error + 
+                    "\n[FRWException] File: " + this->filename;
         }
        
 };

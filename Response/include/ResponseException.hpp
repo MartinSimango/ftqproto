@@ -27,11 +27,11 @@ namespace response {
                 return error;   
             }
 
-            ResponseType::Type getRequestType() const {
+            ResponseType::Type getResponseType() const {
                 return responseType;
             }
             // TODO maybe move request type name to individual request classes
-            const char * getRequestTypeName() const {
+            const char * getResponseTypeName() const {
                 switch (responseType)
                 {
                 case ResponseType::HEADER:
@@ -50,12 +50,9 @@ namespace response {
                 }
             }
 
-            char * getErrorMessage(char * error) override {
-                snprintf(error, ERROR_MAX_LENGTH, 
-                    "[Error] %s\n[ResponseException] Error: %s\nPacketType: [%i] - %s.",
-                    strerror(errno),
-                    this->error, this->responseType, 
-                    getRequestTypeName());
+            std::string getErrorMessage() override {
+             return "[Error] " + std::string(strerror(errno)) + "\n[ResponseException] Error: " + this->error +
+                    "\nPacketType: [" + std::to_string(this->responseType) + "] - " + getResponseTypeName();
 
                 return error;
             }

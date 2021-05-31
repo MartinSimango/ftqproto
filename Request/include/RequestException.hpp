@@ -48,14 +48,9 @@ namespace request {
                 }
             }
 
-            char * getErrorMessage(char * error) override {
-                snprintf(error, ERROR_MAX_LENGTH, 
-                    "[Error] %s\n[RequestException] Error: %s\nPacketType: [%i] - %s.",
-                    strerror(errno),
-                    this->error, this->requestType, 
-                    getRequestTypeName());
-
-                return error;
+            std::string getErrorMessage() override {
+                return "[Error] " + std::string(strerror(errno)) + "\n[RequestException] Error: " + this->error +
+                       "\nPacketType: [" + std::to_string(this->requestType) + "] - " + getRequestTypeName(); 
             }
 
     };

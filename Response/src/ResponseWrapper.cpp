@@ -12,7 +12,7 @@ void DestroyCreateResponse(void *cr) {
     }
     delete [] crs->filenames;
     delete [] crs->fileSizes;
-
+    delete [] crs->isDirs;
 }
 
 CreateResponseStruct GetCreateResponse(void *cr) {

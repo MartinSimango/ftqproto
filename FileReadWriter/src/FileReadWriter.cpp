@@ -76,6 +76,8 @@ void FileReadWriter::CreateFile(char *filename, int fileSize) {
 
     // 0666 is to give all reading and writing permissions
     // TODO check why files arent being created with this permission
+
+    
     int fd;
     if ( (fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0666) ) < 0) 
         throw new FRWException(FAILED_TO_CREATE_FILE, filename);
@@ -87,4 +89,8 @@ void FileReadWriter::CreateFile(char *filename, int fileSize) {
         }
         throw new FRWException(FAILED_TO_RESIZE_FILE, filename);
     }
+}
+
+void createDirectory(char * dirname) {
+    
 }

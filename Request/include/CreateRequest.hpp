@@ -11,9 +11,11 @@ namespace request {
     {
         char filename[MAX_FILEPATH_LENGTH];
         int fileSize;
+        char isDir;
+
 
         int getSize() {
-            return strlen(filename) + 1 + sizeof(fileSize);
+            return strlen(filename) + 1 + sizeof(fileSize) + sizeof(isDir);
         }
 
         void setFileName(char * filename){
@@ -23,6 +25,7 @@ namespace request {
         unsigned char * deserializeRequestFile(unsigned char *buffer){
             buffer = deserialize_char_array(buffer, filename);
             buffer = deserialize_int_big_endian(buffer, &fileSize); 
+            buffer = deserialize_char(buffer, &isDir);
             return buffer;
 
         }
@@ -30,6 +33,7 @@ namespace request {
         unsigned char * serializeRequestFile(unsigned char *buffer) {
             buffer = serialize_char_array(buffer, filename);
             buffer = serialize_int_big_endian(buffer, fileSize);
+            buffer = serialize_char(buffer, isDir);
             return buffer;
         }
 

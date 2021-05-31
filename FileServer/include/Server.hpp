@@ -68,12 +68,14 @@ namespace fts {
                     try {
 
                         sprintf(file.filename, "%s%s",this->rootFolder, request->files->at(i).filename);
-
                         file.fileSize = request->files->at(i).fileSize;
+                        file.isDir = request->files->at(i).isDir;
 
                         ResponseStatus::Type status = FileReadWriter::CheckFile(file.filename, Mode::WRITE);
 
                         if (status == ResponseStatus::OK) {
+                            std::cout << "Creating file " << file.filename << std::endl;
+
                             FileReadWriter::CreateFile(file.filename, file.fileSize); 
 
                             filesCreated->push_back(file);
@@ -84,8 +86,7 @@ namespace fts {
                     }
                     catch(FRWException * e) {
                         //todo log exceptions (proper logging)
-                        char message[100];
-                        std::cerr << "[Server...]" << e->getErrorMessage(message) << std::endl;
+                        std::cerr << "[Server...]" << e->getErrorMessage() << std::endl;
                         delete e;
                     }
                 }

@@ -38,11 +38,13 @@ CreateResponseStruct FileClient::SendCreateRequest(std::vector<request::File> * 
     createResponse.numFiles = response.numFiles;
     createResponse.fileSizes = new int[response.numFiles];
     createResponse.filenames = new char*[response.numFiles];
+    createResponse.isDirs = new char[response.numFiles];
 
     for (int i =0; i< response.numFiles;i++) {
         createResponse.filenames[i] = new char[MAX_FILEPATH_LENGTH];
         strncpy(createResponse.filenames[i],response.files->at(i).filename, MAX_FILEPATH_LENGTH);
         createResponse.fileSizes[i] = response.files->at(i).fileSize;
+        createResponse.isDirs[i] = response.files->at(i).isDir;
     }
     
     return createResponse;

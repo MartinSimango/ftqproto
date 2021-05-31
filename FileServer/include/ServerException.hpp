@@ -19,18 +19,16 @@ namespace fts {
             const char* error;
         
         public:
-            ServerException(const char *error) : error::ErrorException(), error(error){}
+            ServerException(const char *error) : error::ErrorException(), error(error){
+                
+            }
             
             const char * what() const throw() override {
                 return error;   
             }
 
-            char * getErrorMessage(char * error) override {
-                snprintf(error, ERROR_MAX_LENGTH, "[Error] %s\n[ServerException] Error: %s", 
-                strerror(errno),
-                this->error);
-
-                return error;
+            std::string getErrorMessage() override {
+                return "[Error] " + std::string(strerror(errno)) + "\n[ServerException] Error: " + this->error; 
             }
     };
 

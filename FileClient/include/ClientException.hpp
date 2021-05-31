@@ -21,9 +21,8 @@ class ClientException : public error::ErrorException {
             return error;   
         }
      
-        char * getErrorMessage(char * error) override {
-            snprintf(error, ERROR_MAX_LENGTH, "[ClientException] %s", this->error);
-            return error;
+        std::string getErrorMessage() override {
+            return "[Error] " + std::string(strerror(errno)) + "\n[ClientException] Error: " + this->error;     
         }
        
 };
