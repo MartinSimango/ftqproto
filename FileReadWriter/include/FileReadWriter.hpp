@@ -77,10 +77,13 @@ namespace frw {
 
         static ResponseStatus::Type CheckFile(const char * filename, Mode::Type mode);
 
+        static bool CheckFileIsDirectory(const char * filename);
+
         static int GetFileSize(const char *filename);
 
-        static void CreateFile(char *filename, int fileSize);
+        static void CreateFile(const char *filename, int fileSize, mode_t mode = 0666); //todo implement mode
 
+        static void CreateDiretory(const char * dirname, mode_t mode = 0666); //todo implement mode
 
     };
 

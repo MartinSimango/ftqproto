@@ -32,16 +32,17 @@ void * Connect(void* fc, char * serverAddress, int port) {
     return dynamic_cast<ErrorBase*>(error);
 }
 
-void * SendCreateRequest(void* fc, char * filenames[], int fileSizes[], char isDirs[], int numFiles){
+void * SendCreateRequest(void* fc, char * sourceFilesNames[], const char * destinationFilePath, int fileSizes[], bool isDirs[], int numFiles){
     std::vector<request::File> * files = new std::vector<request::File>(numFiles);
     for(int i=0; i< numFiles; i++){
-        files->at(i).setFileName(filenames[i]);
+        files->at(i).setSourceFilePath(sourceFilesNames[i]);
         files->at(i).fileSize = fileSizes[i];
         files->at(i).isDir = isDirs[i];
+
     }
 
-    Error<CreateResponseStruct, FileClient, std::vector<request::File>* > * error = new Error<CreateResponseStruct, FileClient, std::vector<request::File>*>(&FileClient::SendCreateRequest, AsFileClient(fc));
-    error->Execute(files);
+    Error<CreateResponseStruct, FileClient, std::vector<request::File>*, const char * > * error = new Error<CreateResponseStruct, FileClient, std::vector<request::File>*, const char * >(&FileClient::SendCreateRequest, AsFileClient(fc));
+    error->Execute(files, destinationFilePath);
     return dynamic_cast<ErrorBase*>(error);
 
 }

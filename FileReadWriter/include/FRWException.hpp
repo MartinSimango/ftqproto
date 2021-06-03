@@ -10,6 +10,8 @@ static const char * FAILED_TO_GET_FILE_SIZE = "Failed to get file size";
 static const char * FAILED_TO_OPEN_FILE_FOR_WRITING = "Failed to open file for writing.";
 static const char * FAILED_TO_OPEN_FILE_FOR_READING = "Failed to open file for reading.";
 static const char * FAILED_TO_CREATE_FILE = "Failed to create file.";
+static const char * FAILED_TO_CREATE_DIRECTORY = "Failed to create directory.";
+
 
 
 static const char * FAILED_TO_CLOSE_FILE = "Failed to close file.";

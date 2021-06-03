@@ -83,7 +83,7 @@ namespace ftc {
         // returns false if connect failed and errorMessage is set
         void Connect(struct ServerPort serverPort);
         
-        CreateResponseStruct SendCreateRequest(std::vector<request::File> * files);
+        CreateResponseStruct SendCreateRequest(std::vector<request::File> * files, const char * destinationFilePath);
 
         GetResponse SendGetRequest(char * filepath);
 

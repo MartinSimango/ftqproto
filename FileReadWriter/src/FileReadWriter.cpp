@@ -66,11 +66,11 @@ int FileReadWriter::GetFileSize(const char * filename) {
     struct stat st;
     if(stat(filename, &st) != 0) 
         throw new FRWException(FAILED_TO_GET_FILE_SIZE, filename);
-    
     return st.st_size;
 }
+
 //CreateFile creates a file named filename of size fileSize in bytes
-void FileReadWriter::CreateFile(char *filename, int fileSize) {
+void FileReadWriter::CreateFile(const char *filename, int fileSize, mode_t mode) {
     if (fileSize < 0)
         throw new FRWException(INVALID_FILE_SIZE, filename);
 
@@ -79,7 +79,7 @@ void FileReadWriter::CreateFile(char *filename, int fileSize) {
 
     
     int fd;
-    if ( (fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0666) ) < 0) 
+    if ( (fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, mode) ) < 0) 
         throw new FRWException(FAILED_TO_CREATE_FILE, filename);
 
     // resize the file to be the desired size of the incoming file being copied
@@ -91,6 +91,14 @@ void FileReadWriter::CreateFile(char *filename, int fileSize) {
     }
 }
 
-void createDirectory(char * dirname) {
-    
+bool FileReadWriter::CheckFileIsDirectory(const char * filepath) {
+    struct stat statbuf;
+   if (stat(filepath, &statbuf) != 0)
+       return false;
+   return (bool) S_ISDIR(statbuf.st_mode);
 }
+
+void FileReadWriter::CreateDiretory(const char * dirname, mode_t mode){
+    if(mkdir(dirname, mode) != 0) 
+        throw new FRWException(FAILED_TO_CREATE_DIRECTORY, dirname);
+} //todo implement mode

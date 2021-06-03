@@ -8,7 +8,7 @@ extern "C" {
 typedef struct CreateResponseStruct {
         char ** filenames;
         int * fileSizes;
-        char * isDirs;
+        bool * isDirs;
         int numFiles;
 } CreateResponseStruct;
 

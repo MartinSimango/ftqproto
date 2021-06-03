@@ -15,6 +15,8 @@
 #include <ftqproto/ServerException.hpp>
 #include <ftqproto/Responses.hpp>
 #include <sys/ioctl.h>
+#include <libgen.h>
+
 
 using namespace request;
 using namespace response;
@@ -67,18 +69,38 @@ namespace fts {
                     request::File file;
                     try {
 
-                        sprintf(file.filename, "%s%s",this->rootFolder, request->files->at(i).filename);
-                        file.fileSize = request->files->at(i).fileSize;
-                        file.isDir = request->files->at(i).isDir;
+                        std::string destFile = std::string(this->rootFolder) + request->destinationFilePath;
+                        ResponseStatus::Type status = FileReadWriter::CheckFile(destFile.c_str(), Mode::WRITE);
 
-                        ResponseStatus::Type status = FileReadWriter::CheckFile(file.filename, Mode::WRITE);
-
+                        // sprintf(file.filename, "%s%s",this->rootFolder, request->files->at(i).);
+                        // file.fileSize = request->files->at(i).fileSize;
+                        // file.isDir = request->files->at(i).isDir;
                         if (status == ResponseStatus::OK) {
-                            std::cout << "Creating file " << file.filename << std::endl;
+                            // file.isDir  ?  
+                            //             :  FileReadWriter::CreateFile(file.filename, file.fileSize);
+                            basename(&destFile[0]);
+                            bool isDestFilePathDir = FileReadWriter::CheckFileIsDirectory(destFile.c_str());
+                            if (isDestFilePathDir) {
+                                //copy everyything into it
+                              /* code */
+                                rootDirectory = dir 
+                            }
+                            else {
 
-                            FileReadWriter::CreateFile(file.filename, file.fileSize); 
-
+                            }
+                            
+                            if (file.isDir) {
+                                FileReadWriter::CreateDiretory(rootDirectory + file.filename); 
+                                std::cout << "Creating directory " << file.filename << std::endl;
+                            }
+                            else {
+                                FileReadWriter::CreateFile(file.filename, file.fileSize); 
+                                std::cout << "Creating file " << file.filename << std::endl;
+                            }
                             filesCreated->push_back(file);
+                        }
+                        else if(file.isDir){
+                            throw new FRWException(FAILED_TO_CREATE_DIRECTORY, file.filename);
                         }
                         else {
                             throw new FRWException(FAILED_TO_CREATE_FILE, file.filename);

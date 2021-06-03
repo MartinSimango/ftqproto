@@ -17,14 +17,14 @@ GetResponse FileClient::SendGetRequest(char * filepath){
     if (!isConnected)
         throw new ClientException(CLIENT_NOT_CONNECTED);
 
-    GetRequest req(sockfd, filepath);
+    GetRequest request(sockfd, filepath);
     GetResponse response(sockfd);
 
-    req.Write();
+    request.Write();
     return response;
 }
 
-CreateResponseStruct FileClient::SendCreateRequest(std::vector<request::File> * files) {
+CreateResponseStruct FileClient::SendCreateRequest(std::vector<request::File> * files, const char * destinationFilePath) {
     if (!isConnected)
         throw new ClientException(CLIENT_NOT_CONNECTED);
 
@@ -38,9 +38,9 @@ CreateResponseStruct FileClient::SendCreateRequest(std::vector<request::File> * 
     createResponse.numFiles = response.numFiles;
     createResponse.fileSizes = new int[response.numFiles];
     createResponse.filenames = new char*[response.numFiles];
-    createResponse.isDirs = new char[response.numFiles];
+    createResponse.isDirs = new bool[response.numFiles];
 
-    for (int i =0; i< response.numFiles;i++) {
+    for (int i = 0; i< response.numFiles; i++) {
         createResponse.filenames[i] = new char[MAX_FILEPATH_LENGTH];
         strncpy(createResponse.filenames[i],response.files->at(i).filename, MAX_FILEPATH_LENGTH);
         createResponse.fileSizes[i] = response.files->at(i).fileSize;
