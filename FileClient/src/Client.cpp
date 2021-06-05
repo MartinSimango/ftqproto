@@ -1,6 +1,5 @@
 #include <ftqproto/Client.hpp>
 #include <ftqproto/Request.hpp>
-#include <ftqproto/Responses.hpp>
 
 using namespace ftc;
 using namespace request;
@@ -14,75 +13,57 @@ void FileClient::Connect(struct ServerPort serverPort) {
 }
 
 
-GetResponse FileClient::SendGetRequest(char * filepath){
+std::string FileClient::SendGetRequest(std::string protoRequest){
     if (!isConnected)
         throw new ClientException(CLIENT_NOT_CONNECTED);
 
-    GetRequest request(sockfd, filepath);
-    GetResponse response(sockfd);
-
+    Request request(sockfd, protoRequest, RequestType::GET);
     request.Write();
-    return response;
+    
+    Response response(sockfd);
+    response.Read();
+
+    return response.message;
 }
 
-CreateResponseStruct FileClient::SendCreateRequest(std::string protoRequest) {
+std::string FileClient::SendCreateRequest(std::string protoRequest) {
     if (!isConnected)
         throw new ClientException(CLIENT_NOT_CONNECTED);
 
 
     Request request(sockfd, protoRequest, RequestType::CREATE);
+    request.Write();
+
     Response response(sockfd);
     response.Read();
 
-    response.m
-
-
-    createResponse.numFiles = response.numFiles;
-    createResponse.fileSizes = new int[response.numFiles];
-    createResponse.filenames = new char*[response.numFiles];
-    createResponse.isDirs = new bool[response.numFiles];
-
-    for (int i = 0; i< response.numFiles; i++) {
-        createResponse.filenames[i] = new char[MAX_FILEPATH_LENGTH];
-        strncpy(createResponse.filenames[i],response.files->at(i).filename, MAX_FILEPATH_LENGTH);
-        createResponse.fileSizes[i] = response.files->at(i).fileSize;
-        createResponse.isDirs[i] = response.files->at(i).isDir;
-    }
-    
-    return createResponse;
+    return response.message;
 }
 
-ReadResponse FileClient::SendReadRequest(int numberOfBytesToRead, int offset, char *readFile, char * writeFile) {
+std::string FileClient::SendReadRequest(std::string protoRequest) {
     if (!isConnected)
         throw new ClientException(CLIENT_NOT_CONNECTED);
     
-    ReadRequest request(sockfd, readFile, offset, numberOfBytesToRead);
-    ReadResponse response(sockfd);
-
+    Request request(sockfd, protoRequest, RequestType::READ);
     request.Write();
+
+    Response response(sockfd);
     response.Read();
 
-    FileReadWriter frw(writeFile, Mode::WRITE);
-    frw.Open();
-    frw.WriteToFile(response.data, response.numberOfBytesRead, offset);
-    frw.Close();
-
-    return response;
+    return response.message;
 }
 
-WriteResponse FileClient::SendWriteRequest(int numberOfBytesToWrite, int offset, char *readFile, char * writeFile) {
+std::string FileClient::SendWriteRequest(std::string protoRequest) {
     if (!isConnected)
         throw new ClientException(CLIENT_NOT_CONNECTED);
 
-    FileReadWriter frw(readFile, Mode::READ);
-    frw.Open();
-    int bytes_written = writeToServer(&frw, writeFile, numberOfBytesToWrite, offset);
-    frw.Close();
+    Request request(sockfd, protoRequest, RequestType::WRITE);
+    request.Write();
 
-    WriteResponse response(sockfd);
+    Response response(sockfd);
     response.Read();
 
-    return response;
+    return response.message;
 }
 
 

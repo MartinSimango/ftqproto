@@ -15,18 +15,15 @@ void* NewFileClient();
 void DestroyFileClient(void* fc);
 
 // Connect connects the client to the specific server specified by the ServerPort 
-void * Connect(void* fc,char * serverAddress, int port);
+void * Connect(void* fc, char * serverAddress, int port);
 
-void * SendCreateRequest(void* fc, const char * protoMessage); 
+void * SendCreateRequest(void* fc, const char * protoCreateRequestMessage); 
 
-void * SendGetRequest(void* fc, char * filepath);
+void * SendGetRequest(void* fc, const char * protoGetRequestMessage);
 
-void * SendReadRequest(void* fc, int numberOfBytesToRead, int offset, char *readFile, char * writeFile);
+void * SendReadRequest(void* fc, const char * protoReadRequestMessage);
 
-void * SendWriteRequest(void* fc, int numberOfBytesToWrite, int offset, char *readFile, char * writeFile);
-
-// Close closes the connection to the server, returns false upon failure
-void Close();
+void * SendWriteRequest(void* fc, const char * protoWriteRequestMessage);
 
 // CloseFileClient closes the connection to the server, returns false upon failure
 void * CloseFileClient(void* fc);

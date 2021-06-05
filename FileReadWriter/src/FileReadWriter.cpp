@@ -11,27 +11,27 @@ void FileReadWriter::Open(){
     opened = true;
 }
 
-int FileReadWriter::WriteToFile(char * data, size_t number_of_bytes, int offset){
+int FileReadWriter::WriteToFile(int offset, const char * data) {
     if (!opened) 
         throw new FRWException(FAILED_TO_WRITE_FILE_NOT_OPEN, this->filename);
     
-    int bytes_read;
-    if (lseek (this->fd, offset, SEEK_CUR) < 0 || (bytes_read = write(this->fd, data, number_of_bytes) ) < 0) 
+    int bytesWritten;
+    if (lseek (this->fd, offset, SEEK_CUR) < 0 || (bytesWritten = write(this->fd, data, strlen(data)) ) < 0) 
         throw new FRWException(FAILED_TO_WRITE_TO_FILE, this->filename);
 
-    return bytes_read;
+    return bytesWritten;
 }
 
-int FileReadWriter::ReadFromFile(char * data, size_t number_of_bytes, int offset) {
+int FileReadWriter::ReadFromFile(char *data, int offset, int numberOfBytesToRead){
     if (!opened)
         throw new FRWException(FAILED_TO_READ_FILE_NOT_OPEN, filename);
     
-    int bytes_read;
+    int bytesRead;
 
-    if (lseek (fd, offset, SEEK_CUR) < 0 || ( bytes_read = read(fd, data, number_of_bytes) ) < 0)  {
+    if (lseek (fd, offset, SEEK_CUR) < 0 || ( bytesRead = read(fd, data, numberOfBytesToRead) ) < 0)  {
         throw new FRWException(FAILED_TO_READ_FROM_FILE, filename);
     }
-    return bytes_read;
+    return bytesRead;
 }
 
 void FileReadWriter::Close(){

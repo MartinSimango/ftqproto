@@ -13,9 +13,6 @@ namespace response {
         private:
         int fd;
 
-        protected: 
-        int messageSize; //size of protobuf message in bytes
-        std::string message;
 
         inline void readMessageLength() {
             unsigned char buffer[sizeof(messageSize)];
@@ -44,8 +41,11 @@ namespace response {
             buffer = serialize_char_array(buffer, &message[0]);
             return buffer;
         }
-        
+            
         public:
+
+        int messageSize; //size of protobuf message in bytes
+        std::string message;
 
         Response(int fd): fd(fd) { //for reading response
             this->messageSize = -1;

@@ -13,11 +13,6 @@ namespace request {
         private:
         int fd;
 
-        protected: 
-        int messageSize; //size of protobuf message in bytes
-        RequestType::Type requestType;
-        std::string message;
-
         inline void readMessageLength() {
             unsigned char buffer[sizeof(messageSize)];
             int bytesRead = read(fd, buffer, sizeof(buffer));
@@ -50,6 +45,9 @@ namespace request {
         }
         
         public:
+            int messageSize; //size of protobuf message in bytes
+            RequestType::Type requestType;
+            std::string message;
 
         Request(int fd): fd(fd) { //for reading request
             this->messageSize = -1;

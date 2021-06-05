@@ -10,6 +10,8 @@
 #include <ftqproto/FileReadWriterConstants.hpp>
 #include <ftqproto/ResponseConstants.hpp>
 
+
+
 namespace frw {
 
     class FileReadWriter
@@ -53,7 +55,7 @@ namespace frw {
         
     public:
 
-        FileReadWriter(char * filename, Mode::Type mode): mode(mode), opened(false){
+        FileReadWriter(const char * filename, Mode::Type mode): mode(mode), opened(false){
             strncpy(this->filename, filename ,sizeof(this->filename));
         }
 
@@ -62,9 +64,9 @@ namespace frw {
         // Open opens the file resource
         void Open();
 
-        int WriteToFile(char * data, size_t number_of_bytes, int offset);
+        int WriteToFile(int offset, const char * data);
 
-        int ReadFromFile(char * data, size_t number_of_bytes, int offset);
+        int ReadFromFile(char *data, int offset, int numberOfBytesToRead);
 
         // Closes closes the file resource
         void Close();

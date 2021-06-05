@@ -3,14 +3,18 @@
 extern "C" {
 #endif
 
-void* NewFileReadWriter(char * filename, bool mode, int fileSize);
+void* NewFileReadWriter(const char * filename, char mode);
+
 void DestroyFileReadWriter(void* frw);
-bool OpenFile(void* frw);
-int WriteToFile(void* frw,char * data,int number_of_bytes, int offset);
-int ReadFromFile(void* frw,char * data,int number_of_bytes, int offset);
+
+void * OpenFile(void* frw);
+
+void * WriteToFile(void *frw, int offset, const char * data);
+
+void * ReadFromFile(void *frw, char *data, int offset, int numberOfBytesToRead);
+
 // Closes closes the file resource
-int CloseFile(void* frw);
-char * GetFileName(void* frw);
+void * CloseFile(void* frw);
 
 #ifdef __cplusplus
 }  // extern "C"

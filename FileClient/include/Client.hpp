@@ -8,10 +8,8 @@
 #include <unistd.h>
 #include <ftqproto/FileReadWriter.hpp>
 #include <ftqproto/ClientException.hpp>
-#include <ftqproto/Requests.hpp>
-#include <ftqproto/Responses.hpp>
-#include "../../Request/gen/CreateRequest.pb.h"
-
+#include <ftqproto/Request.hpp>
+#include <ftqproto/Response.hpp>
 
 using namespace request;
 using namespace response;
@@ -52,37 +50,10 @@ namespace ftc {
             
             if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) != 0) {
                 throw new ClientException(FAILED_TO_CONNECT_TO_SERVER);
-            }
-
-            
-        }
-
-    
-         // writeToServer writes to the server and reads from the client, returns false upon failure
-        inline int writeToServer(FileReadWriter * frw, char * filepath,int numberOfBytesToWrite, int offset) {
-            char dataRead[numberOfBytesToWrite];
-
-            int numberOfBytesRead = frw->ReadFromFile(dataRead, numberOfBytesToWrite, offset);
-           
-            WriteRequest writeRequest(sockfd, dataRead, offset, numberOfBytesRead, filepath);    
-            writeRequest.Write(); 
-
-            return numberOfBytesRead;
-        }
-        
-        inline void sendData(std::string data) {
-            write(sockfd, &data, data.length());
-        }
-
-        inline std::string readData() {
-            read(so)
-        }
- 
+            }   
+        }    
 
         public:
-
-        // if writing to server filename will be file we want to read from
-        // if reading from server filename will be file we want to write to
         FileClient() {}
 
         ~FileClient() {}
@@ -95,9 +66,9 @@ namespace ftc {
 
         std::string SendGetRequest(std::string protoRequest);
 
-        std::string SendReadRequest(int numberOfBytesToRead, int offset, char *readFile, char * writeFile);
+        std::string SendReadRequest(std::string protoRequest);
 
-        std::string SendWriteRequest(int numberOfBytesToWrite, int offset, char *readFile, char * writeFile);
+        std::string SendWriteRequest(std::string protoRequest);
        
         // Close closes the connection to the server, returns false upon failure
         void Close();
