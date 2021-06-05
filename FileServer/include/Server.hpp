@@ -76,27 +76,23 @@ namespace fts {
                         // file.fileSize = request->files->at(i).fileSize;
                         // file.isDir = request->files->at(i).isDir;
                         if (status == ResponseStatus::OK) {
-                            // file.isDir  ?  
+                            // file.isDir  ?  FileReadWriter::CreateDiretory(file.filename) 
                             //             :  FileReadWriter::CreateFile(file.filename, file.fileSize);
-                            basename(&destFile[0]);
-                            bool isDestFilePathDir = FileReadWriter::CheckFileIsDirectory(destFile.c_str());
-                            if (isDestFilePathDir) {
-                                //copy everyything into it
-                              /* code */
-                                rootDirectory = dir 
-                            }
-                            else {
-
-                            }
+                            // bool isDestFilePathDir;
+                            // if ( isDes FileReadWriter::CheckFileIsDirectory(destFile.c_str())) {
                             
-                            if (file.isDir) {
-                                FileReadWriter::CreateDiretory(rootDirectory + file.filename); 
-                                std::cout << "Creating directory " << file.filename << std::endl;
-                            }
-                            else {
-                                FileReadWriter::CreateFile(file.filename, file.fileSize); 
-                                std::cout << "Creating file " << file.filename << std::endl;
-                            }
+                            //   /* code */
+                            //     rootDirectory = dir 
+                            // }
+                            
+                            // if (file.isDir) {
+                            //     FileReadWriter::CreateDiretory(rootDirectory + file.filename); 
+                            //     std::cout << "Creating directory " << file.filename << std::endl;
+                            // }
+                            // else {
+                            //     FileReadWriter::CreateFile(file.filename, file.fileSize); 
+                            //     std::cout << "Creating file " << file.filename << std::endl;
+                            // }
                             filesCreated->push_back(file);
                         }
                         else if(file.isDir){

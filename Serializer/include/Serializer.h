@@ -30,7 +30,6 @@ inline unsigned char * serialize_int_little_endian(unsigned char *buffer, int va
 inline unsigned char * serialize_char_array(unsigned char *buffer, char * value)
 {
     int value_len = strlen(value)+1; // +1 to include '\0' character too 
-
     for (int i = 0; i < value_len; i++){
     
         buffer[i] = value[i];

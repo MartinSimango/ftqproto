@@ -17,7 +17,7 @@ void DestroyFileClient(void* fc);
 // Connect connects the client to the specific server specified by the ServerPort 
 void * Connect(void* fc,char * serverAddress, int port);
 
-void * SendCreateRequest(void* fc, char * sourceFilesNames[], const char * destinationFilePath, int fileSizes[], bool isDirs[], int numFiles); 
+void * SendCreateRequest(void* fc, const char * protoMessage); 
 
 void * SendGetRequest(void* fc, char * filepath);
 

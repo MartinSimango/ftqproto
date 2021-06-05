@@ -16,41 +16,18 @@ namespace request {
         
         private:
             const char* error;
-            RequestType::Type requestType;
         
         public:
-            RequestException(const char *error, RequestType::Type requestType) : error::ErrorException(), error(error), requestType(requestType) {}
+            RequestException(const char *error) : error::ErrorException(), error(error) {}
             
             const char * what() const throw() override {
                 return error;   
             }
 
-            RequestType::Type getRequestType() const {
-                return requestType;
-            }
-            // TODO maybe move request type name to individual request classes
-            const char * getRequestTypeName() const {
-                switch (requestType)
-                {
-                case RequestType::HEADER:
-                    return "Request Header";
-                case RequestType::CREATE:
-                    return "CREATE Request";
-                case RequestType::GET:
-                    return "GET Request";
-                case RequestType::READ:
-                    return "READ Request";
-                case RequestType::WRITE:
-                    return "WRITE Request";
-                default:
-                    return "Unknown Request Type";
-                    break;
-                }
-            }
 
             std::string getErrorMessage() override {
-                return "[Error] " + std::string(strerror(errno)) + "\n[RequestException] Error: " + this->error +
-                       "\nPacketType: [" + std::to_string(this->requestType) + "] - " + getRequestTypeName(); 
+                return "[Error] " + std::string(strerror(errno)) + "\n[RequestException] Error: " + this->error;
+                     
             }
 
     };

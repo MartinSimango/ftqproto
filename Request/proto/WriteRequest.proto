@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package request;
+
+import "RequestFile.proto";
+
+message WriteRequest {
+    string filepath = 1;
+    string data = 2;
+    int32 offset = 3;
+}

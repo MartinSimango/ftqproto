@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package request;
+
+message RequestFile {
+    string sourceFilePath = 1;
+    int32 fileSize = 2;
+    bool isDir = 3;
+};
+
+message RequestFiles {
+    repeated RequestFile files = 1;
+};

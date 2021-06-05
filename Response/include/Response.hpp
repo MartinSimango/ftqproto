@@ -2,12 +2,10 @@
 
 #include <unistd.h>
 #include <ftqproto/Serializer.h>
-#include <ftqproto/ResponseConstants.hpp>
+#include <ftqproto/RequestConstants.hpp>
 #include <ftqproto/ResponseException.hpp>
 #include <errno.h>
-#include <ftqproto/ResponseHeader.hpp>
 
-// TODO make all virtual functions protected methods and then make them private derived request classes 
 namespace response {
 
     class Response {
@@ -16,51 +14,59 @@ namespace response {
         int fd;
 
         protected: 
-        ResponseHeader * header;
+        int messageSize; //size of protobuf message in bytes
+        std::string message;
 
-        public:
-        ResponseType::Type responseType;  
-        ResponseStatus::Type status;
+        inline void readMessageLength() {
+            unsigned char buffer[sizeof(messageSize)];
+            int bytesRead = read(fd, buffer, sizeof(buffer));
 
+            if (bytesRead < 0)
+                throw new ResponseException(FAILED_TO_READ_RESPONSE);
 
-        Response(int fd): fd(fd) { 
-            responseType = ResponseType::UNKNOWN;
-            status = ResponseStatus::OK;
-            this->header = NULL;
-        } 
+            deserialize_int_big_endian(buffer, &messageSize);    
+        }
 
-        Response(int fd, ResponseStatus::Type status): fd(fd), status(status) { 
-            this->header = NULL;
-            this->responseType = ResponseType::UNKNOWN; 
-        } 
+        inline int getMessageSize() {
+            return messageSize + sizeof(messageSize); //number of bytes of request will
+        }
 
-        virtual ~Response() { 
-            delete header;
-            header = NULL;
+        inline void deserializeResponseMessage(unsigned char *buffer){
+            buffer = deserialize_char_array(buffer, &message[0]);
+        }
+
+        inline void deserializeResponseMessageLength(unsigned char *buffer){
+            buffer = deserialize_int_big_endian(buffer, &messageSize);
+        }
+
+        inline unsigned char * serializeResponse(unsigned char *buffer){
+            buffer = serialize_int_big_endian(buffer, messageSize);
+            buffer = serialize_char_array(buffer, &message[0]);
+            return buffer;
         }
         
-        ResponseType::Type GetResponseType() const { return responseType; }
+        public:
 
-        ResponseHeader * GetHeader() const { return header; }
+        Response(int fd): fd(fd) { //for reading response
+            this->messageSize = -1;
+        }
 
-        int Write();
+        Response(int fd, std::string message): fd(fd), message(message){  //for writing response
+            this->messageSize = message.length() + 1;         
+        }
+
+        virtual ~Response() { }
         
+        int Write();
+
         int Read();
 
-        int WriteBody();
-
-        int ReadBody();
-
-        int WriteHeader();
-
-        int ReadHeader();
-
-        virtual int getResponseBodySize() const = 0;
-        virtual void deserializeResponseBody(unsigned char *buffer) = 0;
-        virtual unsigned char * serializeResponseBody(unsigned char *buffer) = 0;
-        virtual std::string GetBody() const = 0;
-    
     };
 };
+
+
+    
+
+
 
 

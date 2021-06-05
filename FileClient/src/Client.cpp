@@ -1,8 +1,9 @@
 #include <ftqproto/Client.hpp>
-#include <ftqproto/Requests.hpp>
+#include <ftqproto/Request.hpp>
 #include <ftqproto/Responses.hpp>
 
 using namespace ftc;
+using namespace request;
 
 void FileClient::Connect(struct ServerPort serverPort) {
     if (isConnected)
@@ -24,16 +25,17 @@ GetResponse FileClient::SendGetRequest(char * filepath){
     return response;
 }
 
-CreateResponseStruct FileClient::SendCreateRequest(std::vector<request::File> * files, const char * destinationFilePath) {
+CreateResponseStruct FileClient::SendCreateRequest(std::string protoRequest) {
     if (!isConnected)
         throw new ClientException(CLIENT_NOT_CONNECTED);
 
-    CreateRequest request(sockfd, files);
-    CreateResponse response(sockfd);
-    CreateResponseStruct createResponse;
 
-    request.Write();
+    Request request(sockfd, protoRequest, RequestType::CREATE);
+    Response response(sockfd);
     response.Read();
+
+    response.m
+
 
     createResponse.numFiles = response.numFiles;
     createResponse.fileSizes = new int[response.numFiles];

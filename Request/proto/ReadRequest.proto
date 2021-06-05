@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package request;
+
+
+message ReadRequest {
+    string filepath = 1;
+    int32 numberOfBytesToRead = 2;
+    int32 offset = 3;
+}

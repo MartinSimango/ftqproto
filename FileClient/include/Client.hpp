@@ -10,6 +10,7 @@
 #include <ftqproto/ClientException.hpp>
 #include <ftqproto/Requests.hpp>
 #include <ftqproto/Responses.hpp>
+#include "../../Request/gen/CreateRequest.pb.h"
 
 
 using namespace request;
@@ -69,7 +70,14 @@ namespace ftc {
             return numberOfBytesRead;
         }
         
+        inline void sendData(std::string data) {
+            write(sockfd, &data, data.length());
+        }
 
+        inline std::string readData() {
+            read(so)
+        }
+ 
 
         public:
 
@@ -83,13 +91,13 @@ namespace ftc {
         // returns false if connect failed and errorMessage is set
         void Connect(struct ServerPort serverPort);
         
-        CreateResponseStruct SendCreateRequest(std::vector<request::File> * files, const char * destinationFilePath);
+        std::string SendCreateRequest(std::string protoRequest);
 
-        GetResponse SendGetRequest(char * filepath);
+        std::string SendGetRequest(std::string protoRequest);
 
-        ReadResponse SendReadRequest(int numberOfBytesToRead, int offset, char *readFile, char * writeFile);
+        std::string SendReadRequest(int numberOfBytesToRead, int offset, char *readFile, char * writeFile);
 
-        WriteResponse SendWriteRequest(int numberOfBytesToWrite, int offset, char *readFile, char * writeFile);
+        std::string SendWriteRequest(int numberOfBytesToWrite, int offset, char *readFile, char * writeFile);
        
         // Close closes the connection to the server, returns false upon failure
         void Close();
