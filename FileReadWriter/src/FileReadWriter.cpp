@@ -76,7 +76,6 @@ void FileReadWriter::CreateFile(const char *filename, int fileSize, mode_t mode)
 
     // 0666 is to give all reading and writing permissions
     // TODO check why files arent being created with this permission
-
     
     int fd;
     if ( (fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, mode) ) < 0) 
@@ -98,7 +97,18 @@ bool FileReadWriter::CheckFileIsDirectory(const char * filepath) {
    return (bool) S_ISDIR(statbuf.st_mode);
 }
 
-void FileReadWriter::CreateDiretory(const char * dirname, mode_t mode){
+void FileReadWriter::CreateDirectory(const char * dirname, mode_t mode) {
     if(mkdir(dirname, mode) != 0) 
         throw new FRWException(FAILED_TO_CREATE_DIRECTORY, dirname);
 } //todo implement mode
+
+void FileReadWriter::RenameFile(std::string oldname, std::string newname) {
+    if(rename(oldname.c_str(), newname.c_str()) != 0) 
+        throw new FRWException(FAILED_TO_CREATE_DIRECTORY, oldname.c_str());
+    
+}   
+
+bool FileReadWriter::DoesFileExist(std::string filePath) {
+    return (access(filePath.c_str(), F_OK) == 0); 
+}
+

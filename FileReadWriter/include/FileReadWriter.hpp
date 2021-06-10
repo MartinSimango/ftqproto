@@ -85,7 +85,11 @@ namespace frw {
 
         static void CreateFile(const char *filename, int fileSize, mode_t mode = 0666); //todo implement mode
 
-        static void CreateDiretory(const char * dirname, mode_t mode = 0666); //todo implement mode
+        static void CreateDirectory(const char * dirname, mode_t mode = 0666); //todo implement mode
+
+        static void RenameFile(std::string oldname, std::string newname);
+
+        static bool DoesFileExist(std::string filePath);
 
     };
 

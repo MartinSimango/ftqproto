@@ -34,29 +34,30 @@ void * Connect(void* fc, char * serverAddress, int port) {
 
 void * SendCreateRequest(void* fc, const char * protoCreateRequestMessage){
 
-    Error<std::string, FileClient, const char * > * error = new Error<std::string, FileClient, std::string>*, const char * >(&FileClient::SendCreateRequest, AsFileClient(fc));
+    Error<std::string, FileClient, std::string> * error = new Error<std::string, FileClient, std::string>(&FileClient::SendCreateRequest, AsFileClient(fc));
     error->Execute(protoCreateRequestMessage);
     return dynamic_cast<ErrorBase*>(error);
 
 }
 
 void * SendGetRequest(void* fc, const char * protoGetRequestMessage) {
-    Error<const char *, FileClient, const char *> * error = new Error<const char *, FileClient, const char *>(&FileClient::SendGetRequest, AsFileClient(fc));
+    Error<std::string, FileClient, std::string> * error = new Error<std::string, FileClient, std::string>(&FileClient::SendGetRequest, AsFileClient(fc));
     error->Execute(protoGetRequestMessage);
+    
     return dynamic_cast<ErrorBase*>(error);
 }
 
 void * SendReadRequest(void* fc, const char * protoReadRequestMessage){
-    Error<const char *, FileClient, const char*> * error = new Error<const char * FileClient, const char *>(&FileClient::SendReadRequest, AsFileClient(fc));
+    Error<std::string, FileClient, std::string> * error = new Error<std::string, FileClient, std::string>(&FileClient::SendReadRequest, AsFileClient(fc));
     error->Execute(protoReadRequestMessage);
-
+    
     return dynamic_cast<ErrorBase*>(error);
 }
 
 void * SendWriteRequest(void* fc, const char * protoWriteRequestMessage) {
-    Error<const char *, FileClient, const char*> * error = new Error<const char * FileClient, const char *>(&FileClient::SendReadRequest, AsFileClient(fc));
+    Error<std::string, FileClient, std::string> * error = new Error<std::string, FileClient, std::string>(&FileClient::SendWriteRequest, AsFileClient(fc));
     error->Execute(protoWriteRequestMessage);
-
+    
     return dynamic_cast<ErrorBase*>(error);
 }
 

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package response;
+
+import "ftqproto/RequestFile.proto";
+
+message GetResponse {
+    request.RequestFiles files = 1;
+}

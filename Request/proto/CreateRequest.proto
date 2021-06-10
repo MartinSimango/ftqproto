@@ -2,11 +2,11 @@ syntax = "proto3";
 
 package request;
 
-import "RequestFile.proto";
+import "ftqproto/RequestFile.proto";
 
 message CreateRequest {
     string sourceFilePath = 1;
     string destinationFilePath = 2;
-    int32 numFiles = 3;
-    RequestFiles files = 4;
+    int32 numOfFiles = 3;
+    repeated RequestFile files = 4;
 }

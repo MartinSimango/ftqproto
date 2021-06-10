@@ -7,7 +7,7 @@ ODIR=obj
 LDIR=lib
 SDIR=src
 INCDIR=include
-CFLAGS=$(patsubst %, -I%, $(IDIR)) -std=c++17
+CFLAGS=-std=c++17
 LIBNAME=libgocpclient
 
 
@@ -21,16 +21,14 @@ endef
 CLIENT_DEPS = $(wildcard $(IDIR)/*) 
 
 CLIENT_HEADERS = $(wildcard $(INCDIR)/*)
-CLIENT_UNINSTALL_HEADERS  = $(patsubst $(INCDIR)/%, %, $(CLIENT_HEADERS)) 
+CLIENT_UNINSTALL_HEADERS=$(patsubst $(INCDIR)/%, %, $(CLIENT_HEADERS)) 
 
-
-$(CLIENT_UNINSTALL_HEADERS):
-	rm -rf /usr/local/include/ftqproto/$@
 
 .PHONY: $(CLIENT_UNINSTALL_HEADERS) clean
 
-build: build-dir $(CLIENT_OBJECTS) build-lib
+build: build-dir build-object-files build-lib
 
+build-object-files: $(CLIENT_OBJECTS)
 
 build-dir:
 	mkdir -p $(ODIR)
@@ -51,15 +49,13 @@ install:
 install-headers:
 	cp include/* /usr/local/include/ftqproto
 
-install-headers-docker:
-	mv include/* /usr/include/ftqproto
 
 uninstall: $(CLIENT_UNINSTALL_HEADERS)
 	rm -f /usr/local/lib/$(LIBNAME).so
 
-install-docker:
-	rm -f /usr/local/lib/$(LIBNAME).so
-	cp $(LDIR)/$(LIBNAME).so /usr/local/lib
+
+$(CLIENT_UNINSTALL_HEADERS):
+	rm -rf /usr/local/include/ftqproto/$@
 
 clean:
 	rm -rf $(ODIR)

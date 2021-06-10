@@ -9,5 +9,5 @@ message RequestFile {
 };
 
 message RequestFiles {
-    repeated RequestFile files = 1;
+    repeated RequestFile requestFiles = 1;
 };

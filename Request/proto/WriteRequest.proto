@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package request;
 
-import "RequestFile.proto";
-
 message WriteRequest {
     string filepath = 1;
     string data = 2;

@@ -53,8 +53,8 @@ namespace request {
             this->messageSize = -1;
         }
 
-        Request(int fd, std::string message, RequestType::Type RequestType): fd(fd), message(message){  //for writing request
-            this->messageSize = message.length() + 1 + sizeof(requestType);            
+        Request(int fd, std::string message, RequestType::Type requestType): fd(fd), message(message){  //for writing request
+            this->messageSize = message.length() + 1 + sizeof(this->requestType);            
             this->requestType = requestType;
         }
 

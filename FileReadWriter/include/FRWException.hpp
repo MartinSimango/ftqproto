@@ -19,6 +19,7 @@ static const char * FAILED_TO_OPEN_FILE_ALREADY_OPEN = "Failed to open file as f
 
 static const char * FAILED_TO_READ_FROM_FILE = "Failed to read from file.";
 static const char * FAILED_TO_WRITE_TO_FILE = "Failed to write to file.";
+static const char * FAILED_TO_WRITE_TO_DIRECTORY = "Failed to write to directory.";
 static const char * FAILED_TO_WRITE_FILE_NOT_OPEN = "Cannot write to unopened file."; 
 static const char * FAILED_TO_READ_FILE_NOT_OPEN = "Cannot read to unopened file.";
 static const char * FAILED_TO_CLOSE_FILE_NOT_OPEN = "Cannot close unopened file.";

@@ -8,7 +8,7 @@ ODIR=obj
 LDIR=lib
 SDIR=src
 INCDIR=include
-CFLAGS=$(patsubst %, -I%, $(IDIR)) -std=c++17
+CFLAGS=-std=c++17 -lgorequest -lgoresponse -lprotobuf
 LIBNAME=libgocpserver
 
 # TODO check use of OBJECTS files might not even need them
@@ -32,8 +32,9 @@ $(SERVER_UNINSTALL_HEADERS):
 
 .PHONY: $(SERVER_UNINSTALL_HEADERS) clean
 
-build: build-dir $(SERVER_OBJECTS) build-lib
+build: build-dir build-object-files build-lib
 
+build-object-files: $(SERVER_OBJECTS) 
 
 build-dir:
 	mkdir -p $(ODIR)
