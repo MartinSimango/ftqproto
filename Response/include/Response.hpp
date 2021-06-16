@@ -21,7 +21,8 @@ namespace response {
             if (bytesRead < 0)
                 throw new ResponseException(FAILED_TO_READ_RESPONSE);
 
-            deserialize_int_big_endian(buffer, &messageSize);    
+            if (bytesRead > 0) //only deserilaize when there is something to read
+                deserialize_int_big_endian(buffer, &messageSize);    
         }
 
         inline int getMessageSize() {
@@ -30,7 +31,7 @@ namespace response {
 
         inline void deserializeResponseMessage(unsigned char *buffer){
             buffer = deserialize_char_array(buffer, &message[0]);
-        }
+        } 
 
         inline void deserializeResponseMessageLength(unsigned char *buffer){
             buffer = deserialize_int_big_endian(buffer, &messageSize);
@@ -48,7 +49,7 @@ namespace response {
         std::string message;
 
         Response(int fd): fd(fd) { //for reading response
-            this->messageSize = -1;
+            this->messageSize = 0;
         }
 
         Response(int fd, std::string message): fd(fd), message(message){  //for writing response

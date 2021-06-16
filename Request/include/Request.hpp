@@ -20,15 +20,17 @@ namespace request {
             if (bytesRead < 0)
                 throw new RequestException(FAILED_TO_READ_REQUEST);
 
-            
-            deserializeRequestMessageLength(buffer);
+            if (bytesRead > 0) { //only derialize when something is read
+                deserializeRequestMessageLength(buffer);
+            }
+        
         }
 
         inline int getMessageSize() {
             return messageSize + sizeof(messageSize); //number of bytes of request will
         }
 
-        inline void deserializeRequestMessage(unsigned char *buffer){
+            inline void deserializeRequestMessage(unsigned char *buffer){
             buffer = deserialize_int_big_endian(buffer, (int*)&requestType);
             buffer = deserialize_char_array(buffer, &message[0]);
         }
@@ -41,8 +43,10 @@ namespace request {
             buffer = serialize_int_big_endian(buffer, messageSize);
             buffer = serialize_int_big_endian(buffer, requestType);
             buffer = serialize_char_array(buffer, &message[0]);
+
             return buffer;
         }
+        
         
         public:
             int messageSize; //size of protobuf message in bytes
@@ -50,7 +54,7 @@ namespace request {
             std::string message;
 
         Request(int fd): fd(fd) { //for reading request
-            this->messageSize = -1;
+            this->messageSize = 0;
         }
 
         Request(int fd, std::string message, RequestType::Type requestType): fd(fd), message(message){  //for writing request

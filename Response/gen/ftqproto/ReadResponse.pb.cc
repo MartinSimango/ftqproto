@@ -17,18 +17,19 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace response {
-constexpr ReadReponse::ReadReponse(
+constexpr ReadResponse::ReadResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : data_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct ReadReponseDefaultTypeInternal {
-  constexpr ReadReponseDefaultTypeInternal()
+  : data_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , status_(nullptr){}
+struct ReadResponseDefaultTypeInternal {
+  constexpr ReadResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~ReadReponseDefaultTypeInternal() {}
+  ~ReadResponseDefaultTypeInternal() {}
   union {
-    ReadReponse _instance;
+    ReadResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReadReponseDefaultTypeInternal _ReadReponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReadResponseDefaultTypeInternal _ReadResponse_default_instance_;
 }  // namespace response
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ftqproto_2fReadResponse_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_ftqproto_2fReadResponse_2eproto = nullptr;
@@ -36,28 +37,36 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_s
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ftqproto_2fReadResponse_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::response::ReadReponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::response::ReadResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::response::ReadReponse, data_),
+  PROTOBUF_FIELD_OFFSET(::response::ReadResponse, data_),
+  PROTOBUF_FIELD_OFFSET(::response::ReadResponse, status_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::response::ReadReponse)},
+  { 0, -1, sizeof(::response::ReadResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::response::_ReadReponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::response::_ReadResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_ftqproto_2fReadResponse_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\033ftqproto/ReadResponse.proto\022\010response\""
-  "\033\n\013ReadReponse\022\014\n\004data\030\001 \001(\tb\006proto3"
+  "\n\033ftqproto/ReadResponse.proto\022\010response\032"
+  "\035ftqproto/ResponseStatus.proto\"F\n\014ReadRe"
+  "sponse\022\014\n\004data\030\001 \001(\t\022(\n\006status\030\002 \001(\0132\030.r"
+  "esponse.ResponseStatusBCZAgithub.com/Mar"
+  "tinSimango/goftqproto/internal/response/"
+  "genresponseb\006proto3"
   ;
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_ftqproto_2fReadResponse_2eproto_deps[1] = {
+  &::descriptor_table_ftqproto_2fResponseStatus_2eproto,
+};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fReadResponse_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fReadResponse_2eproto = {
-  false, false, 76, descriptor_table_protodef_ftqproto_2fReadResponse_2eproto, "ftqproto/ReadResponse.proto", 
-  &descriptor_table_ftqproto_2fReadResponse_2eproto_once, nullptr, 0, 1,
+  false, false, 219, descriptor_table_protodef_ftqproto_2fReadResponse_2eproto, "ftqproto/ReadResponse.proto", 
+  &descriptor_table_ftqproto_2fReadResponse_2eproto_once, descriptor_table_ftqproto_2fReadResponse_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fReadResponse_2eproto::offsets,
   file_level_metadata_ftqproto_2fReadResponse_2eproto, file_level_enum_descriptors_ftqproto_2fReadResponse_2eproto, file_level_service_descriptors_ftqproto_2fReadResponse_2eproto,
 };
@@ -71,17 +80,28 @@ namespace response {
 
 // ===================================================================
 
-class ReadReponse::_Internal {
+class ReadResponse::_Internal {
  public:
+  static const ::response::ResponseStatus& status(const ReadResponse* msg);
 };
 
-ReadReponse::ReadReponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+const ::response::ResponseStatus&
+ReadResponse::_Internal::status(const ReadResponse* msg) {
+  return *msg->status_;
+}
+void ReadResponse::clear_status() {
+  if (GetArenaForAllocation() == nullptr && status_ != nullptr) {
+    delete status_;
+  }
+  status_ = nullptr;
+}
+ReadResponse::ReadResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:response.ReadReponse)
+  // @@protoc_insertion_point(arena_constructor:response.ReadResponse)
 }
-ReadReponse::ReadReponse(const ReadReponse& from)
+ReadResponse::ReadResponse(const ReadResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -89,45 +109,56 @@ ReadReponse::ReadReponse(const ReadReponse& from)
     data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_data(), 
       GetArenaForAllocation());
   }
-  // @@protoc_insertion_point(copy_constructor:response.ReadReponse)
+  if (from._internal_has_status()) {
+    status_ = new ::response::ResponseStatus(*from.status_);
+  } else {
+    status_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:response.ReadResponse)
 }
 
-void ReadReponse::SharedCtor() {
+void ReadResponse::SharedCtor() {
 data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+status_ = nullptr;
 }
 
-ReadReponse::~ReadReponse() {
-  // @@protoc_insertion_point(destructor:response.ReadReponse)
+ReadResponse::~ReadResponse() {
+  // @@protoc_insertion_point(destructor:response.ReadResponse)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void ReadReponse::SharedDtor() {
+void ReadResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   data_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete status_;
 }
 
-void ReadReponse::ArenaDtor(void* object) {
-  ReadReponse* _this = reinterpret_cast< ReadReponse* >(object);
+void ReadResponse::ArenaDtor(void* object) {
+  ReadResponse* _this = reinterpret_cast< ReadResponse* >(object);
   (void)_this;
 }
-void ReadReponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void ReadResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void ReadReponse::SetCachedSize(int size) const {
+void ReadResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void ReadReponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:response.ReadReponse)
+void ReadResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:response.ReadResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   data_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && status_ != nullptr) {
+    delete status_;
+  }
+  status_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ReadReponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ReadResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -138,7 +169,14 @@ const char* ReadReponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_data();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "response.ReadReponse.data"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "response.ReadResponse.data"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .response.ResponseStatus status = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -165,9 +203,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* ReadReponse::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ReadResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:response.ReadReponse)
+  // @@protoc_insertion_point(serialize_to_array_start:response.ReadResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -176,21 +214,29 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_data().data(), static_cast<int>(this->_internal_data().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "response.ReadReponse.data");
+      "response.ReadResponse.data");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_data(), target);
+  }
+
+  // .response.ResponseStatus status = 2;
+  if (this->has_status()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::status(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:response.ReadReponse)
+  // @@protoc_insertion_point(serialize_to_array_end:response.ReadResponse)
   return target;
 }
 
-size_t ReadReponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:response.ReadReponse)
+size_t ReadResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:response.ReadResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -204,6 +250,13 @@ size_t ReadReponse::ByteSizeLong() const {
         this->_internal_data());
   }
 
+  // .response.ResponseStatus status = 2;
+  if (this->has_status()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *status_);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -213,23 +266,23 @@ size_t ReadReponse::ByteSizeLong() const {
   return total_size;
 }
 
-void ReadReponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:response.ReadReponse)
+void ReadResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:response.ReadResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  const ReadReponse* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReadReponse>(
+  const ReadResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReadResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:response.ReadReponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:response.ReadResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:response.ReadReponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:response.ReadResponse)
     MergeFrom(*source);
   }
 }
 
-void ReadReponse::MergeFrom(const ReadReponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:response.ReadReponse)
+void ReadResponse::MergeFrom(const ReadResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:response.ReadResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -238,27 +291,30 @@ void ReadReponse::MergeFrom(const ReadReponse& from) {
   if (!from.data().empty()) {
     _internal_set_data(from._internal_data());
   }
+  if (from.has_status()) {
+    _internal_mutable_status()->::response::ResponseStatus::MergeFrom(from._internal_status());
+  }
 }
 
-void ReadReponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:response.ReadReponse)
+void ReadResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:response.ReadResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ReadReponse::CopyFrom(const ReadReponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:response.ReadReponse)
+void ReadResponse::CopyFrom(const ReadResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:response.ReadResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ReadReponse::IsInitialized() const {
+bool ReadResponse::IsInitialized() const {
   return true;
 }
 
-void ReadReponse::InternalSwap(ReadReponse* other) {
+void ReadResponse::InternalSwap(ReadResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
@@ -266,9 +322,10 @@ void ReadReponse::InternalSwap(ReadReponse* other) {
       &data_, GetArenaForAllocation(),
       &other->data_, other->GetArenaForAllocation()
   );
+  swap(status_, other->status_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ReadReponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ReadResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ftqproto_2fReadResponse_2eproto_getter, &descriptor_table_ftqproto_2fReadResponse_2eproto_once,
       file_level_metadata_ftqproto_2fReadResponse_2eproto[0]);
@@ -277,8 +334,8 @@ void ReadReponse::InternalSwap(ReadReponse* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace response
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::response::ReadReponse* Arena::CreateMaybeMessage< ::response::ReadReponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::response::ReadReponse >(arena);
+template<> PROTOBUF_NOINLINE ::response::ReadResponse* Arena::CreateMaybeMessage< ::response::ReadResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::response::ReadResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

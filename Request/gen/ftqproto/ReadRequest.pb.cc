@@ -57,12 +57,13 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_ftqproto_2fReadRequest_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\032ftqproto/ReadRequest.proto\022\007request\"L\n"
   "\013ReadRequest\022\020\n\010filepath\030\001 \001(\t\022\033\n\023number"
-  "OfBytesToRead\030\002 \001(\005\022\016\n\006offset\030\003 \001(\005b\006pro"
-  "to3"
+  "OfBytesToRead\030\002 \001(\005\022\016\n\006offset\030\003 \001(\005BAZ\?g"
+  "ithub.com/MartinSimango/goftqproto/inter"
+  "nal/request/genrequestb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fReadRequest_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fReadRequest_2eproto = {
-  false, false, 123, descriptor_table_protodef_ftqproto_2fReadRequest_2eproto, "ftqproto/ReadRequest.proto", 
+  false, false, 190, descriptor_table_protodef_ftqproto_2fReadRequest_2eproto, "ftqproto/ReadRequest.proto", 
   &descriptor_table_ftqproto_2fReadRequest_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fReadRequest_2eproto::offsets,
   file_level_metadata_ftqproto_2fReadRequest_2eproto, file_level_enum_descriptors_ftqproto_2fReadRequest_2eproto, file_level_service_descriptors_ftqproto_2fReadRequest_2eproto,

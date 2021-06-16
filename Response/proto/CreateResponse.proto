@@ -1,9 +1,13 @@
 syntax = "proto3";
 
+option go_package = "github.com/MartinSimango/goftqproto/internal/response/genresponse";
+
 package response;
 
 import "ftqproto/RequestFile.proto";
+import "ftqproto/ResponseStatus.proto";
 
-message CreateReponse {
+message CreateResponse {
     repeated request.RequestFile files = 1;
+    ResponseStatus status = 2; 
 }

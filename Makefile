@@ -13,6 +13,17 @@ $(SUBDIRS_CLEAN):
 build: install-headers $(SUBDIRS)
 
 
+bi-FileServer: bi-Response bi-Request
+	$(MAKE) install-headers build install -C FileServer
+bi-FileClient:
+	$(MAKE) install-headers build install -C FileClient
+bi-Request:
+	$(MAKE) install-headers build install -C Request
+bi-Response:
+	$(MAKE) install-headers build install -C Response
+bi-FileReadWriter:
+	$(MAKE) install-headers build install -C FileReadWriter
+
 install: 
 	$(MAKE) install -C FileServer
 	$(MAKE) install -C FileClient

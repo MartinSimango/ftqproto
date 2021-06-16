@@ -52,11 +52,13 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_ftqproto_2fGetRequest_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\031ftqproto/GetRequest.proto\022\007request\"\036\n\n"
-  "GetRequest\022\020\n\010filePath\030\001 \001(\tb\006proto3"
+  "GetRequest\022\020\n\010filePath\030\001 \001(\tBAZ\?github.c"
+  "om/MartinSimango/goftqproto/internal/req"
+  "uest/genrequestb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fGetRequest_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fGetRequest_2eproto = {
-  false, false, 76, descriptor_table_protodef_ftqproto_2fGetRequest_2eproto, "ftqproto/GetRequest.proto", 
+  false, false, 143, descriptor_table_protodef_ftqproto_2fGetRequest_2eproto, "ftqproto/GetRequest.proto", 
   &descriptor_table_ftqproto_2fGetRequest_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fGetRequest_2eproto::offsets,
   file_level_metadata_ftqproto_2fGetRequest_2eproto, file_level_enum_descriptors_ftqproto_2fGetRequest_2eproto, file_level_service_descriptors_ftqproto_2fGetRequest_2eproto,

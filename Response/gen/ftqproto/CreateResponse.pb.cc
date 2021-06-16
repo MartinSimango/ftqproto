@@ -17,18 +17,19 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace response {
-constexpr CreateReponse::CreateReponse(
+constexpr CreateResponse::CreateResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : files_(){}
-struct CreateReponseDefaultTypeInternal {
-  constexpr CreateReponseDefaultTypeInternal()
+  : files_()
+  , status_(nullptr){}
+struct CreateResponseDefaultTypeInternal {
+  constexpr CreateResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~CreateReponseDefaultTypeInternal() {}
+  ~CreateResponseDefaultTypeInternal() {}
   union {
-    CreateReponse _instance;
+    CreateResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CreateReponseDefaultTypeInternal _CreateReponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CreateResponseDefaultTypeInternal _CreateResponse_default_instance_;
 }  // namespace response
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ftqproto_2fCreateResponse_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_ftqproto_2fCreateResponse_2eproto = nullptr;
@@ -36,33 +37,38 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_s
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ftqproto_2fCreateResponse_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::response::CreateReponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::response::CreateResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::response::CreateReponse, files_),
+  PROTOBUF_FIELD_OFFSET(::response::CreateResponse, files_),
+  PROTOBUF_FIELD_OFFSET(::response::CreateResponse, status_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::response::CreateReponse)},
+  { 0, -1, sizeof(::response::CreateResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::response::_CreateReponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::response::_CreateResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_ftqproto_2fCreateResponse_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\035ftqproto/CreateResponse.proto\022\010respons"
-  "e\032\032ftqproto/RequestFile.proto\"4\n\rCreateR"
-  "eponse\022#\n\005files\030\001 \003(\0132\024.request.RequestF"
-  "ileb\006proto3"
+  "e\032\032ftqproto/RequestFile.proto\032\035ftqproto/"
+  "ResponseStatus.proto\"_\n\016CreateResponse\022#"
+  "\n\005files\030\001 \003(\0132\024.request.RequestFile\022(\n\006s"
+  "tatus\030\002 \001(\0132\030.response.ResponseStatusBCZ"
+  "Agithub.com/MartinSimango/goftqproto/int"
+  "ernal/response/genresponseb\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_ftqproto_2fCreateResponse_2eproto_deps[1] = {
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_ftqproto_2fCreateResponse_2eproto_deps[2] = {
   &::descriptor_table_ftqproto_2fRequestFile_2eproto,
+  &::descriptor_table_ftqproto_2fResponseStatus_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fCreateResponse_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fCreateResponse_2eproto = {
-  false, false, 131, descriptor_table_protodef_ftqproto_2fCreateResponse_2eproto, "ftqproto/CreateResponse.proto", 
-  &descriptor_table_ftqproto_2fCreateResponse_2eproto_once, descriptor_table_ftqproto_2fCreateResponse_2eproto_deps, 1, 1,
+  false, false, 274, descriptor_table_protodef_ftqproto_2fCreateResponse_2eproto, "ftqproto/CreateResponse.proto", 
+  &descriptor_table_ftqproto_2fCreateResponse_2eproto_once, descriptor_table_ftqproto_2fCreateResponse_2eproto_deps, 2, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fCreateResponse_2eproto::offsets,
   file_level_metadata_ftqproto_2fCreateResponse_2eproto, file_level_enum_descriptors_ftqproto_2fCreateResponse_2eproto, file_level_service_descriptors_ftqproto_2fCreateResponse_2eproto,
 };
@@ -76,61 +82,83 @@ namespace response {
 
 // ===================================================================
 
-class CreateReponse::_Internal {
+class CreateResponse::_Internal {
  public:
+  static const ::response::ResponseStatus& status(const CreateResponse* msg);
 };
 
-void CreateReponse::clear_files() {
+const ::response::ResponseStatus&
+CreateResponse::_Internal::status(const CreateResponse* msg) {
+  return *msg->status_;
+}
+void CreateResponse::clear_files() {
   files_.Clear();
 }
-CreateReponse::CreateReponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+void CreateResponse::clear_status() {
+  if (GetArenaForAllocation() == nullptr && status_ != nullptr) {
+    delete status_;
+  }
+  status_ = nullptr;
+}
+CreateResponse::CreateResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   files_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:response.CreateReponse)
+  // @@protoc_insertion_point(arena_constructor:response.CreateResponse)
 }
-CreateReponse::CreateReponse(const CreateReponse& from)
+CreateResponse::CreateResponse(const CreateResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       files_(from.files_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:response.CreateReponse)
+  if (from._internal_has_status()) {
+    status_ = new ::response::ResponseStatus(*from.status_);
+  } else {
+    status_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:response.CreateResponse)
 }
 
-void CreateReponse::SharedCtor() {
+void CreateResponse::SharedCtor() {
+status_ = nullptr;
 }
 
-CreateReponse::~CreateReponse() {
-  // @@protoc_insertion_point(destructor:response.CreateReponse)
+CreateResponse::~CreateResponse() {
+  // @@protoc_insertion_point(destructor:response.CreateResponse)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void CreateReponse::SharedDtor() {
+void CreateResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete status_;
 }
 
-void CreateReponse::ArenaDtor(void* object) {
-  CreateReponse* _this = reinterpret_cast< CreateReponse* >(object);
+void CreateResponse::ArenaDtor(void* object) {
+  CreateResponse* _this = reinterpret_cast< CreateResponse* >(object);
   (void)_this;
 }
-void CreateReponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void CreateResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void CreateReponse::SetCachedSize(int size) const {
+void CreateResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void CreateReponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:response.CreateReponse)
+void CreateResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:response.CreateResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   files_.Clear();
+  if (GetArenaForAllocation() == nullptr && status_ != nullptr) {
+    delete status_;
+  }
+  status_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* CreateReponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CreateResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -146,6 +174,13 @@ const char* CreateReponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // .response.ResponseStatus status = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -171,9 +206,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* CreateReponse::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* CreateResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:response.CreateReponse)
+  // @@protoc_insertion_point(serialize_to_array_start:response.CreateResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -185,16 +220,24 @@ failure:
       InternalWriteMessage(1, this->_internal_files(i), target, stream);
   }
 
+  // .response.ResponseStatus status = 2;
+  if (this->has_status()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::status(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:response.CreateReponse)
+  // @@protoc_insertion_point(serialize_to_array_end:response.CreateResponse)
   return target;
 }
 
-size_t CreateReponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:response.CreateReponse)
+size_t CreateResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:response.CreateResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -208,6 +251,13 @@ size_t CreateReponse::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // .response.ResponseStatus status = 2;
+  if (this->has_status()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *status_);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -217,56 +267,60 @@ size_t CreateReponse::ByteSizeLong() const {
   return total_size;
 }
 
-void CreateReponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:response.CreateReponse)
+void CreateResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:response.CreateResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  const CreateReponse* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<CreateReponse>(
+  const CreateResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<CreateResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:response.CreateReponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:response.CreateResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:response.CreateReponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:response.CreateResponse)
     MergeFrom(*source);
   }
 }
 
-void CreateReponse::MergeFrom(const CreateReponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:response.CreateReponse)
+void CreateResponse::MergeFrom(const CreateResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:response.CreateResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   files_.MergeFrom(from.files_);
+  if (from.has_status()) {
+    _internal_mutable_status()->::response::ResponseStatus::MergeFrom(from._internal_status());
+  }
 }
 
-void CreateReponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:response.CreateReponse)
+void CreateResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:response.CreateResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void CreateReponse::CopyFrom(const CreateReponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:response.CreateReponse)
+void CreateResponse::CopyFrom(const CreateResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:response.CreateResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool CreateReponse::IsInitialized() const {
+bool CreateResponse::IsInitialized() const {
   return true;
 }
 
-void CreateReponse::InternalSwap(CreateReponse* other) {
+void CreateResponse::InternalSwap(CreateResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   files_.InternalSwap(&other->files_);
+  swap(status_, other->status_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CreateReponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CreateResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_ftqproto_2fCreateResponse_2eproto_getter, &descriptor_table_ftqproto_2fCreateResponse_2eproto_once,
       file_level_metadata_ftqproto_2fCreateResponse_2eproto[0]);
@@ -275,8 +329,8 @@ void CreateReponse::InternalSwap(CreateReponse* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace response
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::response::CreateReponse* Arena::CreateMaybeMessage< ::response::CreateReponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::response::CreateReponse >(arena);
+template<> PROTOBUF_NOINLINE ::response::CreateResponse* Arena::CreateMaybeMessage< ::response::CreateResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::response::CreateResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -15,7 +15,7 @@ int Response::Write() {
     if (bytes_written < 0) {
         throw new ResponseException(FAILED_TO_WRITE_RESPONSE);
     }
-    
+
     return bytes_written;
 }
 
@@ -25,7 +25,7 @@ int Response::Read(){
 
     unsigned char tmp_buffer[messageSize];
     unsigned char* buffer = new unsigned char[messageSize]; 
-
+    
     int bytesRead;
     int totalBytesRead = 0;
     while (totalBytesRead < messageSize && (bytesRead = read(fd, tmp_buffer, messageSize) ) > 0) {

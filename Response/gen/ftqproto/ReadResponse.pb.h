@@ -31,6 +31,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include "ftqproto/ResponseStatus.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_ftqproto_2fReadResponse_2eproto
@@ -54,35 +55,35 @@ struct TableStruct_ftqproto_2fReadResponse_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fReadResponse_2eproto;
 namespace response {
-class ReadReponse;
-struct ReadReponseDefaultTypeInternal;
-extern ReadReponseDefaultTypeInternal _ReadReponse_default_instance_;
+class ReadResponse;
+struct ReadResponseDefaultTypeInternal;
+extern ReadResponseDefaultTypeInternal _ReadResponse_default_instance_;
 }  // namespace response
 PROTOBUF_NAMESPACE_OPEN
-template<> ::response::ReadReponse* Arena::CreateMaybeMessage<::response::ReadReponse>(Arena*);
+template<> ::response::ReadResponse* Arena::CreateMaybeMessage<::response::ReadResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace response {
 
 // ===================================================================
 
-class ReadReponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:response.ReadReponse) */ {
+class ReadResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:response.ReadResponse) */ {
  public:
-  inline ReadReponse() : ReadReponse(nullptr) {}
-  ~ReadReponse() override;
-  explicit constexpr ReadReponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ReadResponse() : ReadResponse(nullptr) {}
+  ~ReadResponse() override;
+  explicit constexpr ReadResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  ReadReponse(const ReadReponse& from);
-  ReadReponse(ReadReponse&& from) noexcept
-    : ReadReponse() {
+  ReadResponse(const ReadResponse& from);
+  ReadResponse(ReadResponse&& from) noexcept
+    : ReadResponse() {
     *this = ::std::move(from);
   }
 
-  inline ReadReponse& operator=(const ReadReponse& from) {
+  inline ReadResponse& operator=(const ReadResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ReadReponse& operator=(ReadReponse&& from) noexcept {
+  inline ReadResponse& operator=(ReadResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()) {
       InternalSwap(&from);
@@ -101,20 +102,20 @@ class ReadReponse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const ReadReponse& default_instance() {
+  static const ReadResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const ReadReponse* internal_default_instance() {
-    return reinterpret_cast<const ReadReponse*>(
-               &_ReadReponse_default_instance_);
+  static inline const ReadResponse* internal_default_instance() {
+    return reinterpret_cast<const ReadResponse*>(
+               &_ReadResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(ReadReponse& a, ReadReponse& b) {
+  friend void swap(ReadResponse& a, ReadResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReadReponse* other) {
+  inline void Swap(ReadResponse* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -122,7 +123,7 @@ class ReadReponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(ReadReponse* other) {
+  void UnsafeArenaSwap(ReadResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -130,17 +131,17 @@ class ReadReponse final :
 
   // implements Message ----------------------------------------------
 
-  inline ReadReponse* New() const final {
-    return new ReadReponse();
+  inline ReadResponse* New() const final {
+    return new ReadResponse();
   }
 
-  ReadReponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ReadReponse>(arena);
+  ReadResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ReadResponse>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const ReadReponse& from);
-  void MergeFrom(const ReadReponse& from);
+  void CopyFrom(const ReadResponse& from);
+  void MergeFrom(const ReadResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -154,13 +155,13 @@ class ReadReponse final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ReadReponse* other);
+  void InternalSwap(ReadResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "response.ReadReponse";
+    return "response.ReadResponse";
   }
   protected:
-  explicit ReadReponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit ReadResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -174,6 +175,7 @@ class ReadReponse final :
 
   enum : int {
     kDataFieldNumber = 1,
+    kStatusFieldNumber = 2,
   };
   // string data = 1;
   void clear_data();
@@ -189,7 +191,25 @@ class ReadReponse final :
   std::string* _internal_mutable_data();
   public:
 
-  // @@protoc_insertion_point(class_scope:response.ReadReponse)
+  // .response.ResponseStatus status = 2;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  const ::response::ResponseStatus& status() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::response::ResponseStatus* release_status();
+  ::response::ResponseStatus* mutable_status();
+  void set_allocated_status(::response::ResponseStatus* status);
+  private:
+  const ::response::ResponseStatus& _internal_status() const;
+  ::response::ResponseStatus* _internal_mutable_status();
+  public:
+  void unsafe_arena_set_allocated_status(
+      ::response::ResponseStatus* status);
+  ::response::ResponseStatus* unsafe_arena_release_status();
+
+  // @@protoc_insertion_point(class_scope:response.ReadResponse)
  private:
   class _Internal;
 
@@ -197,6 +217,7 @@ class ReadReponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
+  ::response::ResponseStatus* status_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ftqproto_2fReadResponse_2eproto;
 };
@@ -209,43 +230,43 @@ class ReadReponse final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// ReadReponse
+// ReadResponse
 
 // string data = 1;
-inline void ReadReponse::clear_data() {
+inline void ReadResponse::clear_data() {
   data_.ClearToEmpty();
 }
-inline const std::string& ReadReponse::data() const {
-  // @@protoc_insertion_point(field_get:response.ReadReponse.data)
+inline const std::string& ReadResponse::data() const {
+  // @@protoc_insertion_point(field_get:response.ReadResponse.data)
   return _internal_data();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void ReadReponse::set_data(ArgT0&& arg0, ArgT... args) {
+void ReadResponse::set_data(ArgT0&& arg0, ArgT... args) {
  
  data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:response.ReadReponse.data)
+  // @@protoc_insertion_point(field_set:response.ReadResponse.data)
 }
-inline std::string* ReadReponse::mutable_data() {
-  // @@protoc_insertion_point(field_mutable:response.ReadReponse.data)
+inline std::string* ReadResponse::mutable_data() {
+  // @@protoc_insertion_point(field_mutable:response.ReadResponse.data)
   return _internal_mutable_data();
 }
-inline const std::string& ReadReponse::_internal_data() const {
+inline const std::string& ReadResponse::_internal_data() const {
   return data_.Get();
 }
-inline void ReadReponse::_internal_set_data(const std::string& value) {
+inline void ReadResponse::_internal_set_data(const std::string& value) {
   
   data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* ReadReponse::_internal_mutable_data() {
+inline std::string* ReadResponse::_internal_mutable_data() {
   
   return data_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* ReadReponse::release_data() {
-  // @@protoc_insertion_point(field_release:response.ReadReponse.data)
+inline std::string* ReadResponse::release_data() {
+  // @@protoc_insertion_point(field_release:response.ReadResponse.data)
   return data_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
-inline void ReadReponse::set_allocated_data(std::string* data) {
+inline void ReadResponse::set_allocated_data(std::string* data) {
   if (data != nullptr) {
     
   } else {
@@ -253,7 +274,86 @@ inline void ReadReponse::set_allocated_data(std::string* data) {
   }
   data_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), data,
       GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:response.ReadReponse.data)
+  // @@protoc_insertion_point(field_set_allocated:response.ReadResponse.data)
+}
+
+// .response.ResponseStatus status = 2;
+inline bool ReadResponse::_internal_has_status() const {
+  return this != internal_default_instance() && status_ != nullptr;
+}
+inline bool ReadResponse::has_status() const {
+  return _internal_has_status();
+}
+inline const ::response::ResponseStatus& ReadResponse::_internal_status() const {
+  const ::response::ResponseStatus* p = status_;
+  return p != nullptr ? *p : reinterpret_cast<const ::response::ResponseStatus&>(
+      ::response::_ResponseStatus_default_instance_);
+}
+inline const ::response::ResponseStatus& ReadResponse::status() const {
+  // @@protoc_insertion_point(field_get:response.ReadResponse.status)
+  return _internal_status();
+}
+inline void ReadResponse::unsafe_arena_set_allocated_status(
+    ::response::ResponseStatus* status) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(status_);
+  }
+  status_ = status;
+  if (status) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:response.ReadResponse.status)
+}
+inline ::response::ResponseStatus* ReadResponse::release_status() {
+  
+  ::response::ResponseStatus* temp = status_;
+  status_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::response::ResponseStatus* ReadResponse::unsafe_arena_release_status() {
+  // @@protoc_insertion_point(field_release:response.ReadResponse.status)
+  
+  ::response::ResponseStatus* temp = status_;
+  status_ = nullptr;
+  return temp;
+}
+inline ::response::ResponseStatus* ReadResponse::_internal_mutable_status() {
+  
+  if (status_ == nullptr) {
+    auto* p = CreateMaybeMessage<::response::ResponseStatus>(GetArenaForAllocation());
+    status_ = p;
+  }
+  return status_;
+}
+inline ::response::ResponseStatus* ReadResponse::mutable_status() {
+  // @@protoc_insertion_point(field_mutable:response.ReadResponse.status)
+  return _internal_mutable_status();
+}
+inline void ReadResponse::set_allocated_status(::response::ResponseStatus* status) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(status_);
+  }
+  if (status) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(status));
+    if (message_arena != submessage_arena) {
+      status = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, status, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  status_ = status;
+  // @@protoc_insertion_point(field_set_allocated:response.ReadResponse.status)
 }
 
 #ifdef __GNUC__

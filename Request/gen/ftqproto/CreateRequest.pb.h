@@ -174,12 +174,11 @@ class CreateRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFilesFieldNumber = 4,
+    kFilesFieldNumber = 3,
     kSourceFilePathFieldNumber = 1,
     kDestinationFilePathFieldNumber = 2,
-    kNumOfFilesFieldNumber = 3,
   };
-  // repeated .request.RequestFile files = 4;
+  // repeated .request.RequestFile files = 3;
   int files_size() const;
   private:
   int _internal_files_size() const;
@@ -225,15 +224,6 @@ class CreateRequest final :
   std::string* _internal_mutable_destinationfilepath();
   public:
 
-  // int32 numOfFiles = 3;
-  void clear_numoffiles();
-  ::PROTOBUF_NAMESPACE_ID::int32 numoffiles() const;
-  void set_numoffiles(::PROTOBUF_NAMESPACE_ID::int32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::int32 _internal_numoffiles() const;
-  void _internal_set_numoffiles(::PROTOBUF_NAMESPACE_ID::int32 value);
-  public:
-
   // @@protoc_insertion_point(class_scope:request.CreateRequest)
  private:
   class _Internal;
@@ -244,7 +234,6 @@ class CreateRequest final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile > files_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sourcefilepath_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr destinationfilepath_;
-  ::PROTOBUF_NAMESPACE_ID::int32 numoffiles_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ftqproto_2fCreateRequest_2eproto;
 };
@@ -349,27 +338,7 @@ inline void CreateRequest::set_allocated_destinationfilepath(std::string* destin
   // @@protoc_insertion_point(field_set_allocated:request.CreateRequest.destinationFilePath)
 }
 
-// int32 numOfFiles = 3;
-inline void CreateRequest::clear_numoffiles() {
-  numoffiles_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 CreateRequest::_internal_numoffiles() const {
-  return numoffiles_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 CreateRequest::numoffiles() const {
-  // @@protoc_insertion_point(field_get:request.CreateRequest.numOfFiles)
-  return _internal_numoffiles();
-}
-inline void CreateRequest::_internal_set_numoffiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  numoffiles_ = value;
-}
-inline void CreateRequest::set_numoffiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _internal_set_numoffiles(value);
-  // @@protoc_insertion_point(field_set:request.CreateRequest.numOfFiles)
-}
-
-// repeated .request.RequestFile files = 4;
+// repeated .request.RequestFile files = 3;
 inline int CreateRequest::_internal_files_size() const {
   return files_.size();
 }

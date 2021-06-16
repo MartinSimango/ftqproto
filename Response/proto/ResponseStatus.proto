@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "github.com/MartinSimango/goftqproto/internal/response/genresponse";
+
+package response;
+
+
+
+
+message ResponseStatus {
+    string body = 1;
+    Status status = 2;
+
+    enum Status {
+        OK = 0;
+        FILE_NOT_FOUND = 1;
+        NO_WRITE_PERMISSIONS = 2;
+        NO_READ_PERMISSIONS = 3;
+        FAILED_TO_CREATE_FILE = 4;
+        FAILED_TO_CREATE_DIRECTORY = 5;
+    };
+}

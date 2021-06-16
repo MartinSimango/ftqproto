@@ -42,27 +42,28 @@ bool FileServer::HandleClientRequest() {
         throw new ServerException(SERVER_NOT_RUNNING);
     }
     Request request(connfd);
-   
+    int bytes = request.Read();
 
-    if (request.Read() == 0) { //read nothing from the client then close the connection with it
+    if (bytes == 0) { //read nothing from the client then close the connection with it
+
          return false;
     }
     switch (request.requestType) {
 
         case RequestType::CREATE: {
-            handleRequest(createCreateRequest(request.message));
+            handleRequest(createCreateRequest(request.message.c_str()));
             break;
         }
         case RequestType::GET: {
-            handleRequest(createGetRequest(request.message));
+            handleRequest(createGetRequest(request.message.c_str()));
             break;
         }
         case RequestType::READ: {
-            handleRequest(createReadRequest(request.message));
+            handleRequest(createReadRequest(request.message.c_str()));
             break;
         }
         case RequestType::WRITE: {
-            handleRequest(createWriteRequest(request.message));
+            handleRequest(createWriteRequest(request.message.c_str()));
             break;
         }
         default: {//unknown request close connection

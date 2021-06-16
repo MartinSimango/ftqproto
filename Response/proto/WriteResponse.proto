@@ -1,8 +1,13 @@
 syntax = "proto3";
 
+option go_package = "github.com/MartinSimango/goftqproto/internal/response/genresponse";
+
 package response;
+
+import "ftqproto/ResponseStatus.proto";
 
 
 message WriteReponse {
     int32 bytesWritten = 1;
+    ResponseStatus status = 2; 
 }

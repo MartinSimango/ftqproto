@@ -57,7 +57,7 @@ int FileReadWriter::GetFileDescriptor() const {
 }
 
 
-ResponseStatus::Type FileReadWriter::CheckFile(const char * filename, Mode::Type mode) {
+ResponseStatus_Status FileReadWriter::CheckFile(const char * filename, Mode::Type mode) {
       return (mode == Mode::READ) ? checkFileForRead(filename)
                             : checkFileForWrite(filename);
 }

@@ -30,14 +30,13 @@ std::string FileClient::SendCreateRequest(std::string protoRequest) {
     if (!isConnected)
         throw new ClientException(CLIENT_NOT_CONNECTED);
 
-
     Request request(sockfd, protoRequest, RequestType::CREATE);
     request.Write();
 
     Response response(sockfd);
     response.Read();
-
-    return response.message;
+    
+    return response.message.c_str();
 }
 
 std::string FileClient::SendReadRequest(std::string protoRequest) {

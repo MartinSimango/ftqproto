@@ -21,8 +21,7 @@ constexpr CreateRequest::CreateRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : files_()
   , sourcefilepath_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , destinationfilepath_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , numoffiles_(0){}
+  , destinationfilepath_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct CreateRequestDefaultTypeInternal {
   constexpr CreateRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -45,7 +44,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ftqproto_2fCreateRequest_2epro
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::request::CreateRequest, sourcefilepath_),
   PROTOBUF_FIELD_OFFSET(::request::CreateRequest, destinationfilepath_),
-  PROTOBUF_FIELD_OFFSET(::request::CreateRequest, numoffiles_),
   PROTOBUF_FIELD_OFFSET(::request::CreateRequest, files_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -58,18 +56,19 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_ftqproto_2fCreateRequest_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\034ftqproto/CreateRequest.proto\022\007request\032"
-  "\032ftqproto/RequestFile.proto\"}\n\rCreateReq"
+  "\032ftqproto/RequestFile.proto\"i\n\rCreateReq"
   "uest\022\026\n\016sourceFilePath\030\001 \001(\t\022\033\n\023destinat"
-  "ionFilePath\030\002 \001(\t\022\022\n\nnumOfFiles\030\003 \001(\005\022#\n"
-  "\005files\030\004 \003(\0132\024.request.RequestFileb\006prot"
-  "o3"
+  "ionFilePath\030\002 \001(\t\022#\n\005files\030\003 \003(\0132\024.reque"
+  "st.RequestFileBAZ\?github.com/MartinSiman"
+  "go/goftqproto/internal/request/genreques"
+  "tb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_ftqproto_2fCreateRequest_2eproto_deps[1] = {
   &::descriptor_table_ftqproto_2fRequestFile_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fCreateRequest_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fCreateRequest_2eproto = {
-  false, false, 202, descriptor_table_protodef_ftqproto_2fCreateRequest_2eproto, "ftqproto/CreateRequest.proto", 
+  false, false, 249, descriptor_table_protodef_ftqproto_2fCreateRequest_2eproto, "ftqproto/CreateRequest.proto", 
   &descriptor_table_ftqproto_2fCreateRequest_2eproto_once, descriptor_table_ftqproto_2fCreateRequest_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fCreateRequest_2eproto::offsets,
   file_level_metadata_ftqproto_2fCreateRequest_2eproto, file_level_enum_descriptors_ftqproto_2fCreateRequest_2eproto, file_level_service_descriptors_ftqproto_2fCreateRequest_2eproto,
@@ -112,14 +111,12 @@ CreateRequest::CreateRequest(const CreateRequest& from)
     destinationfilepath_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_destinationfilepath(), 
       GetArenaForAllocation());
   }
-  numoffiles_ = from.numoffiles_;
   // @@protoc_insertion_point(copy_constructor:request.CreateRequest)
 }
 
 void CreateRequest::SharedCtor() {
 sourcefilepath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 destinationfilepath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-numoffiles_ = 0;
 }
 
 CreateRequest::~CreateRequest() {
@@ -153,7 +150,6 @@ void CreateRequest::Clear() {
   files_.Clear();
   sourcefilepath_.ClearToEmpty();
   destinationfilepath_.ClearToEmpty();
-  numoffiles_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -181,23 +177,16 @@ const char* CreateRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // int32 numOfFiles = 3;
+      // repeated .request.RequestFile files = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          numoffiles_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated .request.RequestFile files = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_files(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -249,18 +238,12 @@ failure:
         2, this->_internal_destinationfilepath(), target);
   }
 
-  // int32 numOfFiles = 3;
-  if (this->numoffiles() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_numoffiles(), target);
-  }
-
-  // repeated .request.RequestFile files = 4;
+  // repeated .request.RequestFile files = 3;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_files_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_files(i), target, stream);
+      InternalWriteMessage(3, this->_internal_files(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -279,7 +262,7 @@ size_t CreateRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .request.RequestFile files = 4;
+  // repeated .request.RequestFile files = 3;
   total_size += 1UL * this->_internal_files_size();
   for (const auto& msg : this->files_) {
     total_size +=
@@ -298,13 +281,6 @@ size_t CreateRequest::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_destinationfilepath());
-  }
-
-  // int32 numOfFiles = 3;
-  if (this->numoffiles() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_numoffiles());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -345,9 +321,6 @@ void CreateRequest::MergeFrom(const CreateRequest& from) {
   if (!from.destinationfilepath().empty()) {
     _internal_set_destinationfilepath(from._internal_destinationfilepath());
   }
-  if (from.numoffiles() != 0) {
-    _internal_set_numoffiles(from._internal_numoffiles());
-  }
 }
 
 void CreateRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -382,7 +355,6 @@ void CreateRequest::InternalSwap(CreateRequest* other) {
       &destinationfilepath_, GetArenaForAllocation(),
       &other->destinationfilepath_, other->GetArenaForAllocation()
   );
-  swap(numoffiles_, other->numoffiles_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateRequest::GetMetadata() const {

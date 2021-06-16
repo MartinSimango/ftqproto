@@ -30,18 +30,20 @@ static const char * FAILED_TO_GET_FD_NOT_OPEN = "Cannot get file descriptor of c
 class FRWException : public error::ErrorException {
     
     private:
-	    const char* error;
-        const char* filename;
+	   std::string error;
+       std::string filename;
     
     public:
-        FRWException(const char *error, const char * filename) : error::ErrorException(), error(error), filename(filename){}
+        FRWException(std::string error, std::string filename) : error::ErrorException(), error(error), filename(filename){
+
+        }
     	
         const char * what() const throw() override {
-            return error;   
+            return error.c_str();   
         }
 
         const char * getFilename() const {
-            return filename;   
+            return filename.c_str();   
         }
         
         std::string getErrorMessage() override {

@@ -3,14 +3,16 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdio.h>
 #include <sys/stat.h>
 #include <string.h>
-#include <stdio.h>
+#include <libgen.h>
 #include <ftqproto/FRWException.hpp>
 #include <ftqproto/FileReadWriterConstants.hpp>
 #include <ftqproto/ResponseConstants.hpp>
+#include <ftqproto/ResponseStatus.pb.h>
 
-
+using namespace response;
 
 namespace frw {
 
@@ -36,20 +38,26 @@ namespace frw {
             opened = true;    
         }
 
-        static inline ResponseStatus::Type checkFileForRead(const char * filename) {
+        static inline ResponseStatus_Status checkFileForRead(const char * filename) {
                 if (access(filename, F_OK) == 0) {
-                    return access(filename, R_OK) == 0 ? ResponseStatus::OK : ResponseStatus::NO_READ_PERMISSIONS;
+                    return access(filename, R_OK) == 0 ? ResponseStatus_Status_OK : ResponseStatus_Status_NO_READ_PERMISSIONS;
                 }
                 else {
-                    return ResponseStatus::FILE_NOT_FOUND;
+                    return ResponseStatus_Status_FILE_NOT_FOUND;
                 }
             }    
 
-        static inline ResponseStatus::Type checkFileForWrite(const char * filename) {
-            if (access(filename, F_OK) == 0) {
-                return access(filename, W_OK) == 0 ? ResponseStatus::OK : ResponseStatus::NO_WRITE_PERMISIONS;
+        static inline ResponseStatus_Status checkFileForWrite(std::string filepath) {
+            //check if parent directory exists
+            std::string parentDir = std::string(dirname(&filepath[0]));
+
+            if (access(parentDir.c_str(), F_OK) != 0 ){
+                return ResponseStatus_Status_FILE_NOT_FOUND;
             }
-            return ResponseStatus::OK;
+            if (access(filepath.c_str(), F_OK) == 0) {
+                return access(filepath.c_str(), W_OK) == 0 ? ResponseStatus_Status_OK : ResponseStatus_Status_NO_WRITE_PERMISSIONS;
+            }
+            return ResponseStatus_Status_OK;
         }
                 
         
@@ -77,7 +85,7 @@ namespace frw {
 
         int GetFileDescriptor() const;
 
-        static ResponseStatus::Type CheckFile(const char * filename, Mode::Type mode);
+        static ResponseStatus_Status CheckFile(const char * filename, Mode::Type mode);
 
         static bool CheckFileIsDirectory(const char * filename);
 

@@ -58,6 +58,7 @@ gen-proto: proto
 	ftqproto/GetResponse.proto \
 	ftqproto/ReadResponse.proto \
 	ftqproto/WriteResponse.proto \
+	ftqproto/ResponseStatus.proto 
 	
 	
 install:
@@ -73,6 +74,8 @@ uninstall-gen-headers:
 	rm -f /usr/local/include/ftqproto/GetResponse.pb.h
 	rm -f /usr/local/include/ftqproto/WriteResponse.pb.h
 	rm -f /usr/local/include/ftqproto/ReadResponse.pb.h
+	rm -f /usr/local/include/ftqproto/ResponseStatus.pb.h
+
 
 install-gen-headers:
 	cp gen/ftqproto/*.h /usr/local/include/ftqproto

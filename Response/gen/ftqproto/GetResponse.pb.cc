@@ -19,7 +19,8 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace response {
 constexpr GetResponse::GetResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : files_(nullptr){}
+  : files_(nullptr)
+  , status_(nullptr){}
 struct GetResponseDefaultTypeInternal {
   constexpr GetResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -41,6 +42,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ftqproto_2fGetResponse_2eproto
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::response::GetResponse, files_),
+  PROTOBUF_FIELD_OFFSET(::response::GetResponse, status_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::response::GetResponse)},
@@ -52,17 +54,21 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_ftqproto_2fGetResponse_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\032ftqproto/GetResponse.proto\022\010response\032\032"
-  "ftqproto/RequestFile.proto\"3\n\013GetRespons"
-  "e\022$\n\005files\030\001 \001(\0132\025.request.RequestFilesb"
-  "\006proto3"
+  "ftqproto/RequestFile.proto\032\035ftqproto/Res"
+  "ponseStatus.proto\"]\n\013GetResponse\022$\n\005file"
+  "s\030\001 \001(\0132\025.request.RequestFiles\022(\n\006status"
+  "\030\002 \001(\0132\030.response.ResponseStatusBCZAgith"
+  "ub.com/MartinSimango/goftqproto/internal"
+  "/response/genresponseb\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_ftqproto_2fGetResponse_2eproto_deps[1] = {
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_ftqproto_2fGetResponse_2eproto_deps[2] = {
   &::descriptor_table_ftqproto_2fRequestFile_2eproto,
+  &::descriptor_table_ftqproto_2fResponseStatus_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fGetResponse_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fGetResponse_2eproto = {
-  false, false, 127, descriptor_table_protodef_ftqproto_2fGetResponse_2eproto, "ftqproto/GetResponse.proto", 
-  &descriptor_table_ftqproto_2fGetResponse_2eproto_once, descriptor_table_ftqproto_2fGetResponse_2eproto_deps, 1, 1,
+  false, false, 269, descriptor_table_protodef_ftqproto_2fGetResponse_2eproto, "ftqproto/GetResponse.proto", 
+  &descriptor_table_ftqproto_2fGetResponse_2eproto_once, descriptor_table_ftqproto_2fGetResponse_2eproto_deps, 2, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fGetResponse_2eproto::offsets,
   file_level_metadata_ftqproto_2fGetResponse_2eproto, file_level_enum_descriptors_ftqproto_2fGetResponse_2eproto, file_level_service_descriptors_ftqproto_2fGetResponse_2eproto,
 };
@@ -79,17 +85,28 @@ namespace response {
 class GetResponse::_Internal {
  public:
   static const ::request::RequestFiles& files(const GetResponse* msg);
+  static const ::response::ResponseStatus& status(const GetResponse* msg);
 };
 
 const ::request::RequestFiles&
 GetResponse::_Internal::files(const GetResponse* msg) {
   return *msg->files_;
 }
+const ::response::ResponseStatus&
+GetResponse::_Internal::status(const GetResponse* msg) {
+  return *msg->status_;
+}
 void GetResponse::clear_files() {
   if (GetArenaForAllocation() == nullptr && files_ != nullptr) {
     delete files_;
   }
   files_ = nullptr;
+}
+void GetResponse::clear_status() {
+  if (GetArenaForAllocation() == nullptr && status_ != nullptr) {
+    delete status_;
+  }
+  status_ = nullptr;
 }
 GetResponse::GetResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
@@ -105,11 +122,19 @@ GetResponse::GetResponse(const GetResponse& from)
   } else {
     files_ = nullptr;
   }
+  if (from._internal_has_status()) {
+    status_ = new ::response::ResponseStatus(*from.status_);
+  } else {
+    status_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:response.GetResponse)
 }
 
 void GetResponse::SharedCtor() {
-files_ = nullptr;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&files_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&status_) -
+    reinterpret_cast<char*>(&files_)) + sizeof(status_));
 }
 
 GetResponse::~GetResponse() {
@@ -121,6 +146,7 @@ GetResponse::~GetResponse() {
 void GetResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete files_;
+  if (this != internal_default_instance()) delete status_;
 }
 
 void GetResponse::ArenaDtor(void* object) {
@@ -143,6 +169,10 @@ void GetResponse::Clear() {
     delete files_;
   }
   files_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && status_ != nullptr) {
+    delete status_;
+  }
+  status_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -156,6 +186,13 @@ const char* GetResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_files(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .response.ResponseStatus status = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -196,6 +233,14 @@ failure:
         1, _Internal::files(this), target, stream);
   }
 
+  // .response.ResponseStatus status = 2;
+  if (this->has_status()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::status(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -217,6 +262,13 @@ size_t GetResponse::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *files_);
+  }
+
+  // .response.ResponseStatus status = 2;
+  if (this->has_status()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *status_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -253,6 +305,9 @@ void GetResponse::MergeFrom(const GetResponse& from) {
   if (from.has_files()) {
     _internal_mutable_files()->::request::RequestFiles::MergeFrom(from._internal_files());
   }
+  if (from.has_status()) {
+    _internal_mutable_status()->::response::ResponseStatus::MergeFrom(from._internal_status());
+  }
 }
 
 void GetResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -276,7 +331,12 @@ bool GetResponse::IsInitialized() const {
 void GetResponse::InternalSwap(GetResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(files_, other->files_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(GetResponse, status_)
+      + sizeof(GetResponse::status_)
+      - PROTOBUF_FIELD_OFFSET(GetResponse, files_)>(
+          reinterpret_cast<char*>(&files_),
+          reinterpret_cast<char*>(&other->files_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetResponse::GetMetadata() const {

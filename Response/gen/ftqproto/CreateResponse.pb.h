@@ -32,6 +32,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
 #include "ftqproto/RequestFile.pb.h"
+#include "ftqproto/ResponseStatus.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_ftqproto_2fCreateResponse_2eproto
@@ -55,35 +56,35 @@ struct TableStruct_ftqproto_2fCreateResponse_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fCreateResponse_2eproto;
 namespace response {
-class CreateReponse;
-struct CreateReponseDefaultTypeInternal;
-extern CreateReponseDefaultTypeInternal _CreateReponse_default_instance_;
+class CreateResponse;
+struct CreateResponseDefaultTypeInternal;
+extern CreateResponseDefaultTypeInternal _CreateResponse_default_instance_;
 }  // namespace response
 PROTOBUF_NAMESPACE_OPEN
-template<> ::response::CreateReponse* Arena::CreateMaybeMessage<::response::CreateReponse>(Arena*);
+template<> ::response::CreateResponse* Arena::CreateMaybeMessage<::response::CreateResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace response {
 
 // ===================================================================
 
-class CreateReponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:response.CreateReponse) */ {
+class CreateResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:response.CreateResponse) */ {
  public:
-  inline CreateReponse() : CreateReponse(nullptr) {}
-  ~CreateReponse() override;
-  explicit constexpr CreateReponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline CreateResponse() : CreateResponse(nullptr) {}
+  ~CreateResponse() override;
+  explicit constexpr CreateResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  CreateReponse(const CreateReponse& from);
-  CreateReponse(CreateReponse&& from) noexcept
-    : CreateReponse() {
+  CreateResponse(const CreateResponse& from);
+  CreateResponse(CreateResponse&& from) noexcept
+    : CreateResponse() {
     *this = ::std::move(from);
   }
 
-  inline CreateReponse& operator=(const CreateReponse& from) {
+  inline CreateResponse& operator=(const CreateResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline CreateReponse& operator=(CreateReponse&& from) noexcept {
+  inline CreateResponse& operator=(CreateResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()) {
       InternalSwap(&from);
@@ -102,20 +103,20 @@ class CreateReponse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const CreateReponse& default_instance() {
+  static const CreateResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const CreateReponse* internal_default_instance() {
-    return reinterpret_cast<const CreateReponse*>(
-               &_CreateReponse_default_instance_);
+  static inline const CreateResponse* internal_default_instance() {
+    return reinterpret_cast<const CreateResponse*>(
+               &_CreateResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(CreateReponse& a, CreateReponse& b) {
+  friend void swap(CreateResponse& a, CreateResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CreateReponse* other) {
+  inline void Swap(CreateResponse* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -123,7 +124,7 @@ class CreateReponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(CreateReponse* other) {
+  void UnsafeArenaSwap(CreateResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -131,17 +132,17 @@ class CreateReponse final :
 
   // implements Message ----------------------------------------------
 
-  inline CreateReponse* New() const final {
-    return new CreateReponse();
+  inline CreateResponse* New() const final {
+    return new CreateResponse();
   }
 
-  CreateReponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<CreateReponse>(arena);
+  CreateResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CreateResponse>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const CreateReponse& from);
-  void MergeFrom(const CreateReponse& from);
+  void CopyFrom(const CreateResponse& from);
+  void MergeFrom(const CreateResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -155,13 +156,13 @@ class CreateReponse final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(CreateReponse* other);
+  void InternalSwap(CreateResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "response.CreateReponse";
+    return "response.CreateResponse";
   }
   protected:
-  explicit CreateReponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit CreateResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -175,6 +176,7 @@ class CreateReponse final :
 
   enum : int {
     kFilesFieldNumber = 1,
+    kStatusFieldNumber = 2,
   };
   // repeated .request.RequestFile files = 1;
   int files_size() const;
@@ -194,7 +196,25 @@ class CreateReponse final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >&
       files() const;
 
-  // @@protoc_insertion_point(class_scope:response.CreateReponse)
+  // .response.ResponseStatus status = 2;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  const ::response::ResponseStatus& status() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::response::ResponseStatus* release_status();
+  ::response::ResponseStatus* mutable_status();
+  void set_allocated_status(::response::ResponseStatus* status);
+  private:
+  const ::response::ResponseStatus& _internal_status() const;
+  ::response::ResponseStatus* _internal_mutable_status();
+  public:
+  void unsafe_arena_set_allocated_status(
+      ::response::ResponseStatus* status);
+  ::response::ResponseStatus* unsafe_arena_release_status();
+
+  // @@protoc_insertion_point(class_scope:response.CreateResponse)
  private:
   class _Internal;
 
@@ -202,6 +222,7 @@ class CreateReponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile > files_;
+  ::response::ResponseStatus* status_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ftqproto_2fCreateResponse_2eproto;
 };
@@ -214,42 +235,121 @@ class CreateReponse final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// CreateReponse
+// CreateResponse
 
 // repeated .request.RequestFile files = 1;
-inline int CreateReponse::_internal_files_size() const {
+inline int CreateResponse::_internal_files_size() const {
   return files_.size();
 }
-inline int CreateReponse::files_size() const {
+inline int CreateResponse::files_size() const {
   return _internal_files_size();
 }
-inline ::request::RequestFile* CreateReponse::mutable_files(int index) {
-  // @@protoc_insertion_point(field_mutable:response.CreateReponse.files)
+inline ::request::RequestFile* CreateResponse::mutable_files(int index) {
+  // @@protoc_insertion_point(field_mutable:response.CreateResponse.files)
   return files_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >*
-CreateReponse::mutable_files() {
-  // @@protoc_insertion_point(field_mutable_list:response.CreateReponse.files)
+CreateResponse::mutable_files() {
+  // @@protoc_insertion_point(field_mutable_list:response.CreateResponse.files)
   return &files_;
 }
-inline const ::request::RequestFile& CreateReponse::_internal_files(int index) const {
+inline const ::request::RequestFile& CreateResponse::_internal_files(int index) const {
   return files_.Get(index);
 }
-inline const ::request::RequestFile& CreateReponse::files(int index) const {
-  // @@protoc_insertion_point(field_get:response.CreateReponse.files)
+inline const ::request::RequestFile& CreateResponse::files(int index) const {
+  // @@protoc_insertion_point(field_get:response.CreateResponse.files)
   return _internal_files(index);
 }
-inline ::request::RequestFile* CreateReponse::_internal_add_files() {
+inline ::request::RequestFile* CreateResponse::_internal_add_files() {
   return files_.Add();
 }
-inline ::request::RequestFile* CreateReponse::add_files() {
-  // @@protoc_insertion_point(field_add:response.CreateReponse.files)
+inline ::request::RequestFile* CreateResponse::add_files() {
+  // @@protoc_insertion_point(field_add:response.CreateResponse.files)
   return _internal_add_files();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >&
-CreateReponse::files() const {
-  // @@protoc_insertion_point(field_list:response.CreateReponse.files)
+CreateResponse::files() const {
+  // @@protoc_insertion_point(field_list:response.CreateResponse.files)
   return files_;
+}
+
+// .response.ResponseStatus status = 2;
+inline bool CreateResponse::_internal_has_status() const {
+  return this != internal_default_instance() && status_ != nullptr;
+}
+inline bool CreateResponse::has_status() const {
+  return _internal_has_status();
+}
+inline const ::response::ResponseStatus& CreateResponse::_internal_status() const {
+  const ::response::ResponseStatus* p = status_;
+  return p != nullptr ? *p : reinterpret_cast<const ::response::ResponseStatus&>(
+      ::response::_ResponseStatus_default_instance_);
+}
+inline const ::response::ResponseStatus& CreateResponse::status() const {
+  // @@protoc_insertion_point(field_get:response.CreateResponse.status)
+  return _internal_status();
+}
+inline void CreateResponse::unsafe_arena_set_allocated_status(
+    ::response::ResponseStatus* status) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(status_);
+  }
+  status_ = status;
+  if (status) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:response.CreateResponse.status)
+}
+inline ::response::ResponseStatus* CreateResponse::release_status() {
+  
+  ::response::ResponseStatus* temp = status_;
+  status_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::response::ResponseStatus* CreateResponse::unsafe_arena_release_status() {
+  // @@protoc_insertion_point(field_release:response.CreateResponse.status)
+  
+  ::response::ResponseStatus* temp = status_;
+  status_ = nullptr;
+  return temp;
+}
+inline ::response::ResponseStatus* CreateResponse::_internal_mutable_status() {
+  
+  if (status_ == nullptr) {
+    auto* p = CreateMaybeMessage<::response::ResponseStatus>(GetArenaForAllocation());
+    status_ = p;
+  }
+  return status_;
+}
+inline ::response::ResponseStatus* CreateResponse::mutable_status() {
+  // @@protoc_insertion_point(field_mutable:response.CreateResponse.status)
+  return _internal_mutable_status();
+}
+inline void CreateResponse::set_allocated_status(::response::ResponseStatus* status) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(status_);
+  }
+  if (status) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(status));
+    if (message_arena != submessage_arena) {
+      status = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, status, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  status_ = status;
+  // @@protoc_insertion_point(field_set_allocated:response.CreateResponse.status)
 }
 
 #ifdef __GNUC__

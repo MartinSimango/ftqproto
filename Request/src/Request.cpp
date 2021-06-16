@@ -31,18 +31,19 @@ int Request::Read(){
     int bytesRead;
     int totalBytesRead = 0;
     while (totalBytesRead < messageSize && (bytesRead = read(fd, tmp_buffer, messageSize) ) > 0) {
+
         for (int i =0; i <bytesRead ;i++){
             buffer[totalBytesRead + i] = tmp_buffer[i];
         }
         totalBytesRead += bytesRead;
     }
-   
+
 
     if (bytesRead < 0)  {
         throw new RequestException(FAILED_TO_READ_REQUEST);
         delete [] buffer;
     }
-    
+
     deserializeRequestMessage(buffer);
 
     delete [] buffer;

@@ -19,7 +19,8 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace response {
 constexpr WriteReponse::WriteReponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : byteswritten_(0){}
+  : status_(nullptr)
+  , byteswritten_(0){}
 struct WriteReponseDefaultTypeInternal {
   constexpr WriteReponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -41,6 +42,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ftqproto_2fWriteResponse_2epro
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::response::WriteReponse, byteswritten_),
+  PROTOBUF_FIELD_OFFSET(::response::WriteReponse, status_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::response::WriteReponse)},
@@ -52,13 +54,19 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_ftqproto_2fWriteResponse_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\034ftqproto/WriteResponse.proto\022\010response"
-  "\"$\n\014WriteReponse\022\024\n\014bytesWritten\030\001 \001(\005b\006"
-  "proto3"
+  "\032\035ftqproto/ResponseStatus.proto\"N\n\014Write"
+  "Reponse\022\024\n\014bytesWritten\030\001 \001(\005\022(\n\006status\030"
+  "\002 \001(\0132\030.response.ResponseStatusBCZAgithu"
+  "b.com/MartinSimango/goftqproto/internal/"
+  "response/genresponseb\006proto3"
   ;
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_ftqproto_2fWriteResponse_2eproto_deps[1] = {
+  &::descriptor_table_ftqproto_2fResponseStatus_2eproto,
+};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fWriteResponse_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fWriteResponse_2eproto = {
-  false, false, 86, descriptor_table_protodef_ftqproto_2fWriteResponse_2eproto, "ftqproto/WriteResponse.proto", 
-  &descriptor_table_ftqproto_2fWriteResponse_2eproto_once, nullptr, 0, 1,
+  false, false, 228, descriptor_table_protodef_ftqproto_2fWriteResponse_2eproto, "ftqproto/WriteResponse.proto", 
+  &descriptor_table_ftqproto_2fWriteResponse_2eproto_once, descriptor_table_ftqproto_2fWriteResponse_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fWriteResponse_2eproto::offsets,
   file_level_metadata_ftqproto_2fWriteResponse_2eproto, file_level_enum_descriptors_ftqproto_2fWriteResponse_2eproto, file_level_service_descriptors_ftqproto_2fWriteResponse_2eproto,
 };
@@ -74,8 +82,19 @@ namespace response {
 
 class WriteReponse::_Internal {
  public:
+  static const ::response::ResponseStatus& status(const WriteReponse* msg);
 };
 
+const ::response::ResponseStatus&
+WriteReponse::_Internal::status(const WriteReponse* msg) {
+  return *msg->status_;
+}
+void WriteReponse::clear_status() {
+  if (GetArenaForAllocation() == nullptr && status_ != nullptr) {
+    delete status_;
+  }
+  status_ = nullptr;
+}
 WriteReponse::WriteReponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
@@ -85,12 +104,20 @@ WriteReponse::WriteReponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
 WriteReponse::WriteReponse(const WriteReponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_status()) {
+    status_ = new ::response::ResponseStatus(*from.status_);
+  } else {
+    status_ = nullptr;
+  }
   byteswritten_ = from.byteswritten_;
   // @@protoc_insertion_point(copy_constructor:response.WriteReponse)
 }
 
 void WriteReponse::SharedCtor() {
-byteswritten_ = 0;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&byteswritten_) -
+    reinterpret_cast<char*>(&status_)) + sizeof(byteswritten_));
 }
 
 WriteReponse::~WriteReponse() {
@@ -101,6 +128,7 @@ WriteReponse::~WriteReponse() {
 
 void WriteReponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete status_;
 }
 
 void WriteReponse::ArenaDtor(void* object) {
@@ -119,6 +147,10 @@ void WriteReponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  if (GetArenaForAllocation() == nullptr && status_ != nullptr) {
+    delete status_;
+  }
+  status_ = nullptr;
   byteswritten_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -133,6 +165,13 @@ const char* WriteReponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           byteswritten_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .response.ResponseStatus status = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_status(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -171,6 +210,14 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_byteswritten(), target);
   }
 
+  // .response.ResponseStatus status = 2;
+  if (this->has_status()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::status(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -186,6 +233,13 @@ size_t WriteReponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // .response.ResponseStatus status = 2;
+  if (this->has_status()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *status_);
+  }
 
   // int32 bytesWritten = 1;
   if (this->byteswritten() != 0) {
@@ -225,6 +279,9 @@ void WriteReponse::MergeFrom(const WriteReponse& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.has_status()) {
+    _internal_mutable_status()->::response::ResponseStatus::MergeFrom(from._internal_status());
+  }
   if (from.byteswritten() != 0) {
     _internal_set_byteswritten(from._internal_byteswritten());
   }
@@ -251,7 +308,12 @@ bool WriteReponse::IsInitialized() const {
 void WriteReponse::InternalSwap(WriteReponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(byteswritten_, other->byteswritten_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(WriteReponse, byteswritten_)
+      + sizeof(WriteReponse::byteswritten_)
+      - PROTOBUF_FIELD_OFFSET(WriteReponse, status_)>(
+          reinterpret_cast<char*>(&status_),
+          reinterpret_cast<char*>(&other->status_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WriteReponse::GetMetadata() const {

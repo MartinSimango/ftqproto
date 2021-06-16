@@ -33,11 +33,9 @@ void * Connect(void* fc, char * serverAddress, int port) {
 }
 
 void * SendCreateRequest(void* fc, const char * protoCreateRequestMessage){
-
     Error<std::string, FileClient, std::string> * error = new Error<std::string, FileClient, std::string>(&FileClient::SendCreateRequest, AsFileClient(fc));
-    error->Execute(protoCreateRequestMessage);
+    error->Execute(protoCreateRequestMessage);    
     return dynamic_cast<ErrorBase*>(error);
-
 }
 
 void * SendGetRequest(void* fc, const char * protoGetRequestMessage) {

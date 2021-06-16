@@ -79,11 +79,13 @@ const char descriptor_table_protodef_ftqproto_2fRequestFile_2eproto[] PROTOBUF_S
   "\013RequestFile\022\026\n\016sourceFilePath\030\001 \001(\t\022\020\n\010"
   "fileSize\030\002 \001(\005\022\r\n\005isDir\030\003 \001(\010\":\n\014Request"
   "Files\022*\n\014requestFiles\030\001 \003(\0132\024.request.Re"
-  "questFileb\006proto3"
+  "questFileBAZ\?github.com/MartinSimango/go"
+  "ftqproto/internal/request/genrequestb\006pr"
+  "oto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fRequestFile_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fRequestFile_2eproto = {
-  false, false, 177, descriptor_table_protodef_ftqproto_2fRequestFile_2eproto, "ftqproto/RequestFile.proto", 
+  false, false, 244, descriptor_table_protodef_ftqproto_2fRequestFile_2eproto, "ftqproto/RequestFile.proto", 
   &descriptor_table_ftqproto_2fRequestFile_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_ftqproto_2fRequestFile_2eproto::offsets,
   file_level_metadata_ftqproto_2fRequestFile_2eproto, file_level_enum_descriptors_ftqproto_2fRequestFile_2eproto, file_level_service_descriptors_ftqproto_2fRequestFile_2eproto,

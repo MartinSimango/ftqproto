@@ -31,6 +31,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include "ftqproto/ResponseStatus.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_ftqproto_2fWriteResponse_2eproto
@@ -173,8 +174,27 @@ class WriteReponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kStatusFieldNumber = 2,
     kBytesWrittenFieldNumber = 1,
   };
+  // .response.ResponseStatus status = 2;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  const ::response::ResponseStatus& status() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::response::ResponseStatus* release_status();
+  ::response::ResponseStatus* mutable_status();
+  void set_allocated_status(::response::ResponseStatus* status);
+  private:
+  const ::response::ResponseStatus& _internal_status() const;
+  ::response::ResponseStatus* _internal_mutable_status();
+  public:
+  void unsafe_arena_set_allocated_status(
+      ::response::ResponseStatus* status);
+  ::response::ResponseStatus* unsafe_arena_release_status();
+
   // int32 bytesWritten = 1;
   void clear_byteswritten();
   ::PROTOBUF_NAMESPACE_ID::int32 byteswritten() const;
@@ -191,6 +211,7 @@ class WriteReponse final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::response::ResponseStatus* status_;
   ::PROTOBUF_NAMESPACE_ID::int32 byteswritten_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ftqproto_2fWriteResponse_2eproto;
@@ -224,6 +245,85 @@ inline void WriteReponse::_internal_set_byteswritten(::PROTOBUF_NAMESPACE_ID::in
 inline void WriteReponse::set_byteswritten(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_byteswritten(value);
   // @@protoc_insertion_point(field_set:response.WriteReponse.bytesWritten)
+}
+
+// .response.ResponseStatus status = 2;
+inline bool WriteReponse::_internal_has_status() const {
+  return this != internal_default_instance() && status_ != nullptr;
+}
+inline bool WriteReponse::has_status() const {
+  return _internal_has_status();
+}
+inline const ::response::ResponseStatus& WriteReponse::_internal_status() const {
+  const ::response::ResponseStatus* p = status_;
+  return p != nullptr ? *p : reinterpret_cast<const ::response::ResponseStatus&>(
+      ::response::_ResponseStatus_default_instance_);
+}
+inline const ::response::ResponseStatus& WriteReponse::status() const {
+  // @@protoc_insertion_point(field_get:response.WriteReponse.status)
+  return _internal_status();
+}
+inline void WriteReponse::unsafe_arena_set_allocated_status(
+    ::response::ResponseStatus* status) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(status_);
+  }
+  status_ = status;
+  if (status) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:response.WriteReponse.status)
+}
+inline ::response::ResponseStatus* WriteReponse::release_status() {
+  
+  ::response::ResponseStatus* temp = status_;
+  status_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::response::ResponseStatus* WriteReponse::unsafe_arena_release_status() {
+  // @@protoc_insertion_point(field_release:response.WriteReponse.status)
+  
+  ::response::ResponseStatus* temp = status_;
+  status_ = nullptr;
+  return temp;
+}
+inline ::response::ResponseStatus* WriteReponse::_internal_mutable_status() {
+  
+  if (status_ == nullptr) {
+    auto* p = CreateMaybeMessage<::response::ResponseStatus>(GetArenaForAllocation());
+    status_ = p;
+  }
+  return status_;
+}
+inline ::response::ResponseStatus* WriteReponse::mutable_status() {
+  // @@protoc_insertion_point(field_mutable:response.WriteReponse.status)
+  return _internal_mutable_status();
+}
+inline void WriteReponse::set_allocated_status(::response::ResponseStatus* status) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(status_);
+  }
+  if (status) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(status));
+    if (message_arena != submessage_arena) {
+      status = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, status, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  status_ = status;
+  // @@protoc_insertion_point(field_set_allocated:response.WriteReponse.status)
 }
 
 #ifdef __GNUC__
