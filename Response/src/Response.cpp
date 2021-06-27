@@ -45,6 +45,6 @@ int Response::Read(){
 
     delete [] buffer;
 
-    return totalBytesRead;
+    return totalBytesRead; 
 }
 

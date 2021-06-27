@@ -23,6 +23,9 @@
 #include <ftqproto/ReadResponse.pb.h>
 #include <ftqproto/WriteRequest.pb.h>
 #include <ftqproto/WriteResponse.pb.h>
+#include <ftqproto/ResponseFactory.hpp>
+#include <ftqproto/RequestFactory.hpp>
+#include <functional>
 
 using namespace request;
 using namespace response;
@@ -46,7 +49,8 @@ namespace fts {
             Mode::Type mode;
             bool isRunning;
             char filepath[MAX_FILEPATH_LENGTH], rootFolder[20]; // TODO make 20 constant
-        
+            RequestFactory requestFactory;
+            ResponseFactory responseFactory;
             // TODO be able to have protocol specificied
             inline void bindServerSocketAddress() {
                 struct sockaddr_in servaddr;
@@ -62,202 +66,183 @@ namespace fts {
             inline void createAndBindServerSocket() {
                 if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) 
                     throw new ServerException(FAILED_TO_CREATE_SERVER_SOCKET);
-                ioctl(sockfd, FIONBIO, 0);
                 bindServerSocketAddress();
             }    
 
-            CreateRequest createCreateRequest(const char * protoRequestMessage) {
-                CreateRequest request;
 
-                request.ParseFromString(protoRequestMessage);
-                return request;
-            }
-
-            GetRequest createGetRequest(const char * protoRequestMessage) {
-                GetRequest request;
-                request.ParseFromString(protoRequestMessage);
-                return request;
-            }
-
-            ReadRequest createReadRequest(const char * protoRequestMessage) {
-                ReadRequest request;
-                request.ParseFromString(protoRequestMessage);
-                return request;
+          
+            inline std::string getDestitionFilePath(std::string destinationPathFile) {
+                std::string filepath = std::string(this->rootFolder) + destinationPathFile;
+                filepath = std::string(dirname(&filepath[0])) + "/" + std::string(basename(&filepath[0]));
+                return filepath;
 
             }
-
-            WriteRequest createWriteRequest(const char *  protoRequestMessage) {
-                WriteRequest request;
-                request.ParseFromString(protoRequestMessage);
-                return request;
-            }
-
-
-            void handleRequest(CreateRequest request) {
-                response::CreateResponse createResponse;
-                request::RequestFiles filesCreated;
-                response::ResponseStatus *responseStatus = new response::ResponseStatus();
-                
-
-        
-                //check if we can write to destination path
-                std::string destFile = std::string(this->rootFolder) + request.destinationfilepath();
-                    std::cout << "File: " << destFile <<std::endl;
-
-                response::ResponseStatus_Status status = FileReadWriter::CheckFile(destFile.c_str(), Mode::WRITE);
-
-
-                if (status != ResponseStatus_Status_OK) { 
-                    if (status == ResponseStatus_Status_FILE_NOT_FOUND) { //parent dir did not exist
-                        destFile = std::string(dirname(&destFile[0]));
-                    }
-                    FRWException e(response::ResponseStatus_Status_Name<int>(status), destFile);
+            
+            void setResponseStatus(ResponseStatus *responseStatus, ResponseStatus_Status status, std::string filepath) {
+                if (status == ResponseStatus_Status_OK) {
+                    responseStatus->set_body(response::ResponseStatus_Status_Name<int>(status));
+                }
+                else {
+                    FRWException e(response::ResponseStatus_Status_Name<int>(status), filepath);
                     responseStatus->set_body(e.getErrorMessage());
-                    responseStatus->set_status(status);
-                    createResponse.set_allocated_status(responseStatus);
-                    std::string output;
-                    createResponse.SerializeToString(&output);
-                    response::Response response(connfd, output);
-                    response.Write();
-                    return;
                 }
+        
+                responseStatus->set_status(status);
+            }
 
-                bool isDestDir = FileReadWriter::CheckFileIsDirectory(destFile.c_str());
-                request::RequestFile currentFile = request.files(0);
-                request::RequestFile *fileToAdd;
-                if(isDestDir) {
-                    //copy everything in
-                    std::string sourceFile = currentFile.sourcefilepath();
-                    std::string newSourcePath = std::string(dirname(&destFile[0])) + "/" + std::string(basename(&destFile[0])) + "/" + sourceFile;
-
-                    if (currentFile.isdir()) { 
-                        if (!FileReadWriter::DoesFileExist(newSourcePath)) {
-                            FileReadWriter::CreateDirectory(newSourcePath.c_str());
-                        }
-                    }
-                    else {
-                        FileReadWriter::CreateFile(newSourcePath.c_str(), currentFile.filesize());
-                    }
-                    createResponse.add_files()->CopyFrom(currentFile);
-
+            ResponseStatus* handleDestinationFilePathError(ResponseStatus_Status status, std::string destFile) {
+                if (status == ResponseStatus_Status_FILE_NOT_FOUND) { //parent dir did not exist
+                        destFile = std::string(dirname(&destFile[0]));
                 }
-                else { //isDestDir is a file
+                ResponseStatus *responseStatus = new ResponseStatus();
+                setResponseStatus(responseStatus, status, destFile);
+                return responseStatus;
+            
+            }
 
-                    if (currentFile.isdir()) { //can't copy dir to file
-                        std::string err = currentFile.sourcefilepath() + " is a directory (not copied)";
-                        status = ResponseStatus_Status_FAILED_TO_CREATE_DIRECTORY;
-                        FRWException e(response::ResponseStatus_Status_Name<int>(status), destFile);
-                        responseStatus->set_body(e.getErrorMessage());
-                        responseStatus->set_status(status);
-                        createResponse.set_allocated_status(responseStatus);
-                        std::string output;
-                        createResponse.SerializeToString(&output);
-                        response::Response response(connfd, output);
-                        response.Write();
-                        return;
-                      //  throw new FRWException(err.c_str(), currentFile.sourcefilepath().c_str());
-                    }
-                    std::string sourceFile = currentFile.sourcefilepath();
-                    std::string newSourcePath = std::string(dirname(&destFile[0])) + "/" + std::string(basename(&destFile[0]));
-                    FileReadWriter::RenameFile(destFile, newSourcePath);
-                    FileReadWriter::CreateFile(newSourcePath.c_str(), currentFile.filesize());
-
-                    createResponse.add_files()->CopyFrom(currentFile); 
-
-                    std::string output;
-                    createResponse.SerializeToString(&output);
-                    response::Response response(connfd, output);
-                    response.Write();
-
-                    return;
-                }
-              
+         
+            std::vector<ResponseFile> createFilesInDirectory(CreateRequest request, std::string directoryFilePath) {
+                std::vector<ResponseFile> responseFiles;
                 
-                 // create all the files client has requested to make
-                 // destDir is dir and so  was currentfile copy every thing into it
-                for (int i= 1; i < request.files_size(); i++) {
-                    //
-                    currentFile = request.files(i);
+                for (int i = 0; i < request.files_size(); i++) {
+                    RequestFile currentFile = request.files(i);
 
-                    std::string sourceFile = currentFile.sourcefilepath();
-                    std::string newSourcePath = std::string(dirname(&destFile[0])) + "/" + std::string(basename(&sourceFile[0]));
-                    if (currentFile.isdir()) { 
-                        if (!FileReadWriter::DoesFileExist(newSourcePath)) {
-                            FileReadWriter::CreateDirectory(newSourcePath.c_str());
-                        }
+                    ResponseFile rFile;
+                    bool copyResult = currentFile.isdir() ? FileReadWriter::CopyDirectoryIntoDirectory(directoryFilePath, currentFile.sourcefilepath())
+                                                          : FileReadWriter::CopyFileIntoDirectory(directoryFilePath, currentFile.sourcefilepath(), currentFile.filesize());
+
+                    ResponseStatus_Status status = ResponseStatus_Status_OK;
+                    if (!copyResult) {
+                        status = currentFile.isdir()? ResponseStatus_Status_FAILED_TO_CREATE_DIRECTORY : ResponseStatus_Status_FAILED_TO_CREATE_FILE;
                     }
-                    else {
-                        FileReadWriter::CreateFile(newSourcePath.c_str(), currentFile.filesize()); 
+
+                    std::shared_ptr<ResponseStatus> responseStatus = std::make_shared<ResponseStatus>(); //todo use shared pointer
+                    setResponseStatus(responseStatus.get(), status, currentFile.sourcefilepath());
+
+                    rFile.set_sourcefilepath(currentFile.sourcefilepath());
+                    rFile.set_allocated_status(responseStatus.get());
+                    responseFiles.push_back(rFile);
+
+                }
+                return responseFiles;
+                
+            }
+
+            ResponseStatus_Status renameDestinationFilePath(CreateRequest request, std::string destinationFilePath) {
+                if(request.issourcedirectory()) {
+                    return ResponseStatus_Status_OPERATION_NOT_PERMITTED;
+                }
+                else {
+                    std::string newSourcePath = std::string(dirname(&destinationFilePath[0])) + "/" + request.sourcefilepath();
+                    if (!FileReadWriter::RenameFile(destinationFilePath, newSourcePath) 
+                        && FileReadWriter::CreateFile(newSourcePath.c_str(), request.files(0).filesize()) ) {
+                        return ResponseStatus_Status_FAILED_TO_CREATE_FILE;
                     }
+                    return ResponseStatus_Status_OK;
+                }
                     
-                    createResponse.add_files()->CopyFrom(currentFile);
-                }
-
-                std::string output;
-                createResponse.SerializeToString(&output);
-                response::Response response(connfd, output);
-                response.Write();
                 
             }
 
-            void handleRequest(GetRequest request) {
+            void handleCreateRequest(CreateRequest request) {
+                response::ResponseStatus *responseStatus = new ResponseStatus();
+
+                response::CreateResponse createResponse;
+                std::vector<ResponseFile> responseFiles;  
+                
+                std::string destinationFilePath = getDestitionFilePath(request.destinationfilepath());
+
+                std::cout << "File: " << destinationFilePath <<std::endl;
+
+                response::ResponseStatus_Status status = FileReadWriter::CheckFile(destinationFilePath.c_str(), Mode::WRITE);
+
+                if (status == ResponseStatus_Status_OK) {
+                    //todo rename method to CheckFilePathIsDir...
+                    if (FileReadWriter::CheckFileIsDirectory(destinationFilePath.c_str())) {
+                        responseFiles = createFilesInDirectory(request, destinationFilePath);
+                    }   
+                    else {
+                       status = renameDestinationFilePath(request, destinationFilePath);
+                    }
+                    setResponseStatus(responseStatus, status, request.sourcefilepath());
+
+                }
+                else {
+                    responseStatus = handleDestinationFilePathError(status, destinationFilePath);
+                }
+
+
+                createResponse.set_allocated_status(responseStatus);
+                std::for_each(std::begin(responseFiles), std::end(responseFiles),[&createResponse](ResponseFile file) {
+                        createResponse.add_files()->CopyFrom(file);
+                });
+
+                Response response(connfd, responseFactory.GetSerializedCreateResponse(createResponse));
+                response.Write();
+
+                delete responseStatus;            
+            
+            }
+
+
+        void handleGetRequest(GetRequest request) {
                 // todo: to implement
+        }
+
+        void handleReadRequest(ReadRequest request){
+
+            std::string readFile = std::string(this->rootFolder) + request.filepath();
+
+            FileReadWriter frw(filepath, Mode::READ);
+            int numberOfBytesToRead = request.numberofbytestoread();
+            int offset = request.offset();
+            char buffer[numberOfBytesToRead];
+
+            response::ResponseStatus_Status status = FileReadWriter::CheckFile(filepath, Mode::READ);
+            int bytesRead = 0;
+            if (status == ResponseStatus_Status_OK) {
+                frw.Open();
+                bytesRead = frw.ReadFromFile(buffer, numberOfBytesToRead, offset);
+                frw.Close();
             }
 
-            void handleRequest(ReadRequest request){
+            
+            std::string output;
+            response::ReadResponse readReponse;
 
-                std::string readFile = std::string(this->rootFolder) + request.filepath();
-
-                FileReadWriter frw(filepath, Mode::READ);
-                int numberOfBytesToRead = request.numberofbytestoread();
-                int offset = request.offset();
-                char buffer[numberOfBytesToRead];
-
-                response::ResponseStatus_Status status = FileReadWriter::CheckFile(filepath, Mode::READ);
-                int bytesRead = 0;
-                if (status == ResponseStatus_Status_OK) {
-                    frw.Open();
-                    bytesRead = frw.ReadFromFile(buffer, numberOfBytesToRead, offset);
-                    frw.Close();
-                }
-
-                
-                std::string output;
-                response::ReadResponse readReponse;
-
-                readReponse.set_data(std::string(buffer));
-                readReponse.SerializeToString(&output);
+            readReponse.set_data(std::string(buffer));
+            readReponse.SerializeToString(&output);
 
 
-                Response response(connfd, output);
-                response.Write();
-            }
+            Response response(connfd, output);
+            response.Write();
+        }
 
-            void handleRequest(WriteRequest request){
+        void handleWriteRequest(WriteRequest request){
            
-                std::string writeFile = std::string(this->rootFolder) + request.filepath();
+            std::string writeFile = std::string(this->rootFolder) + request.filepath();
 
-                FileReadWriter frw(filepath, Mode::WRITE);
-                int offset = request.offset();
-                
-                int bytesWritten = 0;
-                ResponseStatus_Status status = FileReadWriter::CheckFile(filepath, Mode::WRITE);
-                if (status == ResponseStatus_Status_OK) {
-                    frw.Open();
-                    bytesWritten = frw.WriteToFile(offset, request.data().c_str()); 
-                    frw.Close();
-                }            
+            FileReadWriter frw(filepath, Mode::WRITE);
+            int offset = request.offset();
+            
+            int bytesWritten = 0;
+            ResponseStatus_Status status = FileReadWriter::CheckFile(filepath, Mode::WRITE);
+            if (status == ResponseStatus_Status_OK) {
+                frw.Open();
+                bytesWritten = frw.WriteToFile(offset, request.data().c_str()); 
+                frw.Close();
+            }            
 
-                std::string output;
-                response::WriteReponse writeReponse;
+            std::string output;
+            response::WriteResponse writeReponse;
 
-                writeReponse.set_byteswritten(bytesWritten);
-                writeReponse.SerializeToString(&output);
+            writeReponse.set_byteswritten(bytesWritten);
+            writeReponse.SerializeToString(&output);
 
-                Response response(connfd, output);
-                response.Write();
+            Response response(connfd, output);
+            response.Write();
 
-            }
+        }
             
         public:
 

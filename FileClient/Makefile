@@ -7,7 +7,7 @@ ODIR=obj
 LDIR=lib
 SDIR=src
 INCDIR=include
-CFLAGS=-std=c++17
+CFLAGS=-std=c++17 -lprotobuf
 LIBNAME=libgocpclient
 
 
@@ -15,7 +15,7 @@ CLIENT_SOURCES=$(wildcard $(SDIR)/*.cpp)
 CLIENT_OBJECTS=$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(CLIENT_SOURCES))
 
 define CLIENT_DLIB_SOURCES
-$(CLIENT_SOURCES) ../Request/src/*.cpp ../Response/src/*.cpp ../FileReadWriter/src/*.cpp 
+$(CLIENT_SOURCES) ../Request/src/*.cpp ../Response/src/*.cpp ../FileReadWriter/src/*.cpp ../Request/gen/ftqproto/*.cc
 endef
 
 CLIENT_DEPS = $(wildcard $(IDIR)/*) 

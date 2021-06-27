@@ -46,7 +46,7 @@ struct TableStruct_ftqproto_2fRequestFile_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -57,13 +57,9 @@ namespace request {
 class RequestFile;
 struct RequestFileDefaultTypeInternal;
 extern RequestFileDefaultTypeInternal _RequestFile_default_instance_;
-class RequestFiles;
-struct RequestFilesDefaultTypeInternal;
-extern RequestFilesDefaultTypeInternal _RequestFiles_default_instance_;
 }  // namespace request
 PROTOBUF_NAMESPACE_OPEN
 template<> ::request::RequestFile* Arena::CreateMaybeMessage<::request::RequestFile>(Arena*);
-template<> ::request::RequestFiles* Arena::CreateMaybeMessage<::request::RequestFiles>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace request {
 
@@ -226,147 +222,6 @@ class RequestFile final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ftqproto_2fRequestFile_2eproto;
 };
-// -------------------------------------------------------------------
-
-class RequestFiles final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:request.RequestFiles) */ {
- public:
-  inline RequestFiles() : RequestFiles(nullptr) {}
-  ~RequestFiles() override;
-  explicit constexpr RequestFiles(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  RequestFiles(const RequestFiles& from);
-  RequestFiles(RequestFiles&& from) noexcept
-    : RequestFiles() {
-    *this = ::std::move(from);
-  }
-
-  inline RequestFiles& operator=(const RequestFiles& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline RequestFiles& operator=(RequestFiles&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const RequestFiles& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const RequestFiles* internal_default_instance() {
-    return reinterpret_cast<const RequestFiles*>(
-               &_RequestFiles_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(RequestFiles& a, RequestFiles& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(RequestFiles* other) {
-    if (other == this) return;
-    if (GetOwningArena() == other->GetOwningArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(RequestFiles* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline RequestFiles* New() const final {
-    return new RequestFiles();
-  }
-
-  RequestFiles* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<RequestFiles>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const RequestFiles& from);
-  void MergeFrom(const RequestFiles& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(RequestFiles* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "request.RequestFiles";
-  }
-  protected:
-  explicit RequestFiles(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kRequestFilesFieldNumber = 1,
-  };
-  // repeated .request.RequestFile requestFiles = 1;
-  int requestfiles_size() const;
-  private:
-  int _internal_requestfiles_size() const;
-  public:
-  void clear_requestfiles();
-  ::request::RequestFile* mutable_requestfiles(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >*
-      mutable_requestfiles();
-  private:
-  const ::request::RequestFile& _internal_requestfiles(int index) const;
-  ::request::RequestFile* _internal_add_requestfiles();
-  public:
-  const ::request::RequestFile& requestfiles(int index) const;
-  ::request::RequestFile* add_requestfiles();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >&
-      requestfiles() const;
-
-  // @@protoc_insertion_point(class_scope:request.RequestFiles)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile > requestfiles_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_ftqproto_2fRequestFile_2eproto;
-};
 // ===================================================================
 
 
@@ -463,54 +318,9 @@ inline void RequestFile::set_isdir(bool value) {
   // @@protoc_insertion_point(field_set:request.RequestFile.isDir)
 }
 
-// -------------------------------------------------------------------
-
-// RequestFiles
-
-// repeated .request.RequestFile requestFiles = 1;
-inline int RequestFiles::_internal_requestfiles_size() const {
-  return requestfiles_.size();
-}
-inline int RequestFiles::requestfiles_size() const {
-  return _internal_requestfiles_size();
-}
-inline void RequestFiles::clear_requestfiles() {
-  requestfiles_.Clear();
-}
-inline ::request::RequestFile* RequestFiles::mutable_requestfiles(int index) {
-  // @@protoc_insertion_point(field_mutable:request.RequestFiles.requestFiles)
-  return requestfiles_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >*
-RequestFiles::mutable_requestfiles() {
-  // @@protoc_insertion_point(field_mutable_list:request.RequestFiles.requestFiles)
-  return &requestfiles_;
-}
-inline const ::request::RequestFile& RequestFiles::_internal_requestfiles(int index) const {
-  return requestfiles_.Get(index);
-}
-inline const ::request::RequestFile& RequestFiles::requestfiles(int index) const {
-  // @@protoc_insertion_point(field_get:request.RequestFiles.requestFiles)
-  return _internal_requestfiles(index);
-}
-inline ::request::RequestFile* RequestFiles::_internal_add_requestfiles() {
-  return requestfiles_.Add();
-}
-inline ::request::RequestFile* RequestFiles::add_requestfiles() {
-  // @@protoc_insertion_point(field_add:request.RequestFiles.requestFiles)
-  return _internal_add_requestfiles();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >&
-RequestFiles::requestfiles() const {
-  // @@protoc_insertion_point(field_list:request.RequestFiles.requestFiles)
-  return requestfiles_;
-}
-
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 

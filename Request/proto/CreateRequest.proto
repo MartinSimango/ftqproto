@@ -9,5 +9,6 @@ import "ftqproto/RequestFile.proto";
 message CreateRequest {
     string sourceFilePath = 1;
     string destinationFilePath = 2;
-    repeated RequestFile files = 3;
+    bool isSourceDirectory = 3;
+    repeated RequestFile files = 4;
 }

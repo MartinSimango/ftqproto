@@ -4,10 +4,11 @@ option go_package = "github.com/MartinSimango/goftqproto/internal/response/genre
 
 package response;
 
-import "ftqproto/RequestFile.proto";
+import "ftqproto/ResponseFile.proto";
 import "ftqproto/ResponseStatus.proto";
 
 message CreateResponse {
-    repeated request.RequestFile files = 1;
-    ResponseStatus status = 2; 
+    repeated ResponseFile files = 1;
+    ResponseStatus status = 2;
+    
 }

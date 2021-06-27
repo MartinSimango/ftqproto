@@ -54,20 +54,20 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_ftqproto_2fCreateResponse_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\035ftqproto/CreateResponse.proto\022\010respons"
-  "e\032\032ftqproto/RequestFile.proto\032\035ftqproto/"
-  "ResponseStatus.proto\"_\n\016CreateResponse\022#"
-  "\n\005files\030\001 \003(\0132\024.request.RequestFile\022(\n\006s"
-  "tatus\030\002 \001(\0132\030.response.ResponseStatusBCZ"
-  "Agithub.com/MartinSimango/goftqproto/int"
-  "ernal/response/genresponseb\006proto3"
+  "e\032\033ftqproto/ResponseFile.proto\032\035ftqproto"
+  "/ResponseStatus.proto\"a\n\016CreateResponse\022"
+  "%\n\005files\030\001 \003(\0132\026.response.ResponseFile\022("
+  "\n\006status\030\002 \001(\0132\030.response.ResponseStatus"
+  "BCZAgithub.com/MartinSimango/goftqproto/"
+  "internal/response/genresponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_ftqproto_2fCreateResponse_2eproto_deps[2] = {
-  &::descriptor_table_ftqproto_2fRequestFile_2eproto,
+  &::descriptor_table_ftqproto_2fResponseFile_2eproto,
   &::descriptor_table_ftqproto_2fResponseStatus_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fCreateResponse_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fCreateResponse_2eproto = {
-  false, false, 274, descriptor_table_protodef_ftqproto_2fCreateResponse_2eproto, "ftqproto/CreateResponse.proto", 
+  false, false, 277, descriptor_table_protodef_ftqproto_2fCreateResponse_2eproto, "ftqproto/CreateResponse.proto", 
   &descriptor_table_ftqproto_2fCreateResponse_2eproto_once, descriptor_table_ftqproto_2fCreateResponse_2eproto_deps, 2, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fCreateResponse_2eproto::offsets,
   file_level_metadata_ftqproto_2fCreateResponse_2eproto, file_level_enum_descriptors_ftqproto_2fCreateResponse_2eproto, file_level_service_descriptors_ftqproto_2fCreateResponse_2eproto,
@@ -164,7 +164,7 @@ const char* CreateResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated .request.RequestFile files = 1;
+      // repeated .response.ResponseFile files = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr -= 1;
@@ -212,7 +212,7 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .request.RequestFile files = 1;
+  // repeated .response.ResponseFile files = 1;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_files_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -244,7 +244,7 @@ size_t CreateResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .request.RequestFile files = 1;
+  // repeated .response.ResponseFile files = 1;
   total_size += 1UL * this->_internal_files_size();
   for (const auto& msg : this->files_) {
     total_size +=

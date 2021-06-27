@@ -71,12 +71,13 @@ enum ResponseStatus_Status : int {
   ResponseStatus_Status_NO_READ_PERMISSIONS = 3,
   ResponseStatus_Status_FAILED_TO_CREATE_FILE = 4,
   ResponseStatus_Status_FAILED_TO_CREATE_DIRECTORY = 5,
+  ResponseStatus_Status_OPERATION_NOT_PERMITTED = 6,
   ResponseStatus_Status_ResponseStatus_Status_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   ResponseStatus_Status_ResponseStatus_Status_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool ResponseStatus_Status_IsValid(int value);
 constexpr ResponseStatus_Status ResponseStatus_Status_Status_MIN = ResponseStatus_Status_OK;
-constexpr ResponseStatus_Status ResponseStatus_Status_Status_MAX = ResponseStatus_Status_FAILED_TO_CREATE_DIRECTORY;
+constexpr ResponseStatus_Status ResponseStatus_Status_Status_MAX = ResponseStatus_Status_OPERATION_NOT_PERMITTED;
 constexpr int ResponseStatus_Status_Status_ARRAYSIZE = ResponseStatus_Status_Status_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ResponseStatus_Status_descriptor();
@@ -213,6 +214,8 @@ class ResponseStatus final :
     ResponseStatus_Status_FAILED_TO_CREATE_FILE;
   static constexpr Status FAILED_TO_CREATE_DIRECTORY =
     ResponseStatus_Status_FAILED_TO_CREATE_DIRECTORY;
+  static constexpr Status OPERATION_NOT_PERMITTED =
+    ResponseStatus_Status_OPERATION_NOT_PERMITTED;
   static inline bool Status_IsValid(int value) {
     return ResponseStatus_Status_IsValid(value);
   }

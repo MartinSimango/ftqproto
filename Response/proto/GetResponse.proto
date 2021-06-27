@@ -9,7 +9,7 @@ import "ftqproto/RequestFile.proto";
 import "ftqproto/ResponseStatus.proto";
 
 message GetResponse {
-    request.RequestFiles files = 1;
+    repeated request.RequestFile files = 1;
     ResponseStatus status = 2; 
 
 }

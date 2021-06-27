@@ -31,7 +31,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
-#include "ftqproto/RequestFile.pb.h"
+#include "ftqproto/ResponseFile.pb.h"
 #include "ftqproto/ResponseStatus.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -178,22 +178,22 @@ class CreateResponse final :
     kFilesFieldNumber = 1,
     kStatusFieldNumber = 2,
   };
-  // repeated .request.RequestFile files = 1;
+  // repeated .response.ResponseFile files = 1;
   int files_size() const;
   private:
   int _internal_files_size() const;
   public:
   void clear_files();
-  ::request::RequestFile* mutable_files(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >*
+  ::response::ResponseFile* mutable_files(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::response::ResponseFile >*
       mutable_files();
   private:
-  const ::request::RequestFile& _internal_files(int index) const;
-  ::request::RequestFile* _internal_add_files();
+  const ::response::ResponseFile& _internal_files(int index) const;
+  ::response::ResponseFile* _internal_add_files();
   public:
-  const ::request::RequestFile& files(int index) const;
-  ::request::RequestFile* add_files();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >&
+  const ::response::ResponseFile& files(int index) const;
+  ::response::ResponseFile* add_files();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::response::ResponseFile >&
       files() const;
 
   // .response.ResponseStatus status = 2;
@@ -221,7 +221,7 @@ class CreateResponse final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile > files_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::response::ResponseFile > files_;
   ::response::ResponseStatus* status_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ftqproto_2fCreateResponse_2eproto;
@@ -237,37 +237,37 @@ class CreateResponse final :
 #endif  // __GNUC__
 // CreateResponse
 
-// repeated .request.RequestFile files = 1;
+// repeated .response.ResponseFile files = 1;
 inline int CreateResponse::_internal_files_size() const {
   return files_.size();
 }
 inline int CreateResponse::files_size() const {
   return _internal_files_size();
 }
-inline ::request::RequestFile* CreateResponse::mutable_files(int index) {
+inline ::response::ResponseFile* CreateResponse::mutable_files(int index) {
   // @@protoc_insertion_point(field_mutable:response.CreateResponse.files)
   return files_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::response::ResponseFile >*
 CreateResponse::mutable_files() {
   // @@protoc_insertion_point(field_mutable_list:response.CreateResponse.files)
   return &files_;
 }
-inline const ::request::RequestFile& CreateResponse::_internal_files(int index) const {
+inline const ::response::ResponseFile& CreateResponse::_internal_files(int index) const {
   return files_.Get(index);
 }
-inline const ::request::RequestFile& CreateResponse::files(int index) const {
+inline const ::response::ResponseFile& CreateResponse::files(int index) const {
   // @@protoc_insertion_point(field_get:response.CreateResponse.files)
   return _internal_files(index);
 }
-inline ::request::RequestFile* CreateResponse::_internal_add_files() {
+inline ::response::ResponseFile* CreateResponse::_internal_add_files() {
   return files_.Add();
 }
-inline ::request::RequestFile* CreateResponse::add_files() {
+inline ::response::ResponseFile* CreateResponse::add_files() {
   // @@protoc_insertion_point(field_add:response.CreateResponse.files)
   return _internal_add_files();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::response::ResponseFile >&
 CreateResponse::files() const {
   // @@protoc_insertion_point(field_list:response.CreateResponse.files)
   return files_;

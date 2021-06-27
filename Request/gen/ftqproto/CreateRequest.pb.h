@@ -174,11 +174,12 @@ class CreateRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFilesFieldNumber = 3,
+    kFilesFieldNumber = 4,
     kSourceFilePathFieldNumber = 1,
     kDestinationFilePathFieldNumber = 2,
+    kIsSourceDirectoryFieldNumber = 3,
   };
-  // repeated .request.RequestFile files = 3;
+  // repeated .request.RequestFile files = 4;
   int files_size() const;
   private:
   int _internal_files_size() const;
@@ -224,6 +225,15 @@ class CreateRequest final :
   std::string* _internal_mutable_destinationfilepath();
   public:
 
+  // bool isSourceDirectory = 3;
+  void clear_issourcedirectory();
+  bool issourcedirectory() const;
+  void set_issourcedirectory(bool value);
+  private:
+  bool _internal_issourcedirectory() const;
+  void _internal_set_issourcedirectory(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:request.CreateRequest)
  private:
   class _Internal;
@@ -234,6 +244,7 @@ class CreateRequest final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::request::RequestFile > files_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sourcefilepath_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr destinationfilepath_;
+  bool issourcedirectory_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_ftqproto_2fCreateRequest_2eproto;
 };
@@ -338,7 +349,27 @@ inline void CreateRequest::set_allocated_destinationfilepath(std::string* destin
   // @@protoc_insertion_point(field_set_allocated:request.CreateRequest.destinationFilePath)
 }
 
-// repeated .request.RequestFile files = 3;
+// bool isSourceDirectory = 3;
+inline void CreateRequest::clear_issourcedirectory() {
+  issourcedirectory_ = false;
+}
+inline bool CreateRequest::_internal_issourcedirectory() const {
+  return issourcedirectory_;
+}
+inline bool CreateRequest::issourcedirectory() const {
+  // @@protoc_insertion_point(field_get:request.CreateRequest.isSourceDirectory)
+  return _internal_issourcedirectory();
+}
+inline void CreateRequest::_internal_set_issourcedirectory(bool value) {
+  
+  issourcedirectory_ = value;
+}
+inline void CreateRequest::set_issourcedirectory(bool value) {
+  _internal_set_issourcedirectory(value);
+  // @@protoc_insertion_point(field_set:request.CreateRequest.isSourceDirectory)
+}
+
+// repeated .request.RequestFile files = 4;
 inline int CreateRequest::_internal_files_size() const {
   return files_.size();
 }

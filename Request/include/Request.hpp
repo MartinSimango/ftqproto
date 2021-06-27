@@ -30,9 +30,11 @@ namespace request {
             return messageSize + sizeof(messageSize); //number of bytes of request will
         }
 
-            inline void deserializeRequestMessage(unsigned char *buffer){
+        inline void deserializeRequestMessage(unsigned char *buffer){
             buffer = deserialize_int_big_endian(buffer, (int*)&requestType);
-            buffer = deserialize_char_array(buffer, &message[0]);
+            char m[messageSize];
+            buffer = deserialize_char_array(buffer, m);
+            message = std::string(m);
         }
 
         inline void deserializeRequestMessageLength(unsigned char *buffer){

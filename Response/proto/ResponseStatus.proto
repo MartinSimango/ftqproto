@@ -18,5 +18,6 @@ message ResponseStatus {
         NO_READ_PERMISSIONS = 3;
         FAILED_TO_CREATE_FILE = 4;
         FAILED_TO_CREATE_DIRECTORY = 5;
+        OPERATION_NOT_PERMITTED = 6;
     };
 }

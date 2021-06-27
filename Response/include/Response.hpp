@@ -30,7 +30,9 @@ namespace response {
         }
 
         inline void deserializeResponseMessage(unsigned char *buffer){
-            buffer = deserialize_char_array(buffer, &message[0]);
+            char m[messageSize];
+            buffer = deserialize_char_array(buffer, m);
+            message = std::string(m);
         } 
 
         inline void deserializeResponseMessageLength(unsigned char *buffer){

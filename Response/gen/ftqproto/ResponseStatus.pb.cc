@@ -55,18 +55,19 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_ftqproto_2fResponseStatus_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\035ftqproto/ResponseStatus.proto\022\010respons"
-  "e\"\344\001\n\016ResponseStatus\022\014\n\004body\030\001 \001(\t\022/\n\006st"
+  "e\"\201\002\n\016ResponseStatus\022\014\n\004body\030\001 \001(\t\022/\n\006st"
   "atus\030\002 \001(\0162\037.response.ResponseStatus.Sta"
-  "tus\"\222\001\n\006Status\022\006\n\002OK\020\000\022\022\n\016FILE_NOT_FOUND"
+  "tus\"\257\001\n\006Status\022\006\n\002OK\020\000\022\022\n\016FILE_NOT_FOUND"
   "\020\001\022\030\n\024NO_WRITE_PERMISSIONS\020\002\022\027\n\023NO_READ_"
   "PERMISSIONS\020\003\022\031\n\025FAILED_TO_CREATE_FILE\020\004"
-  "\022\036\n\032FAILED_TO_CREATE_DIRECTORY\020\005BCZAgith"
-  "ub.com/MartinSimango/goftqproto/internal"
-  "/response/genresponseb\006proto3"
+  "\022\036\n\032FAILED_TO_CREATE_DIRECTORY\020\005\022\033\n\027OPER"
+  "ATION_NOT_PERMITTED\020\006BCZAgithub.com/Mart"
+  "inSimango/goftqproto/internal/response/g"
+  "enresponseb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fResponseStatus_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fResponseStatus_2eproto = {
-  false, false, 349, descriptor_table_protodef_ftqproto_2fResponseStatus_2eproto, "ftqproto/ResponseStatus.proto", 
+  false, false, 378, descriptor_table_protodef_ftqproto_2fResponseStatus_2eproto, "ftqproto/ResponseStatus.proto", 
   &descriptor_table_ftqproto_2fResponseStatus_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fResponseStatus_2eproto::offsets,
   file_level_metadata_ftqproto_2fResponseStatus_2eproto, file_level_enum_descriptors_ftqproto_2fResponseStatus_2eproto, file_level_service_descriptors_ftqproto_2fResponseStatus_2eproto,
@@ -90,6 +91,7 @@ bool ResponseStatus_Status_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
       return true;
     default:
       return false;
@@ -103,6 +105,7 @@ constexpr ResponseStatus_Status ResponseStatus::NO_WRITE_PERMISSIONS;
 constexpr ResponseStatus_Status ResponseStatus::NO_READ_PERMISSIONS;
 constexpr ResponseStatus_Status ResponseStatus::FAILED_TO_CREATE_FILE;
 constexpr ResponseStatus_Status ResponseStatus::FAILED_TO_CREATE_DIRECTORY;
+constexpr ResponseStatus_Status ResponseStatus::OPERATION_NOT_PERMITTED;
 constexpr ResponseStatus_Status ResponseStatus::Status_MIN;
 constexpr ResponseStatus_Status ResponseStatus::Status_MAX;
 constexpr int ResponseStatus::Status_ARRAYSIZE;

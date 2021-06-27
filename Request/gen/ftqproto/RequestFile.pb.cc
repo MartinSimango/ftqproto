@@ -31,20 +31,8 @@ struct RequestFileDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RequestFileDefaultTypeInternal _RequestFile_default_instance_;
-constexpr RequestFiles::RequestFiles(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : requestfiles_(){}
-struct RequestFilesDefaultTypeInternal {
-  constexpr RequestFilesDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~RequestFilesDefaultTypeInternal() {}
-  union {
-    RequestFiles _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RequestFilesDefaultTypeInternal _RequestFiles_default_instance_;
 }  // namespace request
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ftqproto_2fRequestFile_2eproto[2];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_ftqproto_2fRequestFile_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_ftqproto_2fRequestFile_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_ftqproto_2fRequestFile_2eproto = nullptr;
 
@@ -57,36 +45,26 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_ftqproto_2fRequestFile_2eproto
   PROTOBUF_FIELD_OFFSET(::request::RequestFile, sourcefilepath_),
   PROTOBUF_FIELD_OFFSET(::request::RequestFile, filesize_),
   PROTOBUF_FIELD_OFFSET(::request::RequestFile, isdir_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::request::RequestFiles, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::request::RequestFiles, requestfiles_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::request::RequestFile)},
-  { 8, -1, sizeof(::request::RequestFiles)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::request::_RequestFile_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::request::_RequestFiles_default_instance_),
 };
 
 const char descriptor_table_protodef_ftqproto_2fRequestFile_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\032ftqproto/RequestFile.proto\022\007request\"F\n"
   "\013RequestFile\022\026\n\016sourceFilePath\030\001 \001(\t\022\020\n\010"
-  "fileSize\030\002 \001(\005\022\r\n\005isDir\030\003 \001(\010\":\n\014Request"
-  "Files\022*\n\014requestFiles\030\001 \003(\0132\024.request.Re"
-  "questFileBAZ\?github.com/MartinSimango/go"
-  "ftqproto/internal/request/genrequestb\006pr"
-  "oto3"
+  "fileSize\030\002 \001(\005\022\r\n\005isDir\030\003 \001(\010BAZ\?github."
+  "com/MartinSimango/goftqproto/internal/re"
+  "quest/genrequestb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_ftqproto_2fRequestFile_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_ftqproto_2fRequestFile_2eproto = {
-  false, false, 244, descriptor_table_protodef_ftqproto_2fRequestFile_2eproto, "ftqproto/RequestFile.proto", 
-  &descriptor_table_ftqproto_2fRequestFile_2eproto_once, nullptr, 0, 2,
+  false, false, 184, descriptor_table_protodef_ftqproto_2fRequestFile_2eproto, "ftqproto/RequestFile.proto", 
+  &descriptor_table_ftqproto_2fRequestFile_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_ftqproto_2fRequestFile_2eproto::offsets,
   file_level_metadata_ftqproto_2fRequestFile_2eproto, file_level_enum_descriptors_ftqproto_2fRequestFile_2eproto, file_level_service_descriptors_ftqproto_2fRequestFile_2eproto,
 };
@@ -363,209 +341,11 @@ void RequestFile::InternalSwap(RequestFile* other) {
       file_level_metadata_ftqproto_2fRequestFile_2eproto[0]);
 }
 
-// ===================================================================
-
-class RequestFiles::_Internal {
- public:
-};
-
-RequestFiles::RequestFiles(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  requestfiles_(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:request.RequestFiles)
-}
-RequestFiles::RequestFiles(const RequestFiles& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      requestfiles_(from.requestfiles_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:request.RequestFiles)
-}
-
-void RequestFiles::SharedCtor() {
-}
-
-RequestFiles::~RequestFiles() {
-  // @@protoc_insertion_point(destructor:request.RequestFiles)
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-void RequestFiles::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void RequestFiles::ArenaDtor(void* object) {
-  RequestFiles* _this = reinterpret_cast< RequestFiles* >(object);
-  (void)_this;
-}
-void RequestFiles::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void RequestFiles::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void RequestFiles::Clear() {
-// @@protoc_insertion_point(message_clear_start:request.RequestFiles)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  requestfiles_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* RequestFiles::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // repeated .request.RequestFile requestFiles = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_requestfiles(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* RequestFiles::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:request.RequestFiles)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // repeated .request.RequestFile requestFiles = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_requestfiles_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_requestfiles(i), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:request.RequestFiles)
-  return target;
-}
-
-size_t RequestFiles::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:request.RequestFiles)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated .request.RequestFile requestFiles = 1;
-  total_size += 1UL * this->_internal_requestfiles_size();
-  for (const auto& msg : this->requestfiles_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void RequestFiles::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:request.RequestFiles)
-  GOOGLE_DCHECK_NE(&from, this);
-  const RequestFiles* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RequestFiles>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:request.RequestFiles)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:request.RequestFiles)
-    MergeFrom(*source);
-  }
-}
-
-void RequestFiles::MergeFrom(const RequestFiles& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:request.RequestFiles)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  requestfiles_.MergeFrom(from.requestfiles_);
-}
-
-void RequestFiles::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:request.RequestFiles)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void RequestFiles::CopyFrom(const RequestFiles& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:request.RequestFiles)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool RequestFiles::IsInitialized() const {
-  return true;
-}
-
-void RequestFiles::InternalSwap(RequestFiles* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  requestfiles_.InternalSwap(&other->requestfiles_);
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata RequestFiles::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_ftqproto_2fRequestFile_2eproto_getter, &descriptor_table_ftqproto_2fRequestFile_2eproto_once,
-      file_level_metadata_ftqproto_2fRequestFile_2eproto[1]);
-}
-
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace request
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::request::RequestFile* Arena::CreateMaybeMessage< ::request::RequestFile >(Arena* arena) {
   return Arena::CreateMessageInternal< ::request::RequestFile >(arena);
-}
-template<> PROTOBUF_NOINLINE ::request::RequestFiles* Arena::CreateMaybeMessage< ::request::RequestFiles >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::request::RequestFiles >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

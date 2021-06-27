@@ -11,6 +11,3 @@ message RequestFile {
     bool isDir = 3;
 };
 
-message RequestFiles {
-    repeated RequestFile requestFiles = 1;
-};

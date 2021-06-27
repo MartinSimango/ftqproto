@@ -38,32 +38,35 @@ void FileServer::Close(){
 
 //todo: rather return the client request and the make handleRequest public
 bool FileServer::HandleClientRequest() {
+
     if(!isRunning){
         throw new ServerException(SERVER_NOT_RUNNING);
     }
     Request request(connfd);
+
     int bytes = request.Read();
 
     if (bytes == 0) { //read nothing from the client then close the connection with it
 
          return false;
     }
+
     switch (request.requestType) {
 
         case RequestType::CREATE: {
-            handleRequest(createCreateRequest(request.message.c_str()));
+            handleCreateRequest(requestFactory.CreateCreateRequest(request.message.c_str()));
             break;
         }
         case RequestType::GET: {
-            handleRequest(createGetRequest(request.message.c_str()));
+            handleGetRequest(requestFactory.CreateGetRequest(request.message.c_str()));
             break;
         }
         case RequestType::READ: {
-            handleRequest(createReadRequest(request.message.c_str()));
+            handleReadRequest(requestFactory.CreateReadRequest(request.message.c_str()));
             break;
         }
         case RequestType::WRITE: {
-            handleRequest(createWriteRequest(request.message.c_str()));
+            handleWriteRequest(requestFactory.CreateWriteRequest(request.message.c_str()));
             break;
         }
         default: {//unknown request close connection

@@ -22,7 +22,6 @@ int Request::Write() {
 
 
 int Request::Read(){
-
     readMessageLength();
 
     unsigned char tmp_buffer[messageSize];
@@ -38,13 +37,13 @@ int Request::Read(){
         totalBytesRead += bytesRead;
     }
 
-
     if (bytesRead < 0)  {
         throw new RequestException(FAILED_TO_READ_REQUEST);
         delete [] buffer;
     }
-
+    
     deserializeRequestMessage(buffer);
+
 
     delete [] buffer;
 

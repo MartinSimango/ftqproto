@@ -55,4 +55,3 @@ uninstall:
 clean: $(SUBDIRS_CLEAN)
 
 
-gen-proto: 
