@@ -1,8 +1,8 @@
-
 #include <ftqproto/ClientWrapper.h>
 #include <ftqproto/Client.hpp>
 #include <cpperror/ErrorVoid.hpp>
 #include <iostream>
+
 
 using namespace ftc;
 using namespace error;
@@ -32,38 +32,30 @@ void * Connect(void* fc, char * serverAddress, int port) {
     return dynamic_cast<ErrorBase*>(error);
 }
 
-void * SendCreateRequest(void* fc, char * sourceFilesNames[], const char * destinationFilePath, int fileSizes[], bool isDirs[], int numFiles){
-    std::vector<request::File> * files = new std::vector<request::File>(numFiles);
-    for(int i=0; i< numFiles; i++){
-        files->at(i).setSourceFilePath(sourceFilesNames[i]);
-        files->at(i).fileSize = fileSizes[i];
-        files->at(i).isDir = isDirs[i];
-
-    }
-
-    Error<CreateResponseStruct, FileClient, std::vector<request::File>*, const char * > * error = new Error<CreateResponseStruct, FileClient, std::vector<request::File>*, const char * >(&FileClient::SendCreateRequest, AsFileClient(fc));
-    error->Execute(files, destinationFilePath);
-    return dynamic_cast<ErrorBase*>(error);
-
-}
-
-void * SendGetRequest(void* fc, char * filepath) {
-    Error<GetResponse, FileClient, char *> * error = new Error<GetResponse, FileClient, char *>(&FileClient::SendGetRequest, AsFileClient(fc));
-    error->Execute(filepath);
+void * SendCreateRequest(void* fc, const char * protoCreateRequestMessage){
+    Error<std::string, FileClient, std::string> * error = new Error<std::string, FileClient, std::string>(&FileClient::SendCreateRequest, AsFileClient(fc));
+    error->Execute(protoCreateRequestMessage);    
     return dynamic_cast<ErrorBase*>(error);
 }
 
-void * SendReadRequest(void* fc, int numberOfBytesToRead, int offset, char *readFile, char * writeFile){
-    Error<ReadResponse, FileClient, int,int,char *, char*> * error = new Error<ReadResponse, FileClient,int,int, char *, char*>(&FileClient::SendReadRequest, AsFileClient(fc));
-    error->Execute(numberOfBytesToRead, offset, readFile, writeFile);
-
+void * SendGetRequest(void* fc, const char * protoGetRequestMessage) {
+    Error<std::string, FileClient, std::string> * error = new Error<std::string, FileClient, std::string>(&FileClient::SendGetRequest, AsFileClient(fc));
+    error->Execute(protoGetRequestMessage);
+    
     return dynamic_cast<ErrorBase*>(error);
 }
 
-void * SendWriteRequest(void* fc, int numberOfBytesToWrite, int offset, char *readFile, char * writeFile){
-    Error<WriteResponse, FileClient, int,int,char *, char*> * error = new Error<WriteResponse, FileClient,int,int, char *, char*>(&FileClient::SendWriteRequest, AsFileClient(fc));
-    error->Execute(numberOfBytesToWrite, offset, readFile, writeFile);
+void * SendReadRequest(void* fc, const char * protoReadRequestMessage){
+    Error<std::string, FileClient, std::string> * error = new Error<std::string, FileClient, std::string>(&FileClient::SendReadRequest, AsFileClient(fc));
+    error->Execute(protoReadRequestMessage);
+    
+    return dynamic_cast<ErrorBase*>(error);
+}
 
+void * SendWriteRequest(void* fc, const char * protoWriteRequestMessage) {
+    Error<std::string, FileClient, std::string> * error = new Error<std::string, FileClient, std::string>(&FileClient::SendWriteRequest, AsFileClient(fc));
+    error->Execute(protoWriteRequestMessage);
+    
     return dynamic_cast<ErrorBase*>(error);
 }
 

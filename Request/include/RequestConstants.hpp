@@ -9,7 +9,6 @@ namespace request {
     namespace RequestType {
         enum Type {
             UNKNOWN,
-            HEADER,
             CREATE,
             GET,
             READ,

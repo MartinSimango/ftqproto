@@ -34,6 +34,7 @@ inline unsigned char * serialize_char_array(unsigned char *buffer, char * value)
     for (int i = 0; i < value_len; i++){
     
         buffer[i] = value[i];
+        
     }
     return buffer + value_len;
 }

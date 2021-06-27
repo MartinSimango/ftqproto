@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package request;
+
+option go_package = "github.com/MartinSimango/goftqproto/internal/request/genrequest";
+
+import "ftqproto/RequestFile.proto";
+
+message CreateRequest {
+    string sourceFilePath = 1;
+    string destinationFilePath = 2;
+    bool isSourceDirectory = 3;
+    repeated RequestFile files = 4;
+}

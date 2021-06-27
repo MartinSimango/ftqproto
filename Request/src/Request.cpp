@@ -2,78 +2,51 @@
 
 using namespace request;
 
-int Request::Write(){
-    return WriteHeader() + WriteBody();
-}
+int Request::Write() {
 
-int Request::Read(){
-   return ReadHeader() + ReadBody();
-}
 
-int Request::WriteBody() {
-
-    int requestBodySize = getRequestBodySize();
-    unsigned char buffer[requestBodySize]; 
+    unsigned char buffer[getMessageSize()]; 
     unsigned char *ptr; 
 
-    ptr = serializeRequestBody(buffer);
+    ptr = serializeRequest(buffer);
 
     int bytes_written = write(fd, buffer, ptr - buffer);   
 
     if (bytes_written < 0) {
-        throw new RequestException(FAILED_TO_WRITE_REQUEST, this->requestType);
+        throw new RequestException(FAILED_TO_WRITE_REQUEST);
     }
     
     return bytes_written;
 }
 
-int Request::ReadBody(){
-    int requestBodySize = this->header->getRequestBodySize();
 
-    unsigned char tmp_buffer[requestBodySize];
-    unsigned char* buffer = new unsigned char[requestBodySize]; 
+
+int Request::Read(){
+    readMessageLength();
+
+    unsigned char tmp_buffer[messageSize];
+    unsigned char* buffer = new unsigned char[messageSize]; 
 
     int bytesRead;
     int totalBytesRead = 0;
-    while (totalBytesRead < requestBodySize && (bytesRead = read(fd, tmp_buffer, requestBodySize) ) > 0) {
-        for (int i =0; i< bytesRead ;i++){
+    while (totalBytesRead < messageSize && (bytesRead = read(fd, tmp_buffer, messageSize) ) > 0) {
+
+        for (int i =0; i <bytesRead ;i++){
             buffer[totalBytesRead + i] = tmp_buffer[i];
         }
         totalBytesRead += bytesRead;
     }
-   
 
     if (bytesRead < 0)  {
-        throw new RequestException(FAILED_TO_READ_REQUEST, this->requestType);
+        throw new RequestException(FAILED_TO_READ_REQUEST);
         delete [] buffer;
     }
-    deserializeRequestBody(buffer);
+    
+    deserializeRequestMessage(buffer);
+
+
     delete [] buffer;
 
     return totalBytesRead;
 }
 
-
-int Request::WriteHeader() {
-    delete this->header;
-
-    this->header = new RequestHeader(this->getRequestBodySize(), this->requestType);
-    unsigned char buffer[this->header->getRequestHeaderSize()]; 
-    unsigned char *ptr; 
-
-    ptr = this->header->serializeRequestHeader(buffer);
-
-    int bytes_written = write(fd, buffer, ptr - buffer); 
-
-    if (bytes_written < 0) {
-        throw new RequestException(FAILED_TO_WRITE_REQUEST_HEADER, this->requestType);
-    }
-    return bytes_written;
-}
-
-int Request::ReadHeader() {
-    delete this->header;
-    this->header = new RequestHeader(fd);
-
-    return this->header->Read();
-}

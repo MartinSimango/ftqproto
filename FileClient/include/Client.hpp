@@ -8,9 +8,8 @@
 #include <unistd.h>
 #include <ftqproto/FileReadWriter.hpp>
 #include <ftqproto/ClientException.hpp>
-#include <ftqproto/Requests.hpp>
-#include <ftqproto/Responses.hpp>
-
+#include <ftqproto/Request.hpp>
+#include <ftqproto/Response.hpp>
 
 using namespace request;
 using namespace response;
@@ -51,30 +50,10 @@ namespace ftc {
             
             if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) != 0) {
                 throw new ClientException(FAILED_TO_CONNECT_TO_SERVER);
-            }
-
-            
-        }
-
-    
-         // writeToServer writes to the server and reads from the client, returns false upon failure
-        inline int writeToServer(FileReadWriter * frw, char * filepath,int numberOfBytesToWrite, int offset) {
-            char dataRead[numberOfBytesToWrite];
-
-            int numberOfBytesRead = frw->ReadFromFile(dataRead, numberOfBytesToWrite, offset);
-           
-            WriteRequest writeRequest(sockfd, dataRead, offset, numberOfBytesRead, filepath);    
-            writeRequest.Write(); 
-
-            return numberOfBytesRead;
-        }
-        
-
+            }   
+        }    
 
         public:
-
-        // if writing to server filename will be file we want to read from
-        // if reading from server filename will be file we want to write to
         FileClient() {}
 
         ~FileClient() {}
@@ -83,13 +62,13 @@ namespace ftc {
         // returns false if connect failed and errorMessage is set
         void Connect(struct ServerPort serverPort);
         
-        CreateResponseStruct SendCreateRequest(std::vector<request::File> * files, const char * destinationFilePath);
+        std::string SendCreateRequest(std::string protoRequest);
 
-        GetResponse SendGetRequest(char * filepath);
+        std::string SendGetRequest(std::string protoRequest);
 
-        ReadResponse SendReadRequest(int numberOfBytesToRead, int offset, char *readFile, char * writeFile);
+        std::string SendReadRequest(std::string protoRequest);
 
-        WriteResponse SendWriteRequest(int numberOfBytesToWrite, int offset, char *readFile, char * writeFile);
+        std::string SendWriteRequest(std::string protoRequest);
        
         // Close closes the connection to the server, returns false upon failure
         void Close();

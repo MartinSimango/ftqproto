@@ -18,43 +18,17 @@ namespace response {
         
         private:
             const char* error;
-            ResponseType::Type responseType;
         
         public:
-            ResponseException(const char *error, ResponseType::Type responseType) : error::ErrorException(), error(error), responseType(responseType) {}
+            ResponseException(const char *error) : error::ErrorException(), error(error){}
             
             const char * what() const throw() override {
                 return error;   
             }
 
-            ResponseType::Type getResponseType() const {
-                return responseType;
-            }
-            // TODO maybe move request type name to individual request classes
-            const char * getResponseTypeName() const {
-                switch (responseType)
-                {
-                case ResponseType::HEADER:
-                    return "Request Header";
-                case ResponseType::CREATE:
-                    return "CREATE Response";
-                case ResponseType::GET:
-                    return "GET Response";
-                case ResponseType::READ:
-                    return "READ Response";
-                case ResponseType::WRITE:
-                    return "WRITE Response";
-                default:
-                    return "Unknown Response Type";
-                    break;
-                }
-            }
-
+            
             std::string getErrorMessage() override {
-             return "[Error] " + std::string(strerror(errno)) + "\n[ResponseException] Error: " + this->error +
-                    "\nPacketType: [" + std::to_string(this->responseType) + "] - " + getResponseTypeName();
-
-                return error;
+                return "[Error] " + std::string(strerror(errno)) + "\n[ResponseException] Error: " + this->error;
             }
 
     };

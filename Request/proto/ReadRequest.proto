@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option go_package = "github.com/MartinSimango/goftqproto/internal/request/genrequest";
+
+package request;
+
+
+message ReadRequest {
+    string filepath = 1;
+    int32 numberOfBytesToRead = 2;
+    int32 offset = 3;
+}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+
+option go_package = "github.com/MartinSimango/goftqproto/internal/request/genrequest";
+
+package request;
+
+message WriteRequest {
+    string filepath = 1;
+    string data = 2;
+    int32 offset = 3;
+}

@@ -38,40 +38,35 @@ void FileServer::Close(){
 
 //todo: rather return the client request and the make handleRequest public
 bool FileServer::HandleClientRequest() {
+
     if(!isRunning){
         throw new ServerException(SERVER_NOT_RUNNING);
     }
-    RequestHeader *header = new RequestHeader(connfd);
-    if (header->Read() == 0) { //read nothing from the client then close the connection with it
+    Request request(connfd);
+
+    int bytes = request.Read();
+
+    if (bytes == 0) { //read nothing from the client then close the connection with it
+
          return false;
     }
-    switch (header->requestType) {
+
+    switch (request.requestType) {
+
         case RequestType::CREATE: {
-            CreateRequest *request = new CreateRequest(connfd, header);
-            request->ReadBody();
-            handleRequest(request);
-            delete request;
+            handleCreateRequest(requestFactory.CreateCreateRequest(request.message.c_str()));
             break;
         }
         case RequestType::GET: {
-            GetRequest *request = new GetRequest(connfd, header);
-            request->ReadBody();
-            handleRequest(request);
-            delete request;
+            handleGetRequest(requestFactory.CreateGetRequest(request.message.c_str()));
             break;
         }
         case RequestType::READ: {
-            ReadRequest *request = new ReadRequest(connfd, header);
-            request->ReadBody();
-            handleRequest(request);
-            delete request;
+            handleReadRequest(requestFactory.CreateReadRequest(request.message.c_str()));
             break;
         }
         case RequestType::WRITE: {
-            WriteRequest *request = new WriteRequest(connfd, header);
-            request->ReadBody();
-            handleRequest(request);
-            delete request;
+            handleWriteRequest(requestFactory.CreateWriteRequest(request.message.c_str()));
             break;
         }
         default: {//unknown request close connection

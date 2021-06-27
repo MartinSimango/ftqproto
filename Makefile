@@ -1,18 +1,28 @@
-SUBDIRS=FileClient FileReadWriter FileServer Request Response
+SUBDIRS=Request Response FileClient FileReadWriter FileServer  
 SUBDIRS_CLEAN=$(patsubst %, %.clean, $(SUBDIRS))
 
 
 .PHONY: $(SUBDIRS) $(SUBDIRS_CLEAN) clean
 
 $(SUBDIRS): 
-	$(MAKE) build -C $(patsubst %,%, $@)
+	$(MAKE) build install -C $(patsubst %,%, $@)
 
 $(SUBDIRS_CLEAN):
 	$(MAKE) clean -C $(patsubst %.clean,%, $@)
 
 build: install-headers $(SUBDIRS)
 
-build-docker: install-headers-docker $(SUBDIRS)
+
+bi-FileServer: bi-Response bi-Request
+	$(MAKE) install-headers build install -C FileServer
+bi-FileClient:
+	$(MAKE) install-headers build install -C FileClient
+bi-Request:
+	$(MAKE) install-headers build install -C Request
+bi-Response:
+	$(MAKE) install-headers build install -C Response
+bi-FileReadWriter:
+	$(MAKE) install-headers build install -C FileReadWriter
 
 install: 
 	$(MAKE) install -C FileServer
@@ -31,16 +41,6 @@ install-headers:
 	cp Serializer/include/Serializer.h /usr/local/include/ftqproto
 
 
-install-headers-docker:
-	mkdir -p /usr/include/ftqproto
-	$(MAKE) install-headers-docker -C FileServer
-	$(MAKE) install-headers-docker -C FileClient
-	$(MAKE) install-headers-docker -C Response
-	$(MAKE) install-headers-docker -C Request
-	$(MAKE) install-headers-docker -C FileReadWriter
-	cp Serializer/include/Serializer.h /usr/include/ftqproto
-
-
 uninstall:
 	$(MAKE) uninstall -C FileServer
 	$(MAKE) uninstall -C FileClient
@@ -50,15 +50,6 @@ uninstall:
 	rm -rf /usr/local/include/ftqproto
 
 
-
-install-docker: 
-	mkdir -p /usr/include/ftqproto
-	$(MAKE) install-docker -C FileServer
-	$(MAKE) install-docker -C FileClient
-	$(MAKE) install-docker -C Response
-	$(MAKE) install-docker -C Request
-	$(MAKE) install-docker -C FileReadWriter
-	cp Serializer/include/Serializer.h /usr/include/ftqproto
 
 
 clean: $(SUBDIRS_CLEAN)
