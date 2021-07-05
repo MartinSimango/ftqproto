@@ -1,4 +1,5 @@
 #include <ftqproto/ResponseFactory.hpp>
+#include <ftqproto/ResponseException.hpp>
 
 using namespace response;
 
@@ -47,6 +48,6 @@ ResponseStatus_Status ResponseFactory::GetResponseStatusFromFRWStatus(frw::FileR
     case frw::FileReadWriterStatus::OPERATION_NOT_PERMITTED:
         return ResponseStatus_Status_OPERATION_NOT_PERMITTED;    
     default:
-        throw new ResponseEx
+        throw new ResponseException(INVALID_RESPONSE_STATUS);
     }
 }

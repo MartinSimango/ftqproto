@@ -5,6 +5,12 @@
 #include <errno.h>
 
 
+static const char * FAILED_TO_WRITE_RESPONSE = "Failed to write response.";
+static const char * FAILED_TO_READ_RESPONSE = "Failed to read response.";
+static const char * INVALID_RESPONSE_STATUS = "Invalid response status";
+
+
+
 namespace response {
 
     class ResponseException : public error::ErrorException {
