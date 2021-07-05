@@ -11,10 +11,21 @@
 #include <ftqproto/FileReadWriterConstants.hpp>
 #include <ftqproto/ResponseConstants.hpp>
 #include <ftqproto/ResponseStatus.pb.h>
+#include <ftqproto/FileReadWriterStatuses.hpp>
+#include <filesystem>
 
 using namespace response;
 
 namespace frw {
+
+    struct File {
+        std::string filepath;
+        bool isDir;
+        int fileSize;
+        
+        File(std::string filepath, int fileSize, bool isDir) : filepath(filepath), fileSize(fileSize), isDir(isDir) {}
+    };
+
 
     class FileReadWriter
     {
@@ -38,26 +49,26 @@ namespace frw {
             opened = true;    
         }
 
-        static inline ResponseStatus_Status checkFileForRead(const char * filename) {
+        static inline FileReadWriterStatus checkFileForRead(const char * filename) {
                 if (access(filename, F_OK) == 0) {
-                    return access(filename, R_OK) == 0 ? ResponseStatus_Status_OK : ResponseStatus_Status_NO_READ_PERMISSIONS;
+                    return access(filename, R_OK) == 0 ? FileReadWriterStatus::OK : FileReadWriterStatus::NO_READ_PERMISSIONS;
                 }
                 else {
-                    return ResponseStatus_Status_FILE_NOT_FOUND;
+                    return FileReadWriterStatus::FILE_NOT_FOUND;
                 }
             }    
 
-        static inline ResponseStatus_Status checkFileForWrite(std::string filepath) {
+        static inline FileReadWriterStatus checkFileForWrite(std::string filepath) {
             //check if parent directory exists
             std::string parentDir = std::string(dirname(&filepath[0]));
 
             if (access(parentDir.c_str(), F_OK) != 0 ){
-                return ResponseStatus_Status_FILE_NOT_FOUND;
+                return FileReadWriterStatus::FILE_NOT_FOUND;
             }
             if (access(filepath.c_str(), F_OK) == 0) {
-                return access(filepath.c_str(), W_OK) == 0 ? ResponseStatus_Status_OK : ResponseStatus_Status_NO_WRITE_PERMISSIONS;
+                return access(filepath.c_str(), W_OK) == 0 ? FileReadWriterStatus::OK : FileReadWriterStatus::NO_WRITE_PERMISSIONS;
             }
-            return ResponseStatus_Status_OK;
+            return FileReadWriterStatus::OK;
         }
                 
         
@@ -85,7 +96,8 @@ namespace frw {
 
         int GetFileDescriptor() const;
 
-        static ResponseStatus_Status CheckFile(const char * filename, Mode::Type mode);
+        //TODO return FRW STATUS, FRW should have no idea about responst status
+        static FileReadWriterStatus CheckFile(const char * filename, Mode::Type mode);
 
         static bool CheckFileIsDirectory(const char * filename);
 
@@ -103,6 +115,8 @@ namespace frw {
         static bool CopyFileIntoDirectory(std::string directoryName, std::string sourceFile, int fileSize);
 
         static bool CopyDirectoryIntoDirectory(std::string destinationDirectory, std::string sourceDirectory);
+
+        static std::vector<File> GetFilesAtPath(std::string filePath);
 
     };
 

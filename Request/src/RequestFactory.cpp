@@ -26,3 +26,12 @@ WriteRequest RequestFactory::CreateWriteRequest(const char * protoRequestMessage
     request.ParseFromString(protoRequestMessage);
     return request;
 }
+
+RequestFile RequestFactory::CreateRequestFileFromFRWFile(frw::File file) {
+    RequestFile requestFile;
+    requestFile.set_sourcefilepath(file.filepath);
+    requestFile.set_filesize(file.fileSize);
+    requestFile.set_isdir(file.isDir);
+
+    return requestFile;
+}

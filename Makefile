@@ -29,7 +29,7 @@ install:
 	$(MAKE) install -C FileClient
 	$(MAKE) install -C Response
 	$(MAKE) install -C Request
-	$(MAKE) install -C FileReadWriter
+	$(MAKE) install -C FileReadWriter 
 
 install-headers:
 	mkdir -p /usr/local/include/ftqproto

@@ -57,7 +57,7 @@ int FileReadWriter::GetFileDescriptor() const {
 }
 
 
-ResponseStatus_Status FileReadWriter::CheckFile(const char * filename, Mode::Type mode) {
+FileReadWriterStatus FileReadWriter::CheckFile(const char * filename, Mode::Type mode) {
       return (mode == Mode::READ) ? checkFileForRead(filename)
                             : checkFileForWrite(filename);
 }
@@ -121,4 +121,15 @@ bool FileReadWriter::CopyDirectoryIntoDirectory(std::string destinationDirectory
     return true;
 
 }
+
+
+std::vector<File> FileReadWriter::GetFilesAtPath(std::string filePath) {
+    std::vector<File> files;
+    for (const auto& dirEntry : std::filesystem::recursive_directory_iterator(filePath)) {
+        File file(dirEntry.path().root_path().string(), (int) dirEntry.file_size(), dirEntry.is_directory());
+        std::cout << "PATH: " << dirEntry.path().root_path().string() << std::endl;
+        files.push_back(file);
+    }
+    return files;
+}  
 

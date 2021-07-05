@@ -4,6 +4,7 @@
 #include <ftqproto/GetResponse.pb.h>
 #include <ftqproto/ReadResponse.pb.h>
 #include <ftqproto/WriteResponse.pb.h>
+#include <ftqproto/FileReadWriterStatuses.hpp>
 
 namespace response {
 
@@ -23,6 +24,8 @@ namespace response {
         std::string GetSerializedReadResponse(ReadResponse readResponse);
         
         std::string GetSerializedWriteResponse(WriteResponse writeResponse);    
+
+        ResponseStatus_Status GetResponseStatusFromFRWStatus(frw::FileReadWriterStatus status);
                 
     };
 

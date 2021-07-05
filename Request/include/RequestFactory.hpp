@@ -4,6 +4,7 @@
 #include <ftqproto/GetRequest.pb.h>
 #include <ftqproto/ReadRequest.pb.h>
 #include <ftqproto/WriteRequest.pb.h>
+#include <ftqproto/FileReadWriter.hpp>
 
 namespace request {
 
@@ -23,7 +24,8 @@ namespace request {
         ReadRequest CreateReadRequest(const char * protoRequestMessage);
                 
         WriteRequest CreateWriteRequest(const char * protoRequestMessage);
-              
+
+        RequestFile CreateRequestFileFromFRWFile(frw::File file);
                 
     };
 
