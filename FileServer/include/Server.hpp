@@ -68,8 +68,6 @@ namespace fts {
                     throw new ServerException(FAILED_TO_CREATE_SERVER_SOCKET);
                 bindServerSocketAddress();
             }    
-
-
           
             inline std::string getDestitionFilePath(std::string destinationPathFile) {
                 std::string filepath = std::string(this->rootFolder) + destinationPathFile;
@@ -215,6 +213,7 @@ namespace fts {
             Response response(connfd, responseFactory.GetSerializedGetResponse(getResponse));
             response.Write();
 
+            delete responseStatus;            
         }
 
         void handleReadRequest(ReadRequest request){
@@ -240,6 +239,9 @@ namespace fts {
 
             Response response(connfd, responseFactory.GetSerializedReadResponse(readReponse));
             response.Write();
+
+            delete responseStatus;            
+
         }
 
         void handleWriteRequest(WriteRequest request){
@@ -259,12 +261,12 @@ namespace fts {
                 frw.Close();
             }            
 
-
             writeResponse.set_byteswritten(bytesWritten);
 
             Response response(connfd, responseFactory.GetSerializedWriteResponse(writeResponse));
             response.Write();
 
+            delete responseStatus;            
         }
             
         public:
@@ -290,4 +292,3 @@ namespace fts {
     };
 
 };
-
