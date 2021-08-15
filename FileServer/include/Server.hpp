@@ -174,9 +174,6 @@ namespace fts {
                 for (ResponseFile file: responseFiles) {
                     createResponse.add_files()->CopyFrom(file);
                 }
-                // std::for_each(std::begin(responseFiles), std::end(responseFiles),[&createResponse](ResponseFile file) {
-                //         createResponse.add_files()->CopyFrom(file);
-                // });
 
                 Response response(connfd, responseFactory.GetSerializedCreateResponse(createResponse));
                 response.Write();
