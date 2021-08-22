@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FtqUtil.hpp"
+#include "Process.hpp"
 #include <vector>
 
 namespace ftq {
@@ -31,7 +32,7 @@ namespace ftq {
         static void setProcessAffinity(Process * process);
 
         // todo implement
-        static ftq_cpu_set_t getProcessAffinity();
+        static std::vector<uint8> getProcessAffinity(Process * process);
 
     };
 

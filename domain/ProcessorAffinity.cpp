@@ -6,6 +6,8 @@
 using namespace ftq;
 
 
+
+
 void ProcessorAffinity::setProcessAffinity(Process* process) {
 
     #ifdef linux
@@ -31,6 +33,10 @@ void ProcessorAffinity::setProcessAffinity(Process* process) {
         Logger::logInfo("Can not set process affinity for process: '"+ process->getProcessName() + "'");
     #endif
     
+}
+
+std::vector<uint8> ProcessorAffinity::getProcessAffinity(Process * process) {
+    return process->getProcessCpuSet();
 }
 
 

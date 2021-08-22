@@ -13,6 +13,23 @@ namespace ftq {
                 WorkerProcess * process = new WorkerProcess(name, getpid(), cpuId);
                 return process;
             }
+
+            
+            Process* createProcess(std::string processName, ProcessType processType, uint8 cpuId) {
+                switch (processType) {
+                    {
+                    case WORKER_PROCESS: {
+                        WorkerProcess * workerProcess = createWorkerProcess(processName, cpuId);
+                        addWorkerProcess(*workerProcess);
+                        return workerProcess;     
+                    }               
+                    default:
+                        return NULL;
+                    }
+                }
+            }
+
+
             void startWorkerProcesses(uint8 n) override {
                 
                 for (uint8 i = 0; i < n ; i++) {
@@ -28,31 +45,17 @@ namespace ftq {
                 
                 switch (pid)
                 {
-                case -1:
-                    return NULL; 
-                case 0: {
-                 switch (processType)
-                    {
-                    case WORKER_PROCESS:
-                        WorkerProcess * workerProcess = createWorkerProcess(processName, cpuId);
-                        addWorkerProcess(*workerProcess);
-                        process = workerProcess;
-                        break;
-                    
-                    default:
-                        return NULL;
+                    case -1:
+                        return NULL; 
+                    case 0: {
+                        process = createProcess(processName, processType, cpuId);
+                        ProcessorAffinity::setProcessAffinity(process);
                     }
-                    ProccesorAffinity::setProcessAffinity(cpuId); 
-                }
-               
-                   
-                
-                default:
-                    return NULL;
+                    default:
+                        return NULL; // parent process
                 }
 
                 // todo: use logger
-                std::cout << processName << " started" << std::endl; 
                 return process;
                             
             }

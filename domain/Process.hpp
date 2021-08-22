@@ -1,5 +1,6 @@
 #pragma once
 #include "FtqUtil.hpp"
+#include "Logger.hpp"
 #include <unistd.h>
 #include <string>
 #include <vector>

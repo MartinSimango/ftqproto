@@ -1,6 +1,6 @@
 #pragma once
 #include "../../domain/FtqUtil.hpp"
-#include "Process.hpp"
+#include "../../domain/Process.hpp"
 #include <string>
 
 
