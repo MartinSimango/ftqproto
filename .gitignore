@@ -1,4 +1,7 @@
 .vscode
+.idea
+
+# build
 
 *.o
 *.a

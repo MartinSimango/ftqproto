@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+
+package request;
+
+
+option go_package = "github.com/MartinSimango/goftqproto/internal/request/genrequest";
+
+
+message GetRequest {
+    string filePath = 1;
+   
+}
