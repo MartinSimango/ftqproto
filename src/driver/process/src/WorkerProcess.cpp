@@ -1,7 +1,7 @@
 #include "../include/WorkerProcess.hpp"
 #include <stdio.h>
 
-using namespace ftq_usecase;
+using namespace ftq_driver;
 using namespace ftq_domain;
 
 

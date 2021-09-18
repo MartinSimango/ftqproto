@@ -1,7 +1,7 @@
 #pragma once
 #include "FtqTest.hpp"
 
-namespace ftq {
+namespace ftq_test {
 
     class FtqTests {
         public:

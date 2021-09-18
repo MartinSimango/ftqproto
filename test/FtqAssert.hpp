@@ -1,7 +1,11 @@
 #pragma once
 #include "TestFailedException.hpp"
+#include "../src/domain/util/include/FTQObject.hpp"
+#include <sstream>
 
-namespace ftq {
+using namespace ftq_domain;
+
+namespace ftq_test {
 
 class FtqAssert {
 
@@ -9,13 +13,13 @@ class FtqAssert {
 
     template<typename T>
     static void assertEqualTo(T a, T b) {
-        if (a != b) {
-            std::string reason = std::to_string(a) + " does not equal " + std::to_string(b);
-            throw new TestFailedException(reason);
-        }
-     
-    }
 
+        std::stringstream reason;
+        if (a != b) {
+            reason << a << " does not equal " << b << std::endl;
+            throw new TestFailedException(reason.str());
+        }
+    }
 
 };
 

@@ -1,11 +1,11 @@
-#include "../include/MasterProcessImpl.hpp"
+#include "../include/MasterProcess.hpp"
 #include <sys/wait.h>
 
-using namespace ftq_usecase;
+using namespace ftq_driver;
 using namespace ftq_domain;
 
 
-void MasterProcessImpl::run() {
+void MasterProcess::run() {
     //todo logger
     Logger::logInfo(this->toString() + " started!");
 
@@ -16,4 +16,8 @@ void MasterProcessImpl::run() {
     }
     Logger::logInfo(getProcessName() + " ended!");
 
+}
+
+uint8 MasterProcess::getCpuCount() {
+    return cpuCount;
 }

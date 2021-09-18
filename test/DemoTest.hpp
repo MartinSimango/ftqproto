@@ -3,7 +3,7 @@
 #include "FtqTest.hpp"
 
 
-namespace ftq {
+namespace ftq_test {
     
 class DemoTest : public FtqTest {
 
@@ -13,7 +13,7 @@ class DemoTest : public FtqTest {
         setupTests();
     }
 
-    void setupTests() override {
+    void setupTests() {
         registerTest("does1equal1", does1equal1);
         registerTest("does1equal2", does1equal2);
 

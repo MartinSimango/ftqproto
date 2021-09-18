@@ -1,10 +1,14 @@
-#include "usecase/process/include/MasterProcessImpl.hpp"
+#include "driver/process/include/MasterProcess.hpp"
 
-using namespace ftq_usecase;
+using namespace ftq_driver;
 
 int main(int argc, char * argv[]) {
-    MasterProcess *masterProcess = new MasterProcessImpl();
+    ProcessFactory * processFactory = new ProcessFactory();
+    MasterProcess *masterProcess = new MasterProcess(processFactory);
+
     masterProcess->run();
+    delete processFactory;
+    delete masterProcess;
 
       // 1. start master process
     // 2. initlize socket and start listen for traffic

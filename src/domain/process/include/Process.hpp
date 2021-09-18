@@ -2,6 +2,7 @@
 
 #include "../../util/include/FtqUtil.hpp"
 #include "../../logger/include/Logger.hpp"
+#include "../../util/include/FTQObject.hpp"
 #include <unistd.h>
 #include <string>
 #include <vector>
@@ -17,9 +18,9 @@ enum ProcessType {
     MASTER_PROCESS
 };
 
-class Process {
+class Process : public FTQObject {
 
-    private:
+    protected:
         ProcessType processType;
         std::string processName;
         ftq_pid_t pid;
@@ -66,8 +67,38 @@ class Process {
             return cpuSet;
         }
         
-        virtual std::string toString() {
+        virtual std::string toString() override {
            return processName + " (PID: "  + std::to_string(pid) + ")";
+        }
+
+        bool equals(FTQObject * ftqObject) override {
+            Process * process = dynamic_cast<Process*>(ftqObject);
+            return  process->pid == this->pid &&
+                    process->processName == this->processName &&
+                    process->processType == this->processType &&
+                    process->cpuSet == this->cpuSet;
+        }
+
+
+        friend std::ostream& operator << (std::ostream &os, const Process &process) {
+            std::string cpuSetString = "[";
+            uint8 i;
+            for (i = 0; i < process.cpuSet.size(); i++)
+            {
+                if (i == process.cpuSet.size() - 1) {
+                    cpuSetString += std::to_string(process.cpuSet.at(i));
+                    break;
+                }
+                cpuSetString += std::to_string(process.cpuSet.at(i)) + ",";
+              
+            }
+            cpuSetString+= "]";
+            
+            return (os  << "{Process name: " << process.processName 
+                        << ", PID: " << process.pid 
+                        << ", Process Type: " << process.processType 
+                        << ", Cpu set: " << cpuSetString << "}"
+                    );
         }
 };
 

@@ -21,8 +21,6 @@ namespace ftq_domain {
     #endif // linux
 
     class ProcessorAffinity {
-    
-  
 
     public:
 

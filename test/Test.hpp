@@ -7,7 +7,7 @@
 #include "TestFailedException.hpp"
 
 
-namespace ftq {
+namespace ftq_test {
 
 class Test {
     
@@ -22,8 +22,6 @@ class Test {
     std::string *reason = NULL;
     Type test;
     bool pass = false;
-
-
 
     public:
 

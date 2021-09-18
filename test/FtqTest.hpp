@@ -7,7 +7,7 @@
 #include "Test.hpp"
 #include "FtqAssert.hpp"
 
-namespace ftq {
+namespace ftq_test {
 
 
 
@@ -17,8 +17,6 @@ class FtqTest {
         std::string testName;
         std::vector<Test*> tests;
 
-         //should only be albe to register test from current class
-            //  using Type = RetVal(Object::*)(Args...);
     protected:
 
         void registerTest(std::string name, Test::Type test) {
@@ -27,7 +25,8 @@ class FtqTest {
     
     public:
 
-        FtqTest(std::string testName): testName(testName) {}
+        FtqTest(std::string testName): testName(testName) {
+        }
 
         virtual ~FtqTest(){
              while (!tests.empty())
@@ -54,8 +53,6 @@ class FtqTest {
         std::string getTestName() {
             return testName;
         }
-
-        virtual void setupTests() = 0;
 
 };
 

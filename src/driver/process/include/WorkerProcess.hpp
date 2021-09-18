@@ -5,7 +5,7 @@
 #include <string>
 
 
-namespace ftq_usecase {
+namespace ftq_driver {
 
     class WorkerProcess : public ftq_domain::Process {
             
@@ -17,7 +17,20 @@ namespace ftq_usecase {
 
             void run() override;
 
+
+            bool operator==(const WorkerProcess process){
+                return process.pid == this->pid &&
+                        process.processName == this->processName &&
+                        process.processType == this->processType &&
+                        process.cpuSet == this->cpuSet;
+             
+            }
+
+             bool operator!=(const WorkerProcess process){
+                return !(*this == process); 
+             
+            }
+
     };
 
 };
-// wwangambazi@gmail.com 
