@@ -33,44 +33,50 @@
 struct SomeInterface
 {
     /* data */
-    virtual int foo(int a, int b) = 0;
+    virtual int foo(int a, std::string b) = 0;
     virtual int boo(int a) = 0;
 };
 
 class MockRegistry {
-    private:
+    public:
     std::vector<std::string> methodNames;
     std::vector<std::vector<void*>> methodArgs;
     std::vector<void *> returns;
 
 
-    int getMethodIndex(std::string methodName) {
-        int i = 0;
-        for (std::string mn: methodNames) {
-            if (mn == methodName){
-                return i;
-            }
-            i++;
-        }
-        return -1;
-    }
-
     public:
+
+        int getMethodIndex(std::string methodName) {
+            int i = 0;
+            for (std::string mn: methodNames) {
+                if (mn == methodName){
+                    return i;
+                }
+                i++;
+            }
+            return -1;
+        }
+        
         void addMethodName(std::string name) {
             methodNames.push_back(name);
         }
 
-        template<typename ...Args>
-        void addMethodArgs(Args... args) {
-            std::vector<void *> types;
-            for(auto p : {args...}) {
-                decltype(p) *t = new decltype(p)(p);
-                // std::cout << "Value is: " << *t << std::endl;
-                types.push_back((void *)t);
-            }
-                
-            methodArgs.push_back(types);
+        template<typename T>
+        void addMethodArgs(std::vector<void *> & type, T arg) {
+            T *t = new T(arg);
+            type.push_back((void *)t);
+            std::cout << "Final Value is: " << arg << std::endl;
+            methodArgs.push_back(type);
         }
+
+        template<typename T, typename ...Args>
+        void addMethodArgs(std::vector<void *> & type, T arg, Args...args) {
+            T *t = new T(arg);
+            std::cout << "Value is: " << arg <<std::endl;
+            type.push_back((void *) t);
+            addMethodArgs(type, args...);
+        }
+       
 
         void addReturnValues(void * value){
             returns.push_back(value);
@@ -94,22 +100,18 @@ class MockRegistry {
      
         }
 
-        template<typename ...Args>
-        bool wasCalledWith(std::string methodName, Args... args) {
-            int index = getMethodIndex(methodName);
-            
-            std::vector<void*> arguments = methodArgs.at(index);
-            int i = 0;
-            for(auto p : {args...}) {
-                decltype(p) value = *reinterpret_cast<decltype(p)*>(arguments.at(i));
-                // std::cout << "Comparing " << p << " with " << value << std::endl;
-                if (p != value) {
-                    return false;
-                }
-                i++;
-            }
+        template<typename T>
+        bool wasCalledWith(std::vector<void *> methodArguments, int i, T arg) {
+            T value = *reinterpret_cast<T*>(methodArguments.at(i));
+            std::cout << "Comparing " << arg << " with " << value << std::endl;
+            return value == arg; 
+        }
 
-            return true;        
+        template<typename T, typename ...Args>
+        bool wasCalledWith(std::vector<void *> methodArguments, int i, T firstArg,  Args... args) {            
+            T value = *reinterpret_cast<T*>(methodArguments.at(i));
+            std::cout << "Comparing " << firstArg << " with " << value << std::endl;
+            return value == firstArg && wasCalledWith(methodArguments, ++i, std::forward<Args>(args)...);    
         }
 
        
@@ -147,7 +149,8 @@ class Mock {
 
     template<typename ...Args>
     void addMethodArgs(Args... args) {
-        registry.addMethodArgs(std::forward<Args>(args)...);
+        std::vector<void*> type;
+        registry.addMethodArgs(type, args...);
     }
 
     void addReturnValues(void * value){
@@ -155,8 +158,27 @@ class Mock {
     }
 
     template<typename ...Args>
-    bool wasCalledWith(std::string methodName, Args... args) {
-        return registry.wasCalledWith(methodName, std::forward<Args>(args)...);
+    bool wasCalledWith(std::vector<void *> methodArguments, Args... args) {
+        return registry.wasCalledWith(methodArguments, 0, std::forward<Args>(args)...);
+    }
+
+
+    int getMethodIndex(std::string methodName) {
+        return registry.getMethodIndex(methodName);
+    }
+
+    std::vector<void *> getMethodArgsForMethod(std::string methodName) {
+        int index = getMethodIndex(methodName);
+        if (index < 0) {
+            std::cout << "Method name does not exist" <<std::endl;
+            throw std::exception();
+        }
+        if (index >= registry.methodArgs.size()) {
+            std::cout << "Method was called" <<std::endl;
+            throw std::exception();
+        }
+        return registry.methodArgs.at(index);
+
     }
     
 };
@@ -177,7 +199,7 @@ class interface##Mock : public interface { \
 interface##Mock instance; \
 
 MOCK_INTERFACE(SomeInterface,
-    MOCK_METHOD_2(int, foo, int, int)
+    MOCK_METHOD_2(int, foo, int, std::string)
     MOCK_METHOD(int, boo, int)
 )
 
@@ -224,8 +246,8 @@ class With {
    With(Mock<MockObject> *mock) : mock(mock) {}
 
    WillReturn<MockObject, Retval> with(Args... args) {
-            mock->addMethodArgs(std::forward<Args>(args)...);
-            return WillReturn<MockObject, Retval>(mock);
+        mock->addMethodArgs(args...);
+        return WillReturn<MockObject, Retval>(mock);
         
     }
 
@@ -243,7 +265,7 @@ class WasCalledWith {
     WasCalledWith(Mock<MockObject> * mock, std::string methodName) : mock(mock), methodName(methodName) {}
 
     bool wasCalledWith(Args... args) {
-        return mock->wasCalledWith(methodName, std::forward<Args>(args)...);
+        return mock->wasCalledWith(mock->getMethodArgsForMethod(methodName), std::forward<Args>(args)...);
     }
 
 };

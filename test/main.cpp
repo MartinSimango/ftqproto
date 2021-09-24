@@ -13,11 +13,6 @@ void addTests() {
 
 }
 
-void callMock(SomeInterface *a) {
-    a->foo(2,2);
-}
-
-
 
 
 int main() {
@@ -28,12 +23,12 @@ int main() {
     Mock<SomeInterfaceMock> mock;
     SomeInterface &i = mock.get();
 
-    expectThat(mock, foo).with(2,2).willReturn(10);
+    expectThat(mock, foo).with(2,"hello").willReturn(10);
 
 
-    int value = i.foo(2,2);
+    int value = i.foo(2,"hello");
 
-    bool verif = Verify(mock, foo).wasCalledWith(2,2);
+    bool verif = Verify(mock, foo).wasCalledWith(2,"hello");
 
     if(verif) {
         std::cout << "Yes" << std::endl;
