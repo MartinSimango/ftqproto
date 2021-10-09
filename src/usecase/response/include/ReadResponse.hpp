@@ -1,12 +1,12 @@
 #pragma once
 
-#include <string>
 #include "ResponseStatus.hpp"
+#include <string>
 
-namespace ftq_usecase  {
+namespace ftq_usecase {
 
-    typedef struct {
-        std::string data;
-        ResponseStatus status;
-    } ReadResponse;
-}
+typedef struct {
+  std::string data;
+  ResponseStatus status;
+} ReadResponse;
+} // namespace ftq_usecase

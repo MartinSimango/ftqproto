@@ -5,11 +5,8 @@
 
 namespace ftq_domain {
 
-    namespace Mode {
-        enum Type {
-            READ,
-            WRITE
-        };
-    };
+namespace Mode {
+enum Type { READ, WRITE };
+};
 
-}
+} // namespace ftq_domain
