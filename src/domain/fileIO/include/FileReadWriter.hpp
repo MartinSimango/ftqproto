@@ -115,7 +115,16 @@ namespace ftq_domain {
         static bool CopyFileIntoDirectory(std::string directoryName, std::string sourceFile, int fileSize);
 
         static bool CopyDirectoryIntoDirectory(std::string destinationDirectory, std::string sourceDirectory);
-
+        
+         /**
+         * GetFi creates a process object. A process object is an object representation of a currently running process
+         * 
+         *
+         * @param processName The name of the process
+         * @param processType The type of process to be created i.e WORKER_PROCESS
+         * @param cpuId The cpu id the process is to be run on if process affinity is available on OS
+         * @return a pointer to the created process
+         */
         static std::vector<File> GetFilesAtPath(std::string filePath);
 
     };
