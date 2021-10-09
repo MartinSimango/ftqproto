@@ -1,37 +1,33 @@
 #pragma once
 
-#include "../../util/include/FtqUtil.hpp"
 #include "../../process/include/Process.hpp"
+#include "../../util/include/FtqUtil.hpp"
 #include <vector>
 
 namespace ftq_domain {
-    
-    #ifdef __linux__
 
-    // #define _GNU_SOURCE
-    // #define __USE_GNU
-    #include <sched.h>
+#ifdef __linux__
 
-    typedef cpu_set_t ftq_cpu_set_t;
+// #define _GNU_SOURCE
+// #define __USE_GNU
+#include <sched.h>
 
-    #else 
+typedef cpu_set_t ftq_cpu_set_t;
 
-    typedef uint8 ftq_cpu_set_t;
+#else
 
-    #endif // linux
+typedef uint8 ftq_cpu_set_t;
 
-    class ProcessorAffinity {
+#endif // linux
 
-    public:
+class ProcessorAffinity {
 
-        ProcessorAffinity() {}
+public:
+  ProcessorAffinity() {}
 
-        static void setProcessAffinity(ftq_domain::Process * process);
+  static void setProcessAffinity(ftq_domain::Process *process);
 
-        static std::vector<uint8> getProcessAffinity(ftq_domain::Process * process);
+  static std::vector<uint8> getProcessAffinity(ftq_domain::Process *process);
+};
 
-    };
-
-
-}
-
+} // namespace ftq_domain

@@ -4,12 +4,9 @@
 
 namespace ftq_usecase {
 
-    typedef struct 
-    {
-     std::string filePath;
+typedef struct {
+  std::string filePath;
 
-    } GetRequest;
-    
-}
+} GetRequest;
 
-
+} // namespace ftq_usecase
