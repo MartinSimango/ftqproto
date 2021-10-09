@@ -1,15 +1,13 @@
 #pragma once
 
-#include <string>
 #include "ResponseStatus.hpp"
+#include <string>
 
-namespace ftq_usecase  {
+namespace ftq_usecase {
 
-    typedef struct {
-        std::string sourceFilePath;
-        ResponseStatus status;
+typedef struct {
+  std::string sourceFilePath;
+  ResponseStatus status;
 
-    } ResponseFile;
-}
-
-
+} ResponseFile;
+} // namespace ftq_usecase

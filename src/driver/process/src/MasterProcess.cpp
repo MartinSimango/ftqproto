@@ -4,20 +4,16 @@
 using namespace ftq_driver;
 using namespace ftq_domain;
 
-
 void MasterProcess::run() {
-    //todo logger
-    Logger::logInfo(this->toString() + " started!");
+  // todo logger
+  Logger::logInfo(this->toString() + " started!");
 
-    startWorkerProcesses(getCpuCount());
+  startWorkerProcesses(getCpuCount());
 
-    for (uint8 i = 0; i < getCpuCount(); i++) {
-            wait(NULL);
-    }
-    Logger::logInfo(getProcessName() + " ended!");
-
+  for (uint8 i = 0; i < getCpuCount(); i++) {
+    wait(NULL);
+  }
+  Logger::logInfo(getProcessName() + " ended!");
 }
 
-uint8 MasterProcess::getCpuCount() {
-    return cpuCount;
-}
+uint8 MasterProcess::getCpuCount() { return cpuCount; }

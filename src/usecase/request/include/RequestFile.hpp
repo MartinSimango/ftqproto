@@ -1,17 +1,15 @@
 #pragma once
 
-#include <string>
 #include "../../../domain/util/include/FtqUtil.hpp"
+#include <string>
 
 namespace ftq_usecase {
 
-    typedef struct 
-    {
-     std::string sourceFilePath;
-     ftq_domain::uint32 fileSize;
-     bool isDir;
+typedef struct {
+  std::string sourceFilePath;
+  ftq_domain::uint32 fileSize;
+  bool isDir;
 
-    } RequestFile;
-    
-}
+} RequestFile;
 
+} // namespace ftq_usecase

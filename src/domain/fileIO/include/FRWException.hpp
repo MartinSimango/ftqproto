@@ -53,5 +53,4 @@ namespace ftq_domain {
             std::string getErrorMessage() override;
         
     };
-
-}
+} // namespace ftq_domain

@@ -1,14 +1,13 @@
 #pragma once
 
-#include <vector>
-#include "ResponseStatus.hpp"
 #include "../../request/include/RequestFile.hpp"
+#include "ResponseStatus.hpp"
+#include <vector>
 
+namespace ftq_usecase {
 
-namespace ftq_usecase  {
-
-    typedef struct {
-        std::vector<RequestFile> files;
-        ResponseStatus status;
-    } GetResponse;
-}
+typedef struct {
+  std::vector<RequestFile> files;
+  ResponseStatus status;
+} GetResponse;
+} // namespace ftq_usecase
