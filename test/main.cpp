@@ -22,8 +22,6 @@ MOCK_INTERFACE(SomeInterface,
 
 int main() {
 
-
-
     // addTests();
     // FtqTests::runAllTests();
     // FtqTests::printResults();
