@@ -1,7 +1,7 @@
-#include <ftqproto/FileReadWriter.hpp>
+#include "../include/FileReadWriter.hpp"
 #include <stdio.h>
 
-using namespace frw;
+using namespace ftq_driver;
 
 void FileReadWriter::Open() {
   if (opened) {
@@ -11,7 +11,7 @@ void FileReadWriter::Open() {
   opened = true;
 }
 
-int FileReadWriter::WriteToFile(int offset, const char *data) {
+int FileReadWriter::WriteToFile(const char *data, int offset) {
   if (!opened)
     throw new FRWException(FAILED_TO_WRITE_FILE_NOT_OPEN, this->filename);
 
@@ -55,21 +55,20 @@ int FileReadWriter::GetFileDescriptor() const {
   return fd;
 }
 
-FileReadWriterStatus FileReadWriter::CheckFile(const char *filename,
+FileReadWriterStatus FileReadWriter::CheckFile(std::string filePath,
                                                Mode::Type mode) {
-  return (mode == Mode::READ) ? checkFileForRead(filename)
-                              : checkFileForWrite(filename);
+  return (mode == Mode::READ) ? checkFileForRead(filePath)
+                              : checkFileForWrite(filePath);
 }
 
-int FileReadWriter::GetFileSize(const char *filename) {
+int FileReadWriter::GetFileSize(std::string filePath) {
   struct stat st;
-  if (stat(filename, &st) != 0)
-    throw new FRWException(FAILED_TO_GET_FILE_SIZE, filename);
+  if (stat(filePath.c_str(), &st) != 0)
+    throw new FRWException(FAILED_TO_GET_FILE_SIZE, filePath);
   return st.st_size;
 }
 
-// CreateFile creates a file named filename of size fileSize in bytes
-bool FileReadWriter::CreateFile(const char *filename, int fileSize,
+bool FileReadWriter::CreateFile(std::string filename, int fileSize,
                                 mode_t mode) {
   if (fileSize < 0)
     throw new FRWException(INVALID_FILE_SIZE, filename);
@@ -77,7 +76,7 @@ bool FileReadWriter::CreateFile(const char *filename, int fileSize,
   // 0666 is to give all reading and writing permissions
   // TODO check why files arent being created with this permission
   int fd;
-  if ((fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, mode)) < 0) {
+  if ((fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY, mode)) < 0) {
     return false;
   }
 
@@ -99,17 +98,17 @@ bool FileReadWriter::CreateDirectory(std::string dirname, mode_t mode) {
   return mkdir(dirname.c_str(), mode) == 0;
 }
 
-bool FileReadWriter::RenameFile(std::string oldname, std::string newname) {
-  return rename(oldname.c_str(), newname.c_str()) == 0;
+bool FileReadWriter::RenameFile(std::string oldname, std::string newName) {
+  return rename(oldname.c_str(), newName.c_str()) == 0;
 }
 
 bool FileReadWriter::DoesFileExist(std::string filePath) {
   return (access(filePath.c_str(), F_OK) == 0);
 }
 
-bool FileReadWriter::CopyFileIntoDirectory(std::string directoryName,
-                                           std::string filename, int fileSize) {
-  std::string newSourcePath = directoryName + "/" + filename;
+bool FileReadWriter::CopyFileIntoDirectory(std::string directoryPath,
+                                           std::string filepath, int fileSize) {
+  std::string newSourcePath = directoryPath + "/" + filepath;
   return FileReadWriter::CreateFile(newSourcePath.c_str(), fileSize);
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ftq_domain {
+namespace ftq_driver {
 
 enum FileReadWriterStatus {
   OK,
