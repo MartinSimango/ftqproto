@@ -3,9 +3,9 @@
 extern "C" {
 #endif
 
-void *NewFileReadWriter(const char *filename, char mode);
+void *NewFileIO(const char *filename, char mode);
 
-void DestroyFileReadWriter(void *frw);
+void DestroyFileIO(void *frw);
 
 void *OpenFile(void *frw);
 

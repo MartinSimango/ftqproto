@@ -1,61 +1,70 @@
 #pragma once
 
-#include <vector>
+#include "FtqAssert.hpp"
+#include "Test.hpp"
+#include <iostream>
 #include <map>
 #include <string>
-#include <iostream>
-#include "Test.hpp"
-#include "FtqAssert.hpp"
+#include <vector>
+
+#define REGISTER_TEST(testName) registerTest(#testName, testName)
 
 namespace ftq_test {
 
-
-
 class FtqTest {
 
-    private:
-        std::string testName;
-        std::vector<Test*> tests;
+private:
+  std::string testName;
+  std::vector<Test *> tests;
+  std::vector<Test *> passedTests;
+  std::vector<Test *> failedTests;
 
-    protected:
+protected:
+  void registerTest(std::string name, Test::Type test) {
+    tests.push_back(new Test(name, test));
+  }
 
-        void registerTest(std::string name, Test::Type test) {
-            tests.push_back(new Test(name, test));
-        }
-    
-    public:
+public:
+  FtqTest(std::string testName) : testName(testName) {}
 
-        FtqTest(std::string testName): testName(testName) {
-        }
+  virtual ~FtqTest() {
+    while (!tests.empty()) {
+      delete tests.back();
+      tests.pop_back();
+    }
+  }
 
-        virtual ~FtqTest(){
-             while (!tests.empty())
-            {
-                delete tests.back();
-                tests.pop_back();
-            }
-        }
+  virtual void run() {
+    for (Test *test : tests) {
+      test->run();
+      if (test->didPass()) {
+        passedTests.push_back(test);
+      } else {
+        failedTests.push_back(test);
+      }
+    }
+  }
 
-        virtual void run() {
-            for (Test *test : tests) {
-                   test->run();
-            }
-        }
-        
-       
-        virtual void printResult() {
+  virtual void printResult() {
 
-            for (Test *test: tests) {
-                test->printResult();
-            }
-        }
+    for (Test *test : tests) {
+      test->printResult();
+    }
+    std::cout << "[Summary for '" << testName << "']:" << std::endl;
+    if (passedTests.size() > 0) {
+      std::cout << passedTests.size() << " test(s) passed" << std::endl;
+    }
+    if (failedTests.size() > 0) {
+      std::cout << failedTests.size() << " test(s) failed" << std::endl;
+    }
+    std::cout << std::endl;
+  }
 
-        std::string getTestName() {
-            return testName;
-        }
+  std::vector<Test *> getPassedTests() { return passedTests; }
 
+  std::vector<Test *> getFailedTests() { return failedTests; }
+
+  std::string getTestName() { return testName; }
 };
 
-
-
-}
+} // namespace ftq_test

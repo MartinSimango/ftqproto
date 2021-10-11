@@ -1,64 +1,55 @@
 #pragma once
 
-#include <vector>
+#include "TestFailedException.hpp"
+#include <iostream>
 #include <map>
 #include <string>
-#include <iostream>
-#include "TestFailedException.hpp"
-
+#include <vector>
 
 namespace ftq_test {
 
 class Test {
-    
-    public:
 
-    using Type = void(*)();
+public:
+  using Type = void (*)();
 
+private:
+  std::string name;
+  std::string *reason = NULL;
+  Type test;
+  bool pass = false;
 
-    private:
+public:
+  Test(std::string testName, Type test) {
+    this->name = testName;
+    this->test = test;
+  }
 
-    std::string name;
-    std::string *reason = NULL;
-    Type test;
-    bool pass = false;
+  virtual ~Test() {
+    delete reason;
+    reason = NULL;
+  }
 
-    public:
+  void run() {
+    try {
+      test();
+      this->pass = true;
+    } catch (TestFailedException *exception) {
+      delete reason;
 
-    Test(std::string testName, Type test) {
-        this->name = testName;
-        this->test = test;
+      reason = new std::string(exception->getReason());
+      delete exception;
     }
+  }
 
-    virtual ~Test() {
-        delete reason;
-        reason = NULL;
+  bool didPass() { return pass; }
+
+  void printResult() {
+    if (pass) {
+      std::cout << "Test '" << name << "' passed\n" << std::endl;
+    } else {
+      std::cout << "Test '" << name << "' failed: " << *reason << std::endl;
     }
-
-    void run() {
-        try {
-            test();
-            this->pass = true;
-        }
-        catch (TestFailedException *exception) {
-            delete reason;                                            
-
-            reason = new std::string(exception->getReason());
-            delete exception;
-        }
-    }
-
-    bool didPass() {
-        return pass;
-    }
-
-    void printResult() {
-        if (pass) {
-            std::cout << "Test '" << name << "' passed" << std::endl;
-        }
-        else {
-            std::cout << "Test '" << name << "' failed: " << *reason << std::endl;
-        }
-    }
+  }
 };
-}
+} // namespace ftq_test

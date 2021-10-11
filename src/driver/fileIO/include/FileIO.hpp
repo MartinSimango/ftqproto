@@ -10,9 +10,9 @@
 #include <unistd.h>
 #include <vector>
 
-#include "FRWException.hpp"
-#include "FileReadWriterConstants.hpp"
-#include "FileReadWriterStatuses.hpp"
+#include "FileIOException.hpp"
+#include "FileIOConstants.hpp"
+#include "FileIOStatuses.hpp"
 
 namespace ftq_driver {
 
@@ -25,9 +25,10 @@ struct File {
       : filepath(filepath), fileSize(fileSize), isDir(isDir) {}
 };
 
-class FileReadWriter {
+class FileIO {
 
 private:
+  // todo rename ot filePath 
   char filename[MAX_FILEPATH_LENGTH];
   Mode::Type mode;
   bool opened;
@@ -35,48 +36,48 @@ private:
 
   inline void openFileForReading() {
     if ((this->fd = open(this->filename, O_RDONLY)) < 0)
-      throw new FRWException(FAILED_TO_OPEN_FILE_FOR_READING, this->filename);
+      throw new FileIOException(FAILED_TO_OPEN_FILE_FOR_READING, this->filename);
     opened = true;
   }
 
   inline void openFileForWriting() {
     if ((this->fd = open(this->filename, O_WRONLY)) < 0)
-      throw new FRWException(FAILED_TO_OPEN_FILE_FOR_WRITING, this->filename);
+      throw new FileIOException(FAILED_TO_OPEN_FILE_FOR_WRITING, this->filename);
     opened = true;
   }
 
-  static inline FileReadWriterStatus checkFileForRead(std::string filePath) {
+  static inline FileIOStatus checkFileForRead(std::string filePath) {
     if (access(filePath.c_str(), F_OK) == 0) {
       return access(filePath.c_str(), R_OK) == 0
-                 ? FileReadWriterStatus::OK
-                 : FileReadWriterStatus::NO_READ_PERMISSIONS;
+                 ? FileIOStatus::OK
+                 : FileIOStatus::NO_READ_PERMISSIONS;
     } else {
-      return FileReadWriterStatus::FILE_NOT_FOUND;
+      return FileIOStatus::FILE_NOT_FOUND;
     }
   }
 
-  static inline FileReadWriterStatus checkFileForWrite(std::string filepath) {
+  static inline FileIOStatus checkFileForWrite(std::string filepath) {
     // check if parent directory exists
     std::string parentDir = std::string(dirname(&filepath[0]));
 
     if (access(parentDir.c_str(), F_OK) != 0) {
-      return FileReadWriterStatus::FILE_NOT_FOUND;
+      return FileIOStatus::FILE_NOT_FOUND;
     }
     if (access(filepath.c_str(), F_OK) == 0) {
       return access(filepath.c_str(), W_OK) == 0
-                 ? FileReadWriterStatus::OK
-                 : FileReadWriterStatus::NO_WRITE_PERMISSIONS;
+                 ? FileIOStatus::OK
+                 : FileIOStatus::NO_WRITE_PERMISSIONS;
     }
-    return FileReadWriterStatus::OK;
+    return FileIOStatus::OK;
   }
 
 public:
-  FileReadWriter(const char *filename, Mode::Type mode)
+  FileIO(std::string filename, Mode::Type mode)
       : mode(mode), opened(false) {
-    strncpy(this->filename, filename, sizeof(this->filename));
+    strncpy(this->filename, filename.c_str(), sizeof(this->filename));
   }
 
-  ~FileReadWriter() {}
+  ~FileIO() {}
 
   /**
    *  Open opens the file resource and sets the internal file descriptor
@@ -129,7 +130,7 @@ public:
    * permissions
    * @return a FileReadWriterStatus
    */
-  static FileReadWriterStatus CheckFile(std::string filePath, Mode::Type mode);
+  static FileIOStatus CheckFile(std::string filePath, Mode::Type mode);
 
   /**
    * CheckFileIsDirectory checks
@@ -146,8 +147,8 @@ public:
   static int GetFileSize(std::string filePath);
 
   /**
-   * CreateFile creates a file of a specific size at a specified path
-   * @param filname absolute path of the old filename
+   * CreateFile creates a file of a specific size.
+   * @param filname name/path of file
    * @param fileSize file size in bytes
    * @param mode file permissions (optional - defaults to 0666)
    * @return true if the operation is successful otherwise false

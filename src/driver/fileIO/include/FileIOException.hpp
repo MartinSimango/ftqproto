@@ -12,8 +12,8 @@ static std::string FAILED_TO_OPEN_FILE_FOR_WRITING =
     "Failed to open file for writing.";
 static std::string FAILED_TO_OPEN_FILE_FOR_READING =
     "Failed to open file for reading.";
-static std::string FAILED_TO_CREATE_FILE = "Failed to create file.";
-static std::string FAILED_TO_CREATE_DIRECTORY = "Failed to create directory.";
+static std::string FAILED_TO_CREATE_FILE_ = "Failed to create file.";
+static std::string FAILED_TO_CREATE_DIRECTORY_ = "Failed to create directory.";
 
 static std::string FAILED_TO_CLOSE_FILE = "Failed to close file.";
 static std::string FAILED_TO_OPEN_FILE_ALREADY_OPEN =
@@ -32,14 +32,14 @@ static std::string FAILED_TO_CLOSE_FILE_NOT_OPEN =
 static std::string FAILED_TO_GET_FD_NOT_OPEN =
     "Cannot get file descriptor of closed or unopened file.";
 
-class FRWException : public error::ErrorException {
+class FileIOException : public error::ErrorException {
 
 private:
   std::string error;
   std::string filename;
 
 public:
-  FRWException(std::string error, std::string filename)
+  FileIOException(std::string error, std::string filename)
       : error::ErrorException(), error(error), filename(filename) {}
 
   const char *what() const throw() override;

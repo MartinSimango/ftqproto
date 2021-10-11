@@ -2,7 +2,7 @@
 
 namespace ftq_driver {
 
-enum FileReadWriterStatus {
+enum FileIOStatus {
   OK,
   FILE_NOT_FOUND,
   NO_WRITE_PERMISSIONS,

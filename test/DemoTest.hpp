@@ -2,35 +2,23 @@
 
 #include "FtqTest.hpp"
 
-
 namespace ftq_test {
-    
+
 class DemoTest : public FtqTest {
 
-    public:
+public:
+  DemoTest(std::string testName) : FtqTest(testName) { setupTests(); }
 
-    DemoTest(std::string testName) : FtqTest(testName) {
-        setupTests();
-    }
+  void setupTests() {
+    registerTest("does1equal1", does1equal1);
+    registerTest("does1equal2", does1equal2);
+  }
 
-    void setupTests() {
-        registerTest("does1equal1", does1equal1);
-        registerTest("does1equal2", does1equal2);
+  // TESTS
 
-    }
+  static void does1equal1() { FtqAssert::assertEqualTo(1, 1); }
 
-    // TESTS
-
-    static void does1equal1() {
-        FtqAssert::assertEqualTo(1,1);
-    }
-
-    static void does1equal2() {
-        FtqAssert::assertEqualTo(1,2);
-
-    }
-
+  static void does1equal2() { FtqAssert::assertEqualTo(1, 2); }
 };
 
-
-}
+} // namespace ftq_test

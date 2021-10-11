@@ -1,7 +1,7 @@
 // #pragma once
 
-#include "../../FtqTest.hpp"
 #include "../../../src/driver/process/include/ProcessFactory.hpp"
+#include "../../FtqTest.hpp"
 
 using namespace ftq_driver;
 
@@ -10,53 +10,47 @@ namespace ftq_test {
 // todo make test classes Singletons
 class ProcessFactoryTests : public FtqTest {
 
-    private:
-    static ProcessFactory * processFactory;
+private:
+  static ProcessFactory *processFactory;
 
-    static void setUp() {
-        delete processFactory;
-        processFactory = new ProcessFactory();
-    }
+  static void setUp() {
+    delete processFactory;
+    processFactory = new ProcessFactory();
+  }
 
-    static void destroy() {
-        delete processFactory;
-        processFactory = NULL;
-    }
+  static void destroy() {
+    delete processFactory;
+    processFactory = NULL;
+  }
 
-    public:
+public:
+  ProcessFactoryTests() : FtqTest("ProcessFactoryTests") { setupTests(); }
 
-    ProcessFactoryTests() : FtqTest("ProcessFactoryTests") {
-        setupTests();
-    }
+  ~ProcessFactoryTests() {}
 
-    ~ProcessFactoryTests() {}
-    
+  void setupTests() {
+    setUp();
+    registerTest("testCreateWorkerProcess_shouldAssertToTrue",
+                 testCreateWorkerProcess_shouldAssertToTrue);
+  }
 
-    void setupTests() {
-        setUp();
-        registerTest("testCreateWorkerProcess_shouldAssertToTrue", testCreateWorkerProcess_shouldAssertToTrue);
+  // TESTS
 
-    }
+  static void testCreateWorkerProcess_shouldAssertToTrue() {
+    WorkerProcess expectedWorkerProcess("worker", getpid(), 1);
 
+    // expectThat(processFactory,
+    // createWorkerProcess).with("worker",0,1).willReturn(..)
 
-    // TESTS
+    WorkerProcess *actualWorkerProcessPointer =
+        processFactory->createWorkerProcess("worker", 0);
+    WorkerProcess actualWorkerProcess = *actualWorkerProcessPointer;
+    delete actualWorkerProcessPointer;
 
-    static void testCreateWorkerProcess_shouldAssertToTrue() {
-        WorkerProcess expectedWorkerProcess("worker", getpid(), 1);
-
-        // expectThat(processFactory, createWorkerProcess).with("worker",0,1).willReturn(..)
-
-        WorkerProcess *actualWorkerProcessPointer = processFactory->createWorkerProcess("worker", 0);
-        WorkerProcess actualWorkerProcess = *actualWorkerProcessPointer;
-        delete actualWorkerProcessPointer;
-        
-        
-        FtqAssert::assertEqualTo(expectedWorkerProcess, actualWorkerProcess);
-    }
-
+    FtqAssert::assertEqualTo(expectedWorkerProcess, actualWorkerProcess);
+  }
 };
 
-ProcessFactory* ProcessFactoryTests::processFactory = NULL;
+ProcessFactory *ProcessFactoryTests::processFactory = NULL;
 
-
-}
+} // namespace ftq_test

@@ -83,7 +83,7 @@ private:
       responseStatus->set_body(
           response::ResponseStatus_Status_Name<int>(status));
     } else {
-      FRWException e(response::ResponseStatus_Status_Name<int>(status),
+      FileIOException e(response::ResponseStatus_Status_Name<int>(status),
                      filepath);
       responseStatus->set_body(e.getErrorMessage());
     }
@@ -113,9 +113,9 @@ private:
       ResponseFile rFile;
       bool copyResult =
           currentFile.isdir()
-              ? FileReadWriter::CopyDirectoryIntoDirectory(
+              ? FileIO::CopyDirectoryIntoDirectory(
                     directoryFilePath, currentFile.sourcefilepath())
-              : FileReadWriter::CopyFileIntoDirectory(
+              : FileIO::CopyFileIntoDirectory(
                     directoryFilePath, currentFile.sourcefilepath(),
                     currentFile.filesize());
 
@@ -147,8 +147,8 @@ private:
       std::string newSourcePath =
           std::string(dirname(&destinationFilePath[0])) + "/" +
           request.sourcefilepath();
-      if (!FileReadWriter::RenameFile(destinationFilePath, newSourcePath) &&
-          FileReadWriter::CreateFile(newSourcePath.c_str(),
+      if (!FileIO::RenameFile(destinationFilePath, newSourcePath) &&
+          FileIO::CreateFile(newSourcePath.c_str(),
                                      request.files(0).filesize())) {
         return ResponseStatus_Status_FAILED_TO_CREATE_FILE;
       }
@@ -169,12 +169,12 @@ private:
 
     ResponseStatus_Status status =
         responseFactory.GetResponseStatusFromFRWStatus(
-            FileReadWriter::CheckFile(destinationFilePath.c_str(),
+            FileIO::CheckFile(destinationFilePath.c_str(),
                                       Mode::WRITE));
 
     if (status == ResponseStatus_Status_OK) {
       // todo rename method to CheckFilePathIsDir...
-      if (FileReadWriter::CheckFileIsDirectory(destinationFilePath.c_str())) {
+      if (FileIO::CheckFileIsDirectory(destinationFilePath.c_str())) {
         responseFiles = createFilesInDirectory(request, destinationFilePath);
       } else {
         status = renameDestinationFilePath(request, destinationFilePath);
@@ -206,10 +206,10 @@ private:
 
     ResponseStatus_Status status =
         responseFactory.GetResponseStatusFromFRWStatus(
-            FileReadWriter::CheckFile(destinationFilePath.c_str(), Mode::READ));
+            FileIO::CheckFile(destinationFilePath.c_str(), Mode::READ));
     if (status == ResponseStatus_Status_OK) {
       std::vector<frw::File> files =
-          FileReadWriter::GetFilesAtPath(destinationFilePath);
+          FileIO::GetFilesAtPath(destinationFilePath);
 
       for (File file : files) {
         getResponse.add_files()->CopyFrom(
@@ -239,14 +239,14 @@ private:
 
     std::string readFile = getDestitionFilePath(request.filepath());
 
-    FileReadWriter frw(filepath, Mode::READ);
+    FileIO frw(filepath, Mode::READ);
     int numberOfBytesToRead = request.numberofbytestoread();
     int offset = request.offset();
     char buffer[numberOfBytesToRead];
 
     ResponseStatus_Status status =
         responseFactory.GetResponseStatusFromFRWStatus(
-            FileReadWriter::CheckFile(readFile.c_str(), Mode::READ));
+            FileIO::CheckFile(readFile.c_str(), Mode::READ));
     int bytesRead = 0;
     if (status == ResponseStatus_Status_OK) {
       frw.Open();
@@ -269,13 +269,13 @@ private:
 
     std::string writeFile = getDestitionFilePath(request.filepath());
 
-    FileReadWriter frw(filepath, Mode::WRITE);
+    FileIO frw(filepath, Mode::WRITE);
     int offset = request.offset();
 
     int bytesWritten = 0;
     ResponseStatus_Status status =
         responseFactory.GetResponseStatusFromFRWStatus(
-            FileReadWriter::CheckFile(writeFile.c_str(), Mode::WRITE));
+            FileIO::CheckFile(writeFile.c_str(), Mode::WRITE));
     if (status == ResponseStatus_Status_OK) {
       frw.Open();
       bytesWritten = frw.WriteToFile(offset, request.data().c_str());
