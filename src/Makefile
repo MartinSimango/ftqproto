@@ -1,24 +1,43 @@
 CC=gcc
 CPP=g++
-CFLAGS=-std=c++17 -lprotobuf
+CFLAGS=-std=c++17 #-lprotobuf
+ODIR=../build/obj
+LDIR=../build/lib
 ALL_HEADER_FILES:=$(wildcard */*/include/*.h*)
 ALL_SOURCE_FILES:=$(wildcard */*/src/*.c*)
 
-PROCESS_HEADER_FILES=$(wildcard */process/include/*.h*)
-PROCESS_SOURCE_FILES=$(wildcard */process/src/*.c*)
+.PHONY: build main
 
-#tools
+###############  LIBRARIES  ###############
+
+LIBRARIES:=$(shell ls modules/)
+MAKE_LIBRARY_DIRS:=$(patsubst %, %.libraries,$(LIBRARIES))
+BUILD_LIBRARIES:=$(patsubst %, %.build,$(LIBRARIES))
+
+$(MAKE_LIBRARY_DIRS):
+	mkdir -p ../build/obj/$(patsubst %.libraries,%,$@)
+	mkdir -p ../build/lib/$(patsubst %.libraries,%,$@)
+
+$(BUILD_LIBRARIES):
+	$(MAKE) build -C modules/$(patsubst %.build,%,$@)
+
+main: $(ALL_HEADER_FILES)
+	$(CPP) -o main $(PROCESS_SOURCE_FILES) main.cpp $(CFLAGS)
+
+
+build: $(MAKE_LIBRARY_DIRS) $(BUILD_LIBRARIES)
+
+clean:
+	rm -rf ../build
+
+
+###############  TOOLS   ###############
+
 NPM:=/usr/local/bin/npm
 CLANG_FORMAT:=/usr/local/bin/clang-format
 
-
-process: $(PROCESS_HEADER_FILES)
-	$(CPP) -o main $(PROCESS_SOURCE_FILES) main.cpp $(CFLAGS)
-
 format: check-tools
 	clang-format -style=llvm -i $(ALL_SOURCE_FILES) $(ALL_HEADER_FILES)
-
-########## Tools #########
 
 $(NPM):
 	@echo "You need to install npm first"

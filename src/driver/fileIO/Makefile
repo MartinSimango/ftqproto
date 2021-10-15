@@ -1,12 +1,12 @@
 CC=gcc
 CPP=g++
-IDIR=include ../Response/include
+IDIR=include
 ODIR=obj
 LDIR=lib
 SDIR=src
 INCDIR=include
 CFLAGS=-std=c++17
-LIBNAME=libfrw
+LIBNAME=libftqio
 
 FRW_SOURCES=$(wildcard $(SDIR)/*.cpp)
 FRW_OBJECTS=$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(FRW_SOURCES))
