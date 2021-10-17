@@ -10,8 +10,8 @@
 #include <unistd.h>
 #include <vector>
 
-#include "FileIOException.hpp"
 #include "FileIOConstants.hpp"
+#include "FileIOException.hpp"
 #include "FileIOStatuses.hpp"
 
 namespace ftq_driver {
@@ -28,7 +28,7 @@ struct File {
 class FileIO {
 
 private:
-  // todo rename ot filePath 
+  // todo rename ot filePath
   char filename[MAX_FILEPATH_LENGTH];
   Mode::Type mode;
   bool opened;
@@ -36,13 +36,15 @@ private:
 
   inline void openFileForReading() {
     if ((this->fd = open(this->filename, O_RDONLY)) < 0)
-      throw new FileIOException(FAILED_TO_OPEN_FILE_FOR_READING, this->filename);
+      throw new FileIOException(FAILED_TO_OPEN_FILE_FOR_READING,
+                                this->filename);
     opened = true;
   }
 
   inline void openFileForWriting() {
     if ((this->fd = open(this->filename, O_WRONLY)) < 0)
-      throw new FileIOException(FAILED_TO_OPEN_FILE_FOR_WRITING, this->filename);
+      throw new FileIOException(FAILED_TO_OPEN_FILE_FOR_WRITING,
+                                this->filename);
     opened = true;
   }
 
@@ -72,8 +74,7 @@ private:
   }
 
 public:
-  FileIO(std::string filename, Mode::Type mode)
-      : mode(mode), opened(false) {
+  FileIO(std::string filename, Mode::Type mode) : mode(mode), opened(false) {
     strncpy(this->filename, filename.c_str(), sizeof(this->filename));
   }
 

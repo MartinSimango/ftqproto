@@ -23,8 +23,7 @@ int FileIO::WriteToFile(const char *data, int offset) {
   return bytesWritten;
 }
 
-int FileIO::ReadFromFile(char *data, int offset,
-                                 int numberOfBytesToRead) {
+int FileIO::ReadFromFile(char *data, int offset, int numberOfBytesToRead) {
   if (!opened)
     throw new FileIOException(FAILED_TO_READ_FILE_NOT_OPEN, filename);
 
@@ -55,8 +54,7 @@ int FileIO::GetFileDescriptor() const {
   return fd;
 }
 
-FileIOStatus FileIO::CheckFile(std::string filePath,
-                                               Mode::Type mode) {
+FileIOStatus FileIO::CheckFile(std::string filePath, Mode::Type mode) {
   return (mode == Mode::READ) ? checkFileForRead(filePath)
                               : checkFileForWrite(filePath);
 }
@@ -68,8 +66,7 @@ int FileIO::GetFileSize(std::string filePath) {
   return st.st_size;
 }
 
-bool FileIO::CreateFile(std::string filename, int fileSize,
-                                mode_t mode) {
+bool FileIO::CreateFile(std::string filename, int fileSize, mode_t mode) {
   if (fileSize < 0)
     throw new FileIOException(INVALID_FILE_SIZE, filename);
 
@@ -107,13 +104,13 @@ bool FileIO::DoesFileExist(std::string filePath) {
 }
 
 bool FileIO::CopyFileIntoDirectory(std::string directoryPath,
-                                           std::string filepath, int fileSize) {
+                                   std::string filepath, int fileSize) {
   std::string newSourcePath = directoryPath + "/" + filepath;
   return FileIO::CreateFile(newSourcePath.c_str(), fileSize);
 }
 
-bool FileIO::CopyDirectoryIntoDirectory(
-    std::string destinationDirectory, std::string sourceDirectory) {
+bool FileIO::CopyDirectoryIntoDirectory(std::string destinationDirectory,
+                                        std::string sourceDirectory) {
   std::string newSourcePath = destinationDirectory + "/" + sourceDirectory;
   if (!FileIO::DoesFileExist(newSourcePath)) {
     return FileIO::CreateDirectory(newSourcePath.c_str());

@@ -1,6 +1,6 @@
 CC=gcc
 CPP=g++
-CFLAGS=-std=c++17 #-lprotobuf
+CFLAGS=-std=c++17  -L ../build/lib/process #-lprotobuf
 ODIR=../build/obj
 LDIR=../build/lib
 ALL_HEADER_FILES:=$(wildcard */*/include/*.h*)
@@ -21,9 +21,10 @@ $(MAKE_LIBRARY_DIRS):
 $(BUILD_LIBRARIES):
 	$(MAKE) build -C modules/$(patsubst %.build,%,$@)
 
-main: $(ALL_HEADER_FILES)
-	$(CPP) -o main $(PROCESS_SOURCE_FILES) main.cpp $(CFLAGS)
+###############  EXECUTABLES  ###############
 
+main: $(ALL_HEADER_FILES)
+	$(CPP) -o ../bin/main  main.cpp -lftq-process  $(CFLAGS)
 
 build: $(MAKE_LIBRARY_DIRS) $(BUILD_LIBRARIES)
 

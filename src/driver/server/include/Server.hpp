@@ -84,7 +84,7 @@ private:
           response::ResponseStatus_Status_Name<int>(status));
     } else {
       FileIOException e(response::ResponseStatus_Status_Name<int>(status),
-                     filepath);
+                        filepath);
       responseStatus->set_body(e.getErrorMessage());
     }
 
@@ -113,11 +113,11 @@ private:
       ResponseFile rFile;
       bool copyResult =
           currentFile.isdir()
-              ? FileIO::CopyDirectoryIntoDirectory(
-                    directoryFilePath, currentFile.sourcefilepath())
-              : FileIO::CopyFileIntoDirectory(
-                    directoryFilePath, currentFile.sourcefilepath(),
-                    currentFile.filesize());
+              ? FileIO::CopyDirectoryIntoDirectory(directoryFilePath,
+                                                   currentFile.sourcefilepath())
+              : FileIO::CopyFileIntoDirectory(directoryFilePath,
+                                              currentFile.sourcefilepath(),
+                                              currentFile.filesize());
 
       ResponseStatus_Status status = ResponseStatus_Status_OK;
       if (!copyResult) {
@@ -149,7 +149,7 @@ private:
           request.sourcefilepath();
       if (!FileIO::RenameFile(destinationFilePath, newSourcePath) &&
           FileIO::CreateFile(newSourcePath.c_str(),
-                                     request.files(0).filesize())) {
+                             request.files(0).filesize())) {
         return ResponseStatus_Status_FAILED_TO_CREATE_FILE;
       }
       return ResponseStatus_Status_OK;
@@ -169,8 +169,7 @@ private:
 
     ResponseStatus_Status status =
         responseFactory.GetResponseStatusFromFRWStatus(
-            FileIO::CheckFile(destinationFilePath.c_str(),
-                                      Mode::WRITE));
+            FileIO::CheckFile(destinationFilePath.c_str(), Mode::WRITE));
 
     if (status == ResponseStatus_Status_OK) {
       // todo rename method to CheckFilePathIsDir...
