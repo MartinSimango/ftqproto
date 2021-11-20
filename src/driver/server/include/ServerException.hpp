@@ -2,30 +2,30 @@
 #include <cpperror/ErrorException.hpp>
 #include <errno.h>
 
-namespace fts {
+namespace ftq_domain {
 
-static const char *FAILED_TO_BIND_SERVER_SOCKET =
+static std::string FAILED_TO_BIND_SERVER_SOCKET =
     "Failed to bind the server socket.";
-static const char *FAILED_TO_CREATE_SERVER_SOCKET =
+static std::string FAILED_TO_CREATE_SERVER_SOCKET =
     "Failed to create the server socket!";
-static const char *SERVER_FAILED_TO_START_LISTENING =
+static std::string SERVER_FAILED_TO_START_LISTENING =
     "Server failed to start listening!";
-static const char *SERVER_NOT_RUNNING = "The server is not running!";
-static const char *FAILED_TO_CLOSE_SERVER_SOCKET =
+static std::string SERVER_NOT_RUNNING = "The server is not running!";
+static std::string FAILED_TO_CLOSE_SERVER_SOCKET =
     "Failed to close the server socket.";
-static const char *FAILED_TO_CLOSE_CLIENT_SOCKET =
+static std::string FAILED_TO_CLOSE_CLIENT_SOCKET =
     "Failed to close the server socket.";
-static const char *FAILED_TO_ACCEPT_CONNECTION = "Failed accept connection.";
+static std::string FAILED_TO_ACCEPT_CONNECTION = "Failed accept connection.";
 
 class ServerException : public error::ErrorException {
 
 private:
-  const char *error;
+  std::string error;
 
 public:
-  ServerException(const char *error) : error::ErrorException(), error(error) {}
+  ServerException(std::string error) : error::ErrorException(), error(error) {}
 
-  const char *what() const throw() override { return error; }
+  const char *what() const throw() override { return error.c_str(); }
 
   std::string getErrorMessage() override {
     return "[Error] " + std::string(strerror(errno)) +
@@ -33,4 +33,4 @@ public:
   }
 };
 
-} // namespace fts
+} // namespace ftq_domain

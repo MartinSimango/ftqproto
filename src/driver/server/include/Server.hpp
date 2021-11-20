@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../../fileIO/include/FileIOException.hpp"
+#include "ServerException.hpp"
 #include <arpa/inet.h>
 #include <ftqproto/CreateRequest.pb.h>
 #include <ftqproto/CreateResponse.pb.h>
@@ -12,7 +14,6 @@
 #include <ftqproto/RequestFactory.hpp>
 #include <ftqproto/Response.hpp>
 #include <ftqproto/ResponseFactory.hpp>
-#include <ftqproto/ServerException.hpp>
 #include <ftqproto/WriteRequest.pb.h>
 #include <ftqproto/WriteResponse.pb.h>
 #include <functional>
@@ -33,7 +34,7 @@ using namespace frw;
 
 // TODO find duplicated methods in Server and Client and make that method in
 // shared class
-namespace fts {
+namespace ftq_driver {
 
 struct ServerPort {
   char serverAddress[16];
@@ -310,4 +311,4 @@ public:
   void Close();
 };
 
-}; // namespace fts
+}; // namespace ftq_driver

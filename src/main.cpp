@@ -3,8 +3,10 @@
 using namespace ftq_driver;
 
 int main(int argc, char *argv[]) {
-  ProcessFactory *processFactory = new ProcessFactory();
-    MasterProcess *masterProcess = new MasterProcess(processFactory);
+  ProcessFactory *processFactory = new ProcessFactory();  
+  MasterProcess *masterProcess = new MasterProcess(processFactory);
+
+  
 
   masterProcess->run();
   delete processFactory;

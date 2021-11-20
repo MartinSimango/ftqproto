@@ -7,8 +7,8 @@ LDIR=../../../build/lib
 
 .PHONY: build
 
-MODULE_NAME=fileIO
-LIB_NAME=libftq-fileIO
+MODULE_NAME:=logger
+LIB_NAME:=libftq-logger
 
 DRIVER:=../../driver/$(MODULE_NAME)/src/%.cpp
 ADAPTER:=../../adapter/$(MODULE_NAME)/src/%.cpp
@@ -57,9 +57,6 @@ build-library: $(OBJECT_FILES)
 	$(CPP) -shared -fPIC -o $(shell pwd)/$(LDIR)/$(MODULE_NAME)/$(LIB_NAME).so $(SOURCE_FILES) $(CFLAGS)
 
 build: build-library
-
-make-dir:
-	mkdir -p $(ODIR)
 
 install:
 	sudo cp $(LDIR)/$(MODULE_NAME)/$(LIB_NAME).so /usr/local/lib

@@ -43,17 +43,9 @@ private:
 public:
   void static logDebug(std::string fmt, ...);
 
-  void static logError(FTQ_LOG_LEVEL level, std::string message) {
-    std::string logLevel = Logger::getLogLevel(level);
-    std::cout << "[" << Logger::getCurrentTime() << "] "
-              << "[" << logLevel << "] " << message << std::endl;
-  }
+  void static logError(FTQ_LOG_LEVEL level, std::string message);
 
-  void static logInfo(std::string message) {
-
-    std::cout << "[" << Logger::getCurrentTime() << "] " << message
-              << std::endl;
-  }
+  void static logInfo(std::string message);
 };
 
 } // namespace ftq_domain
