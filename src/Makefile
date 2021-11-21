@@ -1,6 +1,6 @@
 CC=gcc
 CPP=g++
-CFLAGS=-std=c++17  -L ../build/lib/process #-lprotobuf
+CFLAGS=-std=c++17  -L ../build/lib/process -lpthread #-lprotobuf
 ODIR=../build/obj
 LDIR=../build/lib
 ALL_HEADER_FILES:=$(wildcard */*/include/*.h*)
@@ -38,7 +38,7 @@ NPM:=/usr/local/bin/npm
 CLANG_FORMAT:=/usr/local/bin/clang-format
 
 format: check-tools
-	clang-format -style=llvm -i $(ALL_SOURCE_FILES) $(ALL_HEADER_FILES)
+	clang-format -style=file -i $(ALL_SOURCE_FILES) $(ALL_HEADER_FILES)
 
 $(NPM):
 	@echo "You need to install npm first"
@@ -49,7 +49,7 @@ $(CLANG_FORMAT): $(NPM)
 check-tools: $(CLANG_FORMAT) 
 
 gen-clang-config:
-	clang-format -style=llvm -dump-config > .clang-format
+	clang-format -style=llvm -dump-config > .clang-format.template.yaml
 
 # all: 
 # 	echo $(PROCESS_HEADER_FILES)

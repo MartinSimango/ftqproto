@@ -7,7 +7,7 @@
 namespace ftq_usecase {
 
 typedef struct {
-  std::vector<ResponseFile> files;
-  ResponseStatus status;
+	std::vector<ResponseFile> files;
+	ResponseStatus status;
 } CreateResponse;
 } // namespace ftq_usecase

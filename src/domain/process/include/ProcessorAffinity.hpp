@@ -22,12 +22,12 @@ typedef uint8 ftq_cpu_set_t;
 
 class ProcessorAffinity {
 
-public:
-  ProcessorAffinity() {}
+  public:
+	ProcessorAffinity() {}
 
-  static void setProcessAffinity(ftq_domain::Process *process);
+	static void setProcessAffinity(ftq_domain::Process *process);
 
-  static std::vector<uint8> getProcessAffinity(ftq_domain::Process *process);
+	static std::vector<uint8> getProcessAffinity(ftq_domain::Process *process);
 };
 
 } // namespace ftq_domain

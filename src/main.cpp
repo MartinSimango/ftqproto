@@ -6,9 +6,7 @@ int main(int argc, char *argv[]) {
   ProcessFactory *processFactory = new ProcessFactory();  
   MasterProcess *masterProcess = new MasterProcess(processFactory);
 
-  
-
-  masterProcess->run();
+  masterProcess->run(); 
   delete processFactory;
   delete masterProcess;
 

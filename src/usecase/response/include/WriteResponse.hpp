@@ -6,8 +6,8 @@
 namespace ftq_usecase {
 
 typedef struct {
-  ftq_domain::uint32 bytesWritten;
-  ResponseStatus status;
+	ftq_domain::uint32 bytesWritten;
+	ResponseStatus status;
 
 } WriteResponse;
 

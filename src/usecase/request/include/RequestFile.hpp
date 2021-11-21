@@ -6,9 +6,9 @@
 namespace ftq_usecase {
 
 typedef struct {
-  std::string sourceFilePath;
-  ftq_domain::uint32 fileSize;
-  bool isDir;
+	std::string sourceFilePath;
+	ftq_domain::uint32 fileSize;
+	bool isDir;
 
 } RequestFile;
 

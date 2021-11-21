@@ -6,9 +6,9 @@
 namespace ftq_usecase {
 
 typedef struct {
-  std::string filePath;
-  ftq_domain::uint32 numberOfBytesToRead;
-  ftq_domain::uint32 offset;
+	std::string filePath;
+	ftq_domain::uint32 numberOfBytesToRead;
+	ftq_domain::uint32 offset;
 
 } ReadRequest;
 
