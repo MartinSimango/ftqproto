@@ -1,8 +1,8 @@
 #pragma once
-#include <cpperror/ErrorException.hpp>
+#include "../../../domain/exception/include/Exception.hpp"
 #include <errno.h>
 
-namespace ftq_domain {
+namespace ftq_driver {
 
 static std::string FAILED_TO_BIND_SERVER_SOCKET = "Failed to bind the server socket.";
 static std::string FAILED_TO_CREATE_SERVER_SOCKET = "Failed to create the server socket!";
@@ -12,13 +12,13 @@ static std::string FAILED_TO_CLOSE_SERVER_SOCKET = "Failed to close the server s
 static std::string FAILED_TO_CLOSE_CLIENT_SOCKET = "Failed to close the server socket.";
 static std::string FAILED_TO_ACCEPT_CONNECTION = "Failed accept connection.";
 
-class ServerException : public error::ErrorException {
+class ServerException : public ftq_domain::Exception {
 
   private:
 	std::string error;
 
   public:
-	ServerException(std::string error) : error::ErrorException(), error(error) {}
+	ServerException(std::string error) : ftq_domain::Exception(), error(error) {}
 
 	const char *what() const throw() override { return error.c_str(); }
 

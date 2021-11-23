@@ -43,7 +43,7 @@ struct ServerPort {
 
 // TODO if error occurs sent request back to client
 
-class FileServer {
+class EmbeddedServer {
 
   private:
 	int sockfd, connfd, port;
