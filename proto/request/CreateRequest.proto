@@ -4,7 +4,7 @@ package request;
 
 option go_package = "github.com/MartinSimango/goftqproto/internal/request/genrequest";
 
-import "ftqproto/RequestFile.proto";
+import "RequestFile.proto";
 
 message CreateRequest {
     string sourceFilePath = 1;

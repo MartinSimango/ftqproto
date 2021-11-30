@@ -6,7 +6,7 @@
 #include <ftqproto/WriteRequest.pb.h>
 #include <ftqproto/FileReadWriter.hpp>
 
-namespace request {
+namespace ftq_driver {
 
 
     class RequestFactory

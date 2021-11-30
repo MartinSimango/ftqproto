@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cpperror/ErrorException.hpp>
-#include <ftqproto/RequestConstants.hpp>
+#include "../../../domain/exception/include/Exception.hpp"
+#include "RequestConstants.hpp"
 #include <errno.h>
 
 static const char * FAILED_TO_WRITE_REQUEST = "Failed to write request.";
@@ -10,15 +10,15 @@ static const char * FAILED_TO_WRITE_REQUEST_HEADER = "Failed to write request he
 static const char * FAILED_TO_READ_REQUEST_HEADER = "Failed to read request header.";
 
 
-namespace request {
+namespace ftq_driver {
 
-    class RequestException : public error::ErrorException {
+    class RequestException : public ftq_domain::Exception {
         
         private:
             const char* error;
         
         public:
-            RequestException(const char *error) : error::ErrorException(), error(error) {}
+            RequestException(const char *error) : ftq_domain::Exception(), error(error) {}
             
             const char * what() const throw() override {
                 return error;   

@@ -1,12 +1,13 @@
 #pragma once
 
 #include <unistd.h>
-#include <ftqproto/Serializer.h>
-#include <ftqproto/RequestConstants.hpp>
-#include <ftqproto/RequestException.hpp>
+#include "../../../domain/serializer/include/serializer.h"
+// #include <ftqproto/RequestConstants.hpp>
+// #include <ftqproto/RequestException.hpp>
+#include "RequestException.hpp"
 #include <errno.h>
 
-namespace request {
+namespace ftq_driver {
 
     class Request {
         

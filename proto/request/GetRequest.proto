@@ -9,5 +9,4 @@ option go_package = "github.com/MartinSimango/goftqproto/internal/request/genreq
 
 message GetRequest {
     string filePath = 1;
-   
-}
+   }

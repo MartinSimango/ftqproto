@@ -21,7 +21,7 @@ REQUEST_UNINSTALL_HEADERS = $(patsubst $(INCDIR)/%, %, $(REQUEST_HEADERS))
 REQUEST_UNINSTALL_PROTO_HEADERS=$(patsubst $(INCDIR)/%, %, $(REQUEST_HEADERS)) 
 
 
-.PHONY: $(REQUEST_UNINSTALL_HEADERS) $(REQUEST_OBJECTS) clean
+.PHONY: $(REQUEST_UNINSTALL_HEADERS) $(REQUEST_OBJECTS) clean 
 
 install-headers: install-proto-headers gen-proto install-gen-headers
 	cp include/* /usr/local/include/ftqproto
@@ -50,7 +50,6 @@ build-lib: $(REQUEST_DLIB_SOURCES) $(REQUEST_DEPS)
 gen-proto: proto
 	mkdir -p gen
 	protoc  \
-	-I=/usr/local/include/ \
 	--cpp_out=gen \
 	ftqproto/CreateRequest.proto \
 	ftqproto/GetRequest.proto \

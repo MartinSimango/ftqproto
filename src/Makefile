@@ -10,9 +10,9 @@ ALL_SOURCE_FILES:=$(wildcard */*/src/*.c*)
 
 ###############  LIBRARIES  ###############
 
-LIBRARIES:=$(shell ls modules/)
+LIBRARIES=$(shell ls modules/)
 MAKE_LIBRARY_DIRS:=$(patsubst %, %.libraries,$(LIBRARIES))
-BUILD_LIBRARIES:=$(patsubst %, %.build,$(LIBRARIES))
+BUILD_LIBRARIES=$(patsubst %, %.build,$(LIBRARIES))
 
 $(MAKE_LIBRARY_DIRS):
 	mkdir -p ../build/obj/$(patsubst %.libraries,%,$@)
@@ -25,6 +25,7 @@ $(BUILD_LIBRARIES):
 
 main: $(ALL_HEADER_FILES)
 	$(CPP) -o ../bin/main  main.cpp -lftq-process  $(CFLAGS)
+
 
 build: $(MAKE_LIBRARY_DIRS) $(BUILD_LIBRARIES)
 
@@ -51,32 +52,7 @@ check-tools: $(CLANG_FORMAT)
 gen-clang-config:
 	clang-format -style=llvm -dump-config > .clang-format.template.yaml
 
-# all: 
-# 	echo $(PROCESS_HEADER_FILES)
-	
-# define IDIR
+gen-modules:
+	gen-modules -f modules.yaml -o modules  # TODO
 
-# ./include  ../Request/include ../Response/include ../FileReadWriter/include ../Serializer/include
-
-
-# endef
-# ODIR=obj
-# LDIR=lib
-# SDIR=src
-# INCDIR=include
-# CFLAGS=-std=c++17 -lprotobuf
-# LIBNAME=libgocpclient
-
-
-# CLIENT_SOURCES=$(wildcard $(SDIR)/*.cpp)
-# CLIENT_OBJECTS=$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(CLIENT_SOURCES))
-
-# define CLIENT_DLIB_SOURCES
-# $(CLIENT_SOURCES) ../Request/src/*.cpp ../Response/src/*.cpp ../FileReadWriter/src/*.cpp ../Request/gen/ftqproto/*.cc
-# endef
-
-# CLIENT_DEPS = $(wildcard $(IDIR)/*) 
-
-# CLIENT_HEADERS = $(wildcard $(INCDIR)/*)
-# CLIENT_UNINSTALL_HEADERS=$(patsubst $(INCDIR)/%, %, $(CLIENT_HEADERS)) 
 

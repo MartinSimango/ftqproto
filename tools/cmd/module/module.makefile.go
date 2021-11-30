@@ -1,14 +1,8 @@
-package main
+package module
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
-	"os"
 	"strings"
-
-	"github.com/MartinSimango/ftqproto/tools/gen-module/module"
-	"gopkg.in/yaml.v2"
 )
 
 var template string = `
@@ -32,14 +26,14 @@ USECASE:=../../usecase/$(MODULE_NAME)/src/%%.cpp
 DOMAIN:=../../domain/$(MODULE_NAME)/src/%%.cpp
 
 
-HEADER_FILES:=$(wildcard ../../*/$(MODULE_NAME)/include/*.h*)
+HEADER_FILES:=$(wildcard ../../*/$(MODULE_NAME)/include/*.h*) $(wildcard ../../*/$(MODULE_NAME)/include/gen/*.h*)
 
 # SOURCE FILES
-SOURCE_FILES:=$(wildcard ../../*/$(MODULE_NAME)/src/*.c*)
-DRIVER_SOURCE_FILES:=$(wildcard ../../driver/$(MODULE_NAME)/src/*.c*)
-DOMAIN_SOURCE_FILES:=$(wildcard ../../domain/$(MODULE_NAME)/src/*.c*)
-ADAPTER_SOURCE_FILES:=$(wildcard ../../adapter/$(MODULE_NAME)/src/*.c*)
-USECASE_SOURCE_FILES:=$(wildcard ../../usecase/$(MODULE_NAME)/src/*.c*)
+SOURCE_FILES:=$(wildcard ../../*/$(MODULE_NAME)/src/*.c*) $(wildcard ../../*/$(MODULE_NAME)/src/gen/*.c*)
+DRIVER_SOURCE_FILES:=$(wildcard ../../driver/$(MODULE_NAME)/src/*.c*) $(wildcard ../../driver/$(MODULE_NAME)/src/gen/*.c*)
+DOMAIN_SOURCE_FILES:=$(wildcard ../../domain/$(MODULE_NAME)/src/*.c*) $(wildcard ../../domain/$(MODULE_NAME)/src/gen/*.c*)
+ADAPTER_SOURCE_FILES:=$(wildcard ../../adapter/$(MODULE_NAME)/src/*.c*) $(wildcard ../../adapter/$(MODULE_NAME)/src/gen/*.c*)
+USECASE_SOURCE_FILES:=$(wildcard ../../usecase/$(MODULE_NAME)/src/*.c*) $(wildcard ../../usecase/$(MODULE_NAME)/src/gen/*.c*)
 
 # OBJECT FILES
 DRIVER_OBJECT_FILES:=$(patsubst %%.cpp, $(ODIR)/$(MODULE_NAME)/%%.o, $(notdir $(DRIVER_SOURCE_FILES)))
@@ -78,57 +72,50 @@ build: build-library
 install:
 	sudo cp $(LDIR)/$(MODULE_NAME)/$(LIB_NAME).so %s
 
-%s
-`
+%s`
 
-func main() {
+func getMakeRules(makeRules []MakeRule) string {
+	makeRulesString := ""
 
-	modulesDirectory := "gen"
-	yamlSchema := &module.ModuleDefinition{}
-	yamlFile, err := ioutil.ReadFile("module/module.yaml")
-	if err != nil {
-		log.Printf("yamlFile.Get err #%v ", err)
-	}
-	err = yaml.Unmarshal(yamlFile, yamlSchema)
-	if err != nil {
-		log.Fatalf("Unmarshal: %v", err)
-	}
-	os.RemoveAll("gen")
-	err = os.Mkdir(modulesDirectory, 0755)
-	if err != nil {
-		fmt.Printf("Unable to create directory: %v", err)
-	}
+	for _, makeRule := range makeRules {
+		makeRulesString += makeRule.Name + ": "
 
-	for _, mod := range yamlSchema.Modules {
-		modDirectory := modulesDirectory + "/" + mod.Name
-		extraMakeRules := ""
-		for _, makeRule := range mod.MakeRules {
-			extraMakeRules += makeRule.Name + ": "
-			extraMakeRules += strings.Join(makeRule.Dependencies, " ") + "\n"
-			extraMakeRules += "\t" + strings.Join(makeRule.Commands, "n")
+		if len(makeRule.Dependencies) > 0 || len(makeRules) > 0 {
+			makeRulesString += makeRule.Dependencies + "\n"
 		}
 
-		makefile := fmt.Sprintf(template,
-			mod.Compiler,
-			mod.Flags,
-			mod.Name,
-			mod.LibraryName,
-			strings.Join(mod.Depedencies.Driver[:], " "),
-			strings.Join(mod.Depedencies.Domain[:], " "),
-			strings.Join(mod.Depedencies.Adapter[:], " "),
-			strings.Join(mod.Depedencies.Usecase[:], " "),
-			mod.InstallationFolder,
-			extraMakeRules,
-		)
+		commands := strings.Join(makeRule.Commands, "\n")
+		commands = strings.ReplaceAll(commands, "\\", "\\\n")
 
-		err = os.Mkdir(modDirectory, 0755)
-		if err != nil {
-			fmt.Printf("Unable to create directory: %v", err)
-		}
-		err = ioutil.WriteFile(modDirectory+"/Makefile", []byte(makefile), 0755)
-		if err != nil {
-			fmt.Printf("Unable to write file: %v", err)
-		}
+		commandsArray := strings.Split(commands, "\n")
 
+		for i, command := range commandsArray {
+			commandsArray[i] = strings.TrimSpace(command)
+		}
+		commands = "\t" + strings.Join(commandsArray, "\n\t")
+
+		makeRulesString += commands + "\n"
+
+		if len(makeRule.Commands) > 0 {
+			makeRulesString += "\n"
+		}
 	}
+	return makeRulesString + "\n"
+}
+
+func MakeMakefile(module Module) string {
+
+	extraMakeRules := getMakeRules(module.MakeRules)
+	return fmt.Sprintf(template,
+		module.Compiler,
+		module.Flags,
+		module.Name,
+		module.LibraryName,
+		strings.Join(module.Dependencies.Driver[:], " "),
+		strings.Join(module.Dependencies.Domain[:], " "),
+		strings.Join(module.Dependencies.Adapter[:], " "),
+		strings.Join(module.Dependencies.Usecase[:], " "),
+		module.InstallationFolder,
+		extraMakeRules,
+	)
 }

@@ -4,7 +4,7 @@
 #define MEGABYTE 1024*1024
 #define MAX_BUFFER_SIZE MEGABYTE
 
-namespace request {
+namespace ftq_driver {
     
     namespace RequestType {
         enum Type {
